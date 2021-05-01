@@ -4,6 +4,7 @@ import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import MailIcon from "@material-ui/icons/Mail";
 import { useTranslation, initReactI18next } from "react-i18next";
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 
 import {
@@ -58,6 +59,11 @@ function Footer() {
   var currentYear = currentDate.getFullYear();
   const styles = useStyles();
   return (
+    <MessengerCustomerChat
+    pageId="105983478314658"
+    appId="423865358655348"
+  />,
+    
     <GridContainer xs={12} sm={12} md={12} lg={12} container>
       <GridLogo xs={12} sm={12} md={3} lg={3}>
         <img className={styles.lgogImg} src={require("./icons/treat.png").default} />
@@ -97,10 +103,10 @@ function Footer() {
         <IconButton size="small" className={styles.mailStyle} href="#">
           <MailIcon />
         </IconButton>
-        <p className={styles.phoneNumber}>treat-min@gmail.com</p>
+        <p className={styles.phoneNumber}>info.treatmin@gmail.com</p>
         <br />
         <NavLink to="#">
-          <img
+          <imgya
             className={styles.socialIcon}
             style={{ marginLeft: "20px" }}
             src={require("./icons/facebook.png").default}
