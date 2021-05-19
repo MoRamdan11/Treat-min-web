@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles ,createMuiTheme } from "@material-ui/core/styles";
 import { Card } from "@material-ui/core";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
@@ -22,11 +22,23 @@ import { FormControl } from "@material-ui/core";
 import { Select } from "@material-ui/core";
 import { NativeSelect } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
-import { NavBtn2, NavBtnLink2 } from "../navbar/NavBarElement";
+import { NavBtn3, NavBtnLink3 } from "../navbar/NavBarElement";
 import { connect } from "react-redux";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { removeService } from "../../Redux/actions/services";
 import { useTranslation, initReactI18next } from "react-i18next";
+import Globals from "../navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import { ThemeProvider } from "styled-components";
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
  
@@ -59,6 +71,7 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,7 +133,20 @@ const useStyles = makeStyles((theme) => ({
   },
   deleteIcon: {
     color: "#f05454"
-  }
+  },
+  formControl: {
+    backgroundColor: "primary",
+    margin: theme.spacing(4),
+    minWidth: 250,
+    display: "25%",
+    alignContent: "center"
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2)
+  },
+  CardActions:{
+    hight:50
+  },
 }));
 
 const OutlinedCard = ({
@@ -132,13 +158,18 @@ const OutlinedCard = ({
   waiting,
   price,
   callus,
-  dispatch
+  dispatch,
+  avaliabledate1,
+  avaliabledate2,
+  avaliabledate3
 }) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [value, setValue] = React.useState(0);
   const [date, setDate] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  const [APopen, setAPOpen] = React.useState(false);
+  const [avaliableappoinment, setStateavaliableappoinment] = React.useState("");
   const handleDate = (event) => {
     setDate(event.target.value);
   };
@@ -148,7 +179,13 @@ const OutlinedCard = ({
   const handleClose = () => {
     setOpen(false);
   };
+  const APhandleClose = () => {
+    setAPOpen(false);
+  };
 
+  const APhandleOpen = () => {
+    setAPOpen(true);
+  };
   const handleOpen = () => {
     setOpen(true);
   };
@@ -158,9 +195,16 @@ const OutlinedCard = ({
   };
   function handleDeleteCard(){
     dispatch(removeService({id}));
-  }
+  };
+  const avaliableappoinmenthandleChange = (event) => {
+    const avaliableappoinment = event.target.value
+    setStateavaliableappoinment(avaliableappoinment);
+   // props.dispatch(setSpeciality(avaliableappoinment));
+  };
   const { t } = useTranslation();
   return (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <Card className={classes.root} variant="outlined">
       <CardHeader
         avatar={
@@ -211,25 +255,37 @@ const OutlinedCard = ({
           </TabPanel>
         </Paper>
         <form className={classes.container} noValidate>
-          <TextField
-            id="datetime-local"
-            label={t('avaliableappoinment')}
-            type="datetime-local"
-            defaultValue="2021-01-5T10:30"
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
+        <div style={{ textAlign: "center" }}>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel htmlFor="outlined-age-native-simple" >
+          {t('avaliableappoinment')}
+          </InputLabel>
+          <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select1"
+          open={APopen}
+          onClose={APhandleClose}
+          onOpen={APhandleOpen}
+          //value={props.filters.speciality}
+          onChange={avaliableappoinmenthandleChange }
+        >
+            <option aria-label={t('none')} value="" />
+            <option value={"avaliabledate1"}>{avaliabledate1}</option>
+            <option value={"avaliabledate2"}>{avaliabledate2}</option>
+            <option value={"avaliabledate3"}>{avaliabledate3}</option>
+          </Select>
+        </FormControl>
+        </div>
         </form>
       </CardContent>
-
       <CardActions>
-        <NavBtn2>
-          <NavBtnLink2 to="/Book">{t('book')}</NavBtnLink2>
-        </NavBtn2>
+        <NavBtn3>
+          <NavBtnLink3 to="/Book">{t('book')}</NavBtnLink3>
+        </NavBtn3>
       </CardActions>
     </Card>
+    </StylesProvider>
+    </ThemeProvider>
   );
 };
 export default connect()(OutlinedCard);

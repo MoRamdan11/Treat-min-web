@@ -1,5 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import"./findform.css";
+import { makeStyles ,createMuiTheme } from "@material-ui/core/styles";
 import { InputLabel } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
@@ -11,6 +12,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from '@material-ui/icons/Search';
 import { useTranslation, initReactI18next } from "react-i18next";
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
 import {
   setSpeciality,
   setDrName,
@@ -20,7 +23,49 @@ import {
   setSortBy,
   setTextFilter
 } from "../../Redux/actions/filterClinics";
+import Globals from "../navbar/global"
+import { ThemeProvider } from "styled-components";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+function valuetext(value) {
+  return `${value}{t('le')}`;
+}
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
+const Prices= [
+  {
+    value: 100,
+    label: '100L.E',
+  },
+  {
+    value: 200,
+    label: '200L.E',
+  },
+  {
+    value: 300,
+    label: '300L.E',
+  },
+  {
+    value: 400,
+    label: '400L.E',
+  },
+  {
+    value: 500,
+    label: '500L.E',
+  },
+];
 const useStyles = makeStyles((theme) => ({
+  rooroot: {
+    width: 300,
+  },
+  margin: {
+    height: theme.spacing(3),
+  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 150
@@ -75,6 +120,11 @@ const FindForm = (props) => {
   const [Dopen, setDOpen] = React.useState(false);
   const [SEopen, setSEOpen] = React.useState(false);
   const [Popen, setPOpen] = React.useState(false);//price Open
+  const [price, setPrice] = React.useState([20, 37]);
+
+  const handlePriceChange = (event, newValue) => {
+    setPrice(newValue);
+  };
 
   const SpecialictyhandleChange = (event) => {
     const speciality = event.target.value
@@ -141,6 +191,8 @@ const FindForm = (props) => {
     props.dispatch(setTextFilter(searchValue));
   }
   return (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <div>
       <h1 className={classes.title}> {t('find_clincal')}</h1>
       <FormControl className={classes.formControl}>
@@ -203,63 +255,34 @@ const FindForm = (props) => {
       </MenuItem>
         </Select>
       </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label1">
-        {t('price')}
-        </InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select1"
-          open={Popen}
-          onClose={PhandleClose}
-          onOpen={PhandleOpen}
-          value={props.filters.price}
-          onChange={priceHandleChange}
-
-        >
-          <MenuItem value="" data-id="1">
-            <em>{t('none')}</em>
-          </MenuItem>
-          <MenuItem value="50" data-id="1">50</MenuItem>
-          <MenuItem value="100" data-id="1">100</MenuItem>
-          <MenuItem value="150" data-id="1">150</MenuItem>
-          <MenuItem value="200" data-id="1">200</MenuItem>
-          <MenuItem value="250" data-id="1">250</MenuItem>
-          <MenuItem value="300" data-id="1">300</MenuItem>
-          <MenuItem value="350" data-id="1">350</MenuItem>
-          <MenuItem value="400" data-id="1">400</MenuItem>
-          <MenuItem value="450" data-id="1">450</MenuItem>
-          <MenuItem value="500" data-id="1">500</MenuItem>
-        </Select>
-      </FormControl>
+      <div className={classes.root}>
+      <Typography id="discrete-slider-always" gutterBottom>
+      {t('price')}
+      </Typography>
+      <Slider
+        max={500}
+        defaultValue={150}
+        getAriaValueText={valuetext}
+        aria-labelledby="discrete-slider-always"
+        step={50}
+        marks={Prices}
+        valueLabelDisplay="on"
+      />
+    </div>
       <div style={{ textAlign: "center", marginTop: "10px" }}>
         <FormControl
           variant="outlined"
           className={classes.searchStyle}
         >
-          <InputLabel htmlFor="outlined-adornment-password">
-          {t('search')}
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type="text"
-            onChange={handleSearchChange}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  edge="end"
-                  disabled = {true}
-                >
-                  <SearchIcon color="primary" />
-                </IconButton>
-              </InputAdornment>
-            }
-            labelWidth={280}
-          />
+        <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder={t('search')} onChange={handleSearchChange}/>
+      </div>
         </FormControl>
       </div>
     </div>
+    </StylesProvider>
+    </ThemeProvider>
   );
 };
 

@@ -1,0 +1,26 @@
+.header{
+    text-align: center;
+    text-decoration: none;
+    color: #489061;
+    font-weight: bold;
+    font-family: 'Amiri', monospace;
+
+}
+.subheader{
+    text-align: center;
+    text-decoration: none;
+    color: #489061;
+    font-weight: 500;
+    font-family: 'Amiri', monospace;
+    text-overflow: inherit;
+}
+.image{
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-content: center;
+}
+.btn__container{
+    text-align: center;
+    margin-bottom: 20px;
+}

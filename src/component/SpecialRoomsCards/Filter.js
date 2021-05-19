@@ -19,6 +19,13 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from '@material-ui/icons/Search';
+import Globals from "../navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const useStyles = makeStyles((theme) => ({
   formControl: {
     backgroundColor: "primary",
@@ -41,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const theme = createMuiTheme({
+    direction: Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
@@ -94,6 +102,7 @@ function Filter(props) {
   const { t } = useTranslation();
   return (
     <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
       <div style={{ textAlign: "center" }}>
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel
@@ -197,29 +206,14 @@ function Filter(props) {
             variant="outlined"
             className={classes.searchStyle}
           >
-            <InputLabel htmlFor="outlined-adornment-password">
-            {t('searchroom')}
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type="text"
-              onChange={handleSearchChange}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    edge="end"
-                    disabled={true}
-                  >
-                    <SearchIcon color="primary" />
-                  </IconButton>
-                </InputAdornment>
-              }
-              labelWidth={220}
-            />
+          <div class="form-group has-search">
+          <span class="fa fa-search form-control-feedback"></span>
+          <input type="text" class="form-control" placeholder={t('searchroom')} onChange={handleSearchChange}/>
+        </div>
           </FormControl>
         </div>
       </div>
+      </StylesProvider>
     </ThemeProvider>
   );
 }

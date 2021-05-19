@@ -9,13 +9,13 @@ const getVisibleSpecialRooms = (rooms, {text, room, hospital, price, sortBy}) =>
         const priceMatch = (price === 0) || (roomElement.price <= price);
         return textMatch && roomMatch && hospitalMatch && priceMatch;
     }).sort((a, b) => {
-        if(sortBy === 'A to Z'){
+        if(sortBy === 'A to Z' || sortBy === 'ا الى ي'){
             return a.room.toLowerCase() < b.room.toLowerCase()? -1 : 1;
-        }else if(sortBy === 'Z to A'){
+        }else if(sortBy === 'Z to A' || sortBy === 'ي الى ا'){
             return a.room.toLowerCase() < b.room.toLowerCase()? 1 : -1;
-        }else if(sortBy === 'Lowest Price'){
+        }else if(sortBy === 'Lowest Price' || sortBy === 'اقل سعر'){
             return a.price < b.price? -1 : 1;
-        }else if(sortBy === 'Highest Price'){
+        }else if(sortBy === 'Highest Price' || sortBy === 'اغلى سعر'){
             return a.price < b.price? 1 : -1;
         }
     })

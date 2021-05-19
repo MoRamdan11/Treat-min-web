@@ -18,8 +18,10 @@ import {
   NavBtnLink,
   NavBtnLink2
 } from "./resetPasswordElements";
+import Globals from "../navbar/global"
 
 const theme = createMuiTheme({
+  direction:Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"

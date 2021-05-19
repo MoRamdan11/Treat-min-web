@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import Badge from "@material-ui/core/Badge";
 import Avatar from "@material-ui/core/Avatar";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles ,createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
-
+import Globals from "../navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+// Configure JSS
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
 const StyledBadge = withStyles((theme) => ({
   badge: {
     backgroundColor: "#44b700",
@@ -82,6 +90,8 @@ export default function EditAvatar() {
   };
 
   return (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <div className={classes.root}>
       <Badge
         overlap="circle"
@@ -111,5 +121,7 @@ export default function EditAvatar() {
         />
       </Badge>
     </div>
+    </StylesProvider>
+    </ThemeProvider>
   );
 }

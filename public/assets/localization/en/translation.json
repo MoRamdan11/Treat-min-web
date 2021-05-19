@@ -67,11 +67,11 @@
     "mobile":"Mobile Team",
     "web":"Web Team",
     "back":"Backend Team",
-    "price":"Max. Price",
+    "price":"Price Range",
     "search":"Doctor Name or Hospital or Specialicty",
     "searchservice":"Service or Hospital Name",
     "searchroom":"Room or Hospital Name",
-    "usefullink":"Usefl Links",
+    "usefullink":"Useful Links",
     "account":"MY Account",
     "help":"Help",
     "contactus":"Contact us",
@@ -112,7 +112,7 @@
     "room":"Room",
     "findaccount":"Find Your Account",
     "emailnotfound":"Email Address is not valid!",
-    "send_ver_code":"Send Verification Code",
+    "send_ver_code":"Send Code",
     "enter_ver_code":"Enter Verification Code",
     "dont_recieve_code":"Didn't Reseve Code?",
     "resend":"Resend",
@@ -135,6 +135,13 @@
     "seniora":"Senior Computer Engineer student",
     "menna":"Menna Naiem",
     "ahmed":"Ahmed Khaled",
-    "khaled":"Khaled Mohamed"
-
+    "khaled":"Khaled Mohamed",
+    "dr": "Dr",
+    "cancel": "Cancel",
+    "createAccount": "Create Your Account",
+    "repeatEmail": "This email address is already registered!",
+    "rightLeft": "right",
+    "wrongCode": "Wrong Code!",
+    "userName": "Username",
+    "logout": "Log Out"
 }

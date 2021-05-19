@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles,ThemeProvider } from "@material-ui/core/styles";
 import { Card } from "@material-ui/core";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
@@ -22,11 +22,21 @@ import { FormControl } from "@material-ui/core";
 import { Select } from "@material-ui/core";
 import { NativeSelect } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
-import { NavBtn2, NavBtnLink2 } from "../navbar/NavBarElement";
+import { NavBtn3, NavBtnLink3 } from "../navbar/NavBarElement";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from "react-redux";
 import {removeClinic} from "../../Redux/actions/clinics";
 import { useTranslation, initReactI18next } from "react-i18next";
+import { createMuiTheme, withStyles } from "@material-ui/core/styles";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Globals from "../navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,10 +70,18 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`
   };
 }
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
 
 const useStyles = makeStyles((theme) => ({
+  Card:{
+    minWidth:"200",
+    hight:"100"
+  },
   root: {
-    minWidth: "20%"
+    minWidth: "20%",
+    hight:"5%"
   },
   bullet: {
     display: "inline-block",
@@ -121,29 +139,56 @@ const useStyles = makeStyles((theme) => ({
   },
   deleteIcon: {
     color: "#f05454"
-  }
+  },
+  formControl: {
+    backgroundColor: "primary",
+    margin: theme.spacing(4),
+    minWidth: 250,
+    display: "25%",
+    alignContent: "center"
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2)
+  },
+  CardActions:{
+    hight:50
+  },
 }));
 
 const OutlinedCard = ({
   id,
   avatar,
-  name,
+  doctor,
   specalist,
   rating,
   hospital,
   waiting,
   price,
   callus,
-  dispatch
+  dispatch,
+  schedules
 }) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-
+  const [avaliableappoinment, setStateavaliableappoinment] = React.useState("");
   const [value, setValue] = React.useState(0);
   const [date, setDate] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  const [APopen, setAPOpen] = React.useState(false);
   const handleDate = (event) => {
     setDate(event.target.value);
+  };
+  const avaliableappoinmenthandleChange = (event) => {
+    const avaliableappoinment = event.target.value
+    setStateavaliableappoinment(avaliableappoinment);
+   // props.dispatch(setSpeciality(avaliableappoinment));
+  };
+  const APhandleClose = () => {
+    setAPOpen(false);
+  };
+
+  const APhandleOpen = () => {
+    setAPOpen(true);
   };
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -164,6 +209,8 @@ const OutlinedCard = ({
   }
   const { t } = useTranslation();
   return (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <Card className={classes.root} variant="outlined">
       <CardHeader
         avatar={
@@ -179,7 +226,7 @@ const OutlinedCard = ({
       />
       <CardContent>
         <h1 className={classes.title} color="textSecondary" gutterBottom>
-          Dr.{name}
+          {t('dr')}. {doctor.name}
         </h1>
         <Typography>{specalist}</Typography>
         <IconButton className={classes.GradeIcon} aria-label="settings">
@@ -217,25 +264,38 @@ const OutlinedCard = ({
           </TabPanel>
         </Paper>
         <form className={classes.container} noValidate>
-          <TextField
-            id="datetime-local"
-            label={t('avaliableappoinment')}
-            type="datetime-local"
-            defaultValue="2021-01-5T10:30"
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true
-            }}
-          />
+        <div style={{ textAlign: "center" }}>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel htmlFor="outlined-age-native-simple" >
+          {t('avaliableappoinment')}
+          </InputLabel>
+          <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select1"
+          open={APopen}
+          onClose={APhandleClose}
+          onOpen={APhandleOpen}
+          //value={props.filters.speciality}
+          onChange={avaliableappoinmenthandleChange }
+        >
+            <option aria-label={t('none')} value="" />
+            {/*schedules.map((schedule) => {
+              return (<option>{`${schedule.day} ${schedule.start} - ${schedule.end}`}</option>);
+            })*/}
+            <option value={"avaliabledate1"}>10.00pm</option>
+            <option value={"avaliabledate2"}>11.00</option>
+            <option value={"avaliabledate3"}>122</option>
+          </Select>
+        </FormControl>
+        </div>
         </form>
       </CardContent>
-
-      <CardActions>
-        <NavBtn2>
-          <NavBtnLink2 to="/Book">{t('book')}</NavBtnLink2>
-        </NavBtn2>
-      </CardActions>
+      <NavBtn3>
+      <NavBtnLink3 to="/Book">{t('book')}</NavBtnLink3>
+    </NavBtn3>
     </Card>
+    </StylesProvider>
+    </ThemeProvider>
   );
 };
 

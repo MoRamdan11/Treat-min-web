@@ -4,17 +4,26 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import {
   GridContainer,
-  GridImg,
-  ForgetPasswordImg,
+  Img,
   GridForm,
-  ForgetPasswordForm,
+  Form,
   NavBtn,
-  NavBtnLink,
+  Button,
   NavBtnLink2
-} from "./firstSignUpElements";
-import { useTranslation, initReactI18next } from "react-i18next";
+} from "../elements";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
+import Globals from "../../component/navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
 
 const theme = createMuiTheme({
+  direction:Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
@@ -25,40 +34,8 @@ const theme = createMuiTheme({
 const useStyles = makeStyles({
   content: {
     marginTop: "10px",
-    width: "100%"
-  },
-  loginBtn: {
-    marginTop: "50px"
-  },
-  card: {
-    height: "50%"
-  },
-  gridStyle: {
-    backgroundColor: "#235274",
     width: "100%",
-    margin: "0"
-  },
-  birth: {
-    width: "80px",
-    marginTop: "10px",
-    marginBottom: "10px",
-    marginLeft: "5px"
-  },
-  genderLabel: {
-    color: "black",
-    fontWeight: "bold"
-  },
-  radioStyle: {
-    position: "relative",
-    left: "20px"
-  },
-  btnStyle: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "10px",
-    marginBottom: "15px",
-    marginLeft: "10px"
+    marginBottom: "5px"
   },
   btnStyleOuter: {
     display: "flex",
@@ -78,6 +55,7 @@ function SignUp1(props) {
   const [email, setEmail] = useState("");
   const [errorEmail, setErrorEmail] = useState(true);
   const [inValidEmail, setInValidEmail] = useState(false);
+  const [emailRepeated, setEmailRepeated] = useState(false);
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     if (emailValue.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
@@ -87,18 +65,28 @@ function SignUp1(props) {
       setErrorEmail(true);
     }
   }
-  const handleSignClick = () => {
-    if(errorEmail){
+  function handleSignClick(event) {
+    event.preventDefault();
+    if (errorEmail) {
       setInValidEmail(true);
       props.history.push('/SignUp');
-    }else{
+    } else {
+      //valid email 
       setInValidEmail(false);
-      props.history.push('/verifiyCode');
+      axios.post('/api/accounts/register-email/', { "email": email }).then((response) => {
+        console.log(response.data.details);
+        localStorage.setItem('email', email);
+        props.history.push('/verifiyCode');
+      }).catch((error) => {
+        console.log(error.response.data);
+        setEmailRepeated(error.response.data);
+        props.history.push('/SignUp');
+      });
     }
   }
 
   const handleEnterClick = (event) => {
-    if(event.key === 'Enter'){
+    if (event.key === 'Enter') {
       event.preventDefault();
       handleSignClick();
     }
@@ -107,16 +95,17 @@ function SignUp1(props) {
   return (
     <div>
       <ThemeProvider theme={theme}>
+      <StylesProvider jss={jss}>
         <GridContainer container>
-          <GridImg xs={12} sm={12} md={6} lg={6}>
-            <ForgetPasswordImg
+          <Grid xs={12} sm={12} md={6} lg={6}>
+            <Img
               src={require("../../images/signUpNew2.png").default}
               alt="ForgetPassword"
             />
-          </GridImg>
+          </Grid>
           <GridForm xs={12} sm={12} md={6} lg={6}>
-            <ForgetPasswordForm>
-              <h2 style={{ marginTop: "10px" }}>Create Your Account</h2>
+            <Form onSubmit={handleSignClick}>
+              <h2 style={{ marginTop: "10px" }}>{t('createAccount')}</h2>
               <TextField
                 className={styles.content}
                 onChange={handleEmailChange}
@@ -126,22 +115,20 @@ function SignUp1(props) {
                 required
                 error={errorEmail}
               />
-              {inValidEmail && <h4 className = {styles.notValidEmail}>{t('emailnotvalid')}</h4>}
+              {inValidEmail && <p className={styles.notValidEmail}>{t('emailnotvalid')}</p>}
+              {emailRepeated && <p className={styles.notValidEmail}>{t('repeatEmail')}</p>}
               <div className={styles.btnStyleOuter}>
-                <NavBtn className={styles.btnStyle}>
+                <NavBtn>
                   <NavBtnLink2 to="/login">{t('cancel')}</NavBtnLink2>
                 </NavBtn>
-                <NavBtn onClick = {handleSignClick}  className={styles.btnStyle}>
-                  <NavBtnLink
-                    to={errorEmail ? "/SignUp" : "/verifiyCode"}
-                  >
+                <Button>
                   {t('send_ver_code')}
-                  </NavBtnLink>
-                </NavBtn>
+                </Button>
               </div>
-            </ForgetPasswordForm>
+            </Form>
           </GridForm>
         </GridContainer>
+        </StylesProvider>
       </ThemeProvider>
     </div>
   );

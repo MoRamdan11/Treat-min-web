@@ -5,6 +5,7 @@ import { IconButton } from "@material-ui/core";
 import MailIcon from "@material-ui/icons/Mail";
 import { useTranslation, initReactI18next } from "react-i18next";
 import MessengerCustomerChat from 'react-messenger-customer-chat';
+import Globals from "../global"
 
 
 import {
@@ -18,6 +19,15 @@ import {
   GridContactUs,
   H3
 } from "./FooterElements";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
 const useStyles = makeStyles({
   lgogImg: {
     width: "200px",
@@ -59,10 +69,13 @@ function Footer() {
   var currentYear = currentDate.getFullYear();
   const styles = useStyles();
   return (
+    
     <MessengerCustomerChat
     pageId="105983478314658"
     appId="423865358655348"
   />,
+  <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     
     <GridContainer xs={12} sm={12} md={12} lg={12} container>
       <GridLogo xs={12} sm={12} md={3} lg={3}>
@@ -135,6 +148,8 @@ function Footer() {
         <h3>{t('right')} &copy; Treat-min {currentYear}</h3>
       </div>
     </GridContainer>
+    </StylesProvider>
+    </ThemeProvider>
   );
 }
 

@@ -47,11 +47,10 @@ export const GridBackEnd = styled(Grid)`
 
 export const GridMobile = styled(Grid)`
     text-align: center;
-    margin :0px;
+    /*margin :0px;*/
     padding: 0 20px 20px 20px;
     background-color: #235274;
     border-radius: 20px 20px 0 0;
-    
 `;
 export const GridMobileElements = styled(Grid)`
     color: white;

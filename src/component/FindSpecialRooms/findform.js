@@ -12,13 +12,30 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from '@material-ui/icons/Search';
 import { useTranslation, initReactI18next } from "react-i18next";
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
 import {
   setTextFilterSP,
   setRoomName,
   setHospitalFilter,
   setPriceFilter,
 } from "../../Redux/actions/specialRoomsFilter";
+import Globals from "../navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
+
 const useStyles = makeStyles((theme) => ({
+  rooroot: {
+    width: 300,
+  },
+  margin: {
+    height: theme.spacing(3),
+  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 150
@@ -63,12 +80,38 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 const theme = createMuiTheme({
+  direction: Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
     }
   }
 });
+function valuetext(value) {
+  return `${value}{t('le')}`;
+}
+const Prices= [
+  {
+    value: 100,
+    label: '100L.E',
+  },
+  {
+    value: 200,
+    label: '200L.E',
+  },
+  {
+    value: 300,
+    label: '300L.E',
+  },
+  {
+    value: 400,
+    label: '400L.E',
+  },
+  {
+    value: 500,
+    label: '500L.E',
+  },
+];
 const FindForm = (props) => {
   const classes = useStyles();
   const [room, setRoom] = React.useState("");
@@ -152,6 +195,7 @@ const FindForm = (props) => {
   const { t } = useTranslation();
   return (
     <ThemeProvider theme = {theme}>
+    <StylesProvider jss={jss}>
     <div>
       <h1 className={classes.title}> {t('find_room')}</h1>
       <FormControl className={classes.formControl}>
@@ -205,82 +249,33 @@ const FindForm = (props) => {
       </MenuItem>
         </Select>
       </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label2">
-        {t('price')}
-        </InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label2"
-          id="demo-controlled-open-select2"
-          open={priceOpen}
-          onClose={pricehandleClose}
-          onOpen={pricehandleOpen}
-          value={props.filters.price}
-          onChange={handlePriceChange}
-        >
-          <MenuItem value="" data-id="2">
-            <em> {t('none')}</em>
-          </MenuItem>
-          <MenuItem value="50" data-id="2">
-            50
-          </MenuItem>
-          <MenuItem value={"100"} data-id="2">
-            100
-          </MenuItem>
-          <MenuItem value="150" data-id="2">
-            150
-          </MenuItem>
-          <MenuItem value="200" data-id="2">
-            200
-          </MenuItem>
-          <MenuItem value="250" data-id="2">
-            250
-          </MenuItem>
-          <MenuItem value="300" data-id="2">
-            300
-          </MenuItem>
-          <MenuItem value="350" data-id="2">
-            350
-          </MenuItem>
-          <MenuItem value="400" data-id="2">
-            400
-          </MenuItem>
-          <MenuItem value="450" data-id="2">
-            450
-          </MenuItem>
-          <MenuItem value="500" data-id="2">
-            500
-          </MenuItem>
-        </Select>
-      </FormControl>
+      <div className={classes.root}>
+      <Typography id="discrete-slider-always" gutterBottom>
+      {t('price')}
+      </Typography>
+      <Slider
+        max={500}
+        defaultValue={150}
+        getAriaValueText={valuetext}
+        aria-labelledby="discrete-slider-always"
+        step={50}
+        marks={Prices}
+        valueLabelDisplay="on"
+      />
+    </div>
       <div style={{ textAlign: "center", marginBottom: "10px" }}>
         <FormControl
           variant="outlined"
           className={classes.searchStyle}
         >
-          <InputLabel htmlFor="outlined-adornment-password">
-          {t('searchroom')}
-            </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type="text"
-            onChange={handleSearchChange}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  edge="end"
-                  disabled={true}
-                >
-                  <SearchIcon color="primary" />
-                </IconButton>
-              </InputAdornment>
-            }
-            labelWidth={220}
-          />
+        <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder={t('searchroom')} onChange={handleSearchChange}/>
+      </div>
         </FormControl>
       </div>
     </div>
+    </StylesProvider>
     </ThemeProvider>
   );
 };

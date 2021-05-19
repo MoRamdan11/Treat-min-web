@@ -1,9 +1,21 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles,createMuiTheme } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import Globals from "../navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import { ThemeProvider } from "styled-components";
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -88,6 +100,8 @@ export const FindForm = () => {
     setSEOpen(true);
   };
   return (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <div>
       <h1 className={classes.title}> Find your need :</h1>
       <FormControl className={classes.formControl}>
@@ -199,5 +213,7 @@ export const FindForm = () => {
         </Select>
       </FormControl>
     </div>
+    </StylesProvider>
+    </ThemeProvider>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import OutlinedCard from "./cards";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles ,createMuiTheme} from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import { useMediaQuery } from "@material-ui/core";
@@ -18,7 +18,16 @@ import {
   dreight,
   drnine
 } from "./data";
+import Globals from "./navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1
@@ -101,6 +110,8 @@ const DrCard = () => {
     );
   }
   return IsMobile ? (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <div>
       <DialogSelect {...drone} />
       <div>
@@ -128,7 +139,11 @@ const DrCard = () => {
         <OutlinedCard {...drnine} />
       </div>
     </div>
+    </StylesProvider>
+    </ThemeProvider>
   ) : (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <div className={classes.root}>
       <Filter />
       <Grid container spacing={1}>
@@ -143,6 +158,8 @@ const DrCard = () => {
         </Grid>
       </Grid>
     </div>
+    </StylesProvider>
+    </ThemeProvider>
   );
 };
 export default DrCard;

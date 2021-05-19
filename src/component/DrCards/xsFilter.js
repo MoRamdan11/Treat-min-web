@@ -17,6 +17,7 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from '@material-ui/icons/Search';
+import Globals from '../navbar/global'
 import {
   setTextFilter,
   setSpeciality,
@@ -26,6 +27,12 @@ import {
   setGender,
   setSortBy,
 } from "../../Redux/actions/filterClinics";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -42,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 const theme = createMuiTheme({
+  direction:Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
@@ -113,6 +121,7 @@ const DialogSelect = (props) => {
   const { t } = useTranslation();
   return (
     <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
       <div>
         <Button onClick={handleClickOpen}>{t('filter')}</Button>
         <Dialog
@@ -238,30 +247,14 @@ const DialogSelect = (props) => {
             variant="outlined"
             className={classes.searchStyle}
           >
-            <InputLabel htmlFor="outlined-adornment-password">
-            {t('search')}
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type="text"
-              onChange={handleSearchChange}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    edge="end"
-                    disabled={true}
-                    dir="rtl"
-                  >
-                    <SearchIcon color="primary" />
-                  </IconButton>
-                </InputAdornment>
-              }
-              labelWidth={280}
-            />
+          <div class="form-group has-search">
+          <span class="fa fa-search form-control-feedback"></span>
+          <input type="text" class="form-control" placeholder={t('search')} onChange={handleSearchChange}/>
+        </div>
           </FormControl>
         </div>
       </div>
+      </StylesProvider>
     </ThemeProvider>
   );
 }

@@ -15,7 +15,23 @@ import {
 import { useTranslation, initReactI18next } from "react-i18next";
 import i18next from 'i18next'
 import cookies from 'js-cookie'
-import classNames from 'classnames'
+import classNames from 'classnames';
+import Globals from "../navbar/global";
+import {createMuiTheme} from  "@material-ui/core/styles";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset,ThemeProvider } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+const theme = createMuiTheme({
+  overrides: {
+    ButtonGroup:{
+  direction: Globals.direction,
+}
+}
+});
+
 
 const languages = [
   {
@@ -53,6 +69,9 @@ const SideBar = ({ isOpen, toggle }) => {
     document.title = t('app_title')
   }, [currentLanguage, t])
   return (
+
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
       <Icon>
         <CloseIcon />
@@ -76,19 +95,20 @@ const SideBar = ({ isOpen, toggle }) => {
           </SidebarLink>
         </SidebarMenu>
         <SidebarBtnWrap >
-        <ButtonGroup disableElevation variant="contained" color="primary">
+       
        <SidebarButton  onClick={() => {i18next.changeLanguage("en")}} >English</SidebarButton>
        <SidebarButton onClick={() => {i18next.changeLanguage("ar")}} >عربي</SidebarButton>
-       </ButtonGroup>
         </SidebarBtnWrap>
         <SidebarBtnWrap>
           <SidebarRoute to="/login"> {t('login')}</SidebarRoute>
         </SidebarBtnWrap>
         <SidebarBtnWrap>
-          <SidebarRoute2 to="/Emergency"> {t('emergency')}</SidebarRoute2>
+          <SidebarRoute2 to="/Emergncy"> {t('emergency')}</SidebarRoute2>
         </SidebarBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>
+    </StylesProvider>
+    </ThemeProvider>
   );
 };
 export default SideBar;

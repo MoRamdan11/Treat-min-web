@@ -10,23 +10,15 @@ export const GridContainer = styled(Grid)`
   width: 100%;
   margin: 0px;
   background-color: #235274;
-  @media screen and (max-width: 768px) {
-    width: 768px;
-  }
-  @media screen and (max-width: 480px) {
-    width: 480px;
-  }
-`;
-
-export const GridImg = styled(Grid)`
-  text-align: center;
+  width: 100%;
+  margin: 0;
 `;
 
 export const SignUpImg = styled.img`
   width: 600px;
   height: 600px;
   @media screen and (min-width: 1080px) {
-    margin-left: 100px;
+    margin: auto 100px auto 100px;
   }
   @media screen and (max-width: 900px) {
     display: none;
@@ -85,10 +77,7 @@ export const NavBtnLink = styled(LinkR)`
   }
 `;
 
-export const NavBtn = styled.nav`
-  display: flex;
-  align-items: center;
-`;
+
 /*kkkkkkkkkkkkkkkkkk */
 
 export const TextField2 = styled(TextField)`
@@ -119,6 +108,31 @@ export const FormControlLabel2 = styled(FormControlLabel)`
   position: relative;
   left: 20px;
 `;
+
+export const NavBtn = styled.nav`
+  display: flex;
+  align-items: center;
+`;
+
+export const Button = styled.button`
+  border-radius: 50px;
+  background: #19a25d;
+  white-space: nowrap;
+  padding: 10px 22px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  &:hover {
+    transition: all 0.2sease-in-out;
+    background: #f5f5f5;
+    color: #205072;
+  }
+`;
+
 export const NavBtnLink2 = styled(LinkR)`
   border-radius: 50px;
   background: #c64756;
@@ -131,6 +145,7 @@ export const NavBtnLink2 = styled(LinkR)`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+  margin: auto 10px auto 10px;
   &:hover {
     transition: all 0.2sease-in-out;
     background: #f5f5f5;

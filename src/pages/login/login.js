@@ -13,24 +13,23 @@ import { NavLink } from "react-router-dom";
 import { useTranslation, initReactI18next } from "react-i18next";
 import {
   GridContainer,
-  GridImg,
-  LoginImg,
+  Img,
   GridForm,
-  LoginForm,
+  Form,
   NavBtn,
-  NavBtnLink,
+  Button,
   NavBtnLink2,
-  MyTextField,
-  MyOutlinedInput,
   ForgetPassword
-} from "./loginElements";
-
+} from "../elements";
+import axios from "axios";
+import Globals from "../../component/navbar/global";
 const theme = createMuiTheme({
+  direction:Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
     },
-    secondary:{
+    secondary: {
       main: "#f00"
     }
   }
@@ -41,34 +40,6 @@ const useStyles = makeStyles({
     marginTop: "20px",
     marginBottom: "5px",
     width: "100%"
-    //width: "320px",
-  },
-  loginBtn: {
-    marginTop: "50px"
-  },
-  card: {
-    height: "50%"
-  },
-  gridStyle: {
-    backgroundColor: "#235274",
-    width: "100%",
-    margin: "0"
-  },
-  genderLabel: {
-    color: "black",
-    fontWeight: "bold"
-  },
-  radioStyle: {
-    position: "relative",
-    left: "20px"
-  },
-  btnStyle: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "0px",
-    marginBottom: "15px",
-    marginLeft: "10px"
   },
   btnStyleOuter: {
     display: "flex",
@@ -76,13 +47,6 @@ const useStyles = makeStyles({
     alignItems: "center",
     marginTop: "10px",
     marginBottom: "15px"
-  },
-  forgetPassword: {
-    textDecoration: "underLine",
-    color: "blue",
-    position: "relative",
-    left: "90px",
-    top: "10px"
   },
   signUp: {
     color: "blue"
@@ -124,24 +88,59 @@ function Login(props) {
     setVisibility((prevValue) => !prevValue);
   }
 
-  const handleBtnClick = () =>{
+  const handleBtnClick = (event) => {
+    event.preventDefault();
     if (!errorPassword && !errorEmail) {
-      props.history.push('/');
+      axios.post('/api/accounts/login/', {
+        email: email,
+        password: password
+      }).then((response) => {
+        console.log(response.data.token);
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        localStorage.setItem('isLogin', 'true');
+        props.history.push('/');
+      }).catch((error) => {
+        console.log(error);
+      })
+
     } else {
       props.history.push('/login');
-      if(errorEmail){
+      if (errorEmail) {
         setInValidEmail(true);
       }
-      if(errorPassword){
+      if (errorPassword) {
         setInValidPass(true);
       }
     }
   }
 
   const handleEnterClick = (event) => {
-    if(event.key === 'Enter'){
+    if (event.key === 'Enter') {
       event.preventDefault();
-      handleBtnClick();
+      if (!errorPassword && !errorEmail) {
+        axios.post('/api/accounts/login/', {
+          email: email,
+          password: password
+        }).then((response) => {
+          console.log(response.data.token);
+          const token = response.data.token;
+          localStorage.setItem('token', token);
+          localStorage.setItem('isLogin', 'true');
+          props.history.push('/');
+        }).catch((error) => {
+          console.log(error);
+        })
+
+      } else {
+        props.history.push('/login');
+        if (errorEmail) {
+          setInValidEmail(true);
+        }
+        if (errorPassword) {
+          setInValidPass(true);
+        }
+      }
     }
   }
   const { t } = useTranslation();
@@ -149,30 +148,30 @@ function Login(props) {
     <div>
       <ThemeProvider theme={theme}>
         <GridContainer container>
-          <GridImg xs={12} sm={12} md={6} lg={6}>
-            <LoginImg
+          <Grid xs={12} sm={12} md={6} lg={6}>
+            <Img
               src={require("../../images/Login-amico.png").default}
               alt="login-img"
             />
-          </GridImg>
+          </Grid>
           <GridForm xs={12} sm={12} md={6} lg={6}>
-            <LoginForm>
+            <Form>
               <h2>  {t('logintreat')}</h2>
-              <MyTextField
+              <TextField
                 className={styles.content}
                 onChange={handleEmailChange}
                 onKeyPress={handleEnterClick}
                 variant="outlined"
-                label= {t('email')}
+                label={t('email')}
                 type="text"
                 required
                 error={errorEmail}
               />
               {inValidEmail && <p style={{ color: "red", marginTop: "5px", float: "left", clear: "both" }}>
-              {t('emailnotvalid')}
+                {t('emailnotvalid')}
               </p>}
               <ForgetPassword to="/forgetPassword">
-              {t('forgetpassword')}
+                {t('forgetpassword')}
               </ForgetPassword>
               <FormControl
                 className={styles.content}
@@ -180,12 +179,12 @@ function Login(props) {
                 variant="outlined"
               >
                 <InputLabel
-                  color={errorPassword? "secondary": "primary"} 
+                  color={errorPassword ? "secondary" : "primary"}
                   required htmlFor="outlined-adornment-password"
                 >
-                {t('password')}
+                  {t('password')}
                 </InputLabel>
-                <MyOutlinedInput
+                <OutlinedInput
                   id="outlined-adornment-password"
                   type={visibility ? "text" : "password"}
                   onChange={hnadlePasswordChange}
@@ -205,32 +204,29 @@ function Login(props) {
                   labelWidth={80}
                 />
               </FormControl>
-              {inValidPass && <div><p style={{color: "red", marginTop: "5px", float: "left", clear: "both" }}>
-              {t('eightcharcter')}
+              {inValidPass && <div><p style={{ color: "red", marginTop: "5px", float: "left", clear: "both" }}>
+                {t('eightcharcter')}
               </p></div>}
               <br />
               <div style={{ paddingTop: "10px", paddingBottom: "2px" }}>
                 <p style={{ display: "inline" }}>
-                {t('newuser')}&nbsp;&nbsp;
+                  {t('newuser')}&nbsp;&nbsp;
                 </p>
                 <NavLink className={styles.signUp} to="/SignUp">
-                {t('signup')}
+                  {t('signup')}
                 </NavLink>
               </div>
               <div className={styles.btnStyleOuter}>
-                <NavBtn className={styles.btnStyle}>
+                <NavBtn>
                   <NavBtnLink2 to="/">{t('cancel')}</NavBtnLink2>
                 </NavBtn>
-                <NavBtn className={styles.btnStyle}>
-                  <NavBtnLink 
-                    to={errorEmail || errorPassword ? "/login" : "/"}
-                    onClick={handleBtnClick}
-                    >
-                    {t('login')}
-                  </NavBtnLink>
-                </NavBtn>
+                <Button
+                  onClick={handleBtnClick}
+                >
+                  {t('login')}
+                </Button>
               </div>
-            </LoginForm>
+            </Form>
           </GridForm>
         </GridContainer>
       </ThemeProvider>

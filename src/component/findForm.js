@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles,createMuiTheme } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -12,6 +12,16 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import Globals from "./navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -127,6 +137,8 @@ export default function ControlledOpenSelect() {
   const IsMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return IsMobile ? (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <div>
       <h1 className={classes.title}> Find your need :</h1>
       <FormControl className={classes.formControl}>
@@ -246,7 +258,11 @@ export default function ControlledOpenSelect() {
         Find
       </Button>
     </div>
+    </StylesProvider>
+    </ThemeProvider>
   ) : (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <div className={classes.root}>
       <Grid container spacing={4} className={classes.paper}>
         <Grid item>
@@ -379,5 +395,7 @@ export default function ControlledOpenSelect() {
         </Grid>
       </Grid>
     </div>
+    </StylesProvider>
+    </ThemeProvider>
   );
 }

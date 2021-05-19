@@ -1,4 +1,10 @@
 //Clinics Actions
+export const fetchClinic = (fetch = true) => {
+    return{
+        type: 'SET_FETCH_CLINIC',
+        fetch
+    }
+}
 export const setTextFilter = (text = '') => {
     //for searching
     return{

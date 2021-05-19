@@ -11,16 +11,24 @@ import Grid from "@material-ui/core/Grid";
 import { useTranslation, initReactI18next } from "react-i18next";
 import {
   GridContainer,
-  GridImg,
-  ForgetPasswordImg,
+  Img,
   GridForm,
-  ForgetPasswordForm,
+  Form,
   NavBtn,
-  NavBtnLink,
+  Button,
   NavBtnLink2
-} from "./resetPasswordElements";
+} from "../elements";
+import axios from "axios";
+import Globals from "../../component/navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 const theme = createMuiTheme({
+  direction:Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
@@ -35,39 +43,6 @@ const useStyles = makeStyles({
   content: {
     marginTop: "20px",
     width: "100%"
-  },
-  loginBtn: {
-    marginTop: "50px"
-  },
-  card: {
-    height: "50%"
-  },
-  gridStyle: {
-    backgroundColor: "#235274",
-    width: "100%",
-    margin: "0"
-  },
-  birth: {
-    width: "80px",
-    marginTop: "10px",
-    marginBottom: "10px",
-    marginLeft: "5px"
-  },
-  genderLabel: {
-    color: "black",
-    fontWeight: "bold"
-  },
-  radioStyle: {
-    position: "relative",
-    left: "20px"
-  },
-  btnStyle: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "10px",
-    marginBottom: "15px",
-    marginLeft: "10px"
   },
   btnStyleOuter: {
     display: "flex",
@@ -85,10 +60,13 @@ function ResetPassword(props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(true);
   const [visibility, setVisibility] = useState(false);
-
+  const [invalidPass, setInvalidPass] = useState(false);
   function hnadlePasswordChange(event) {
     const passwordVal = event.target.value;
     if (passwordVal.length >= 8 && passwordVal.length <= 32) {
+      if (confirmPassword === password) {
+        setErrorConfirmPassword(false);
+      }
       setPassword(passwordVal);
       setErrorPassword(false);
     } else {
@@ -110,43 +88,69 @@ function ResetPassword(props) {
     setVisibility((prevValue) => !prevValue);
   }
 
-  const handleBtnClick = () => {
+  const handleBtnClick = (event) => {
+    event.preventDefault();
     if (!errorPassword && !errorConfirmPassword) {
-      props.history.push('/login');
+      const email = localStorage.getItem('email');
+      axios.patch('/api/accounts/password-reset/', {
+        email: email,
+        password: password
+      }).then((response) => {
+        console.log(response);
+        props.history.push('/login');
+      }).catch((error) => {
+        console.log(error.response.data);
+      })
     } else {
+      setInvalidPass(true);
       props.history.push('/resetPassword');
     }
   }
   const handleEnterClick = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      handleBtnClick();
+      if (!errorPassword && !errorConfirmPassword) {
+        const email = localStorage.getItem('email');
+        axios.patch('/api/accounts/password-reset/', {
+          email: email,
+          password: password
+        }).then((response) => {
+          console.log(response);
+          props.history.push('/login');
+        }).catch((error) => {
+          console.log(error.response.data);
+        })
+      } else {
+        setInvalidPass(true);
+        props.history.push('/resetPassword');
+      }
     }
   }
   const { t } = useTranslation();
   return (
     <div>
       <ThemeProvider theme={theme}>
+      <StylesProvider jss={jss}>
         <GridContainer container>
-          <GridImg xs={12} sm={12} md={6} lg={6}>
-            <ForgetPasswordImg
-              src={require("../../images/resetPassword.png").default}
-              alt="ForgetPassword"
+          <Grid xs={12} sm={12} md={6} lg={6}>
+            <Img
+              src={require("../../images/My password-bro.svg").default}
+              alt="Reset-Password-img"
             />
-          </GridImg>
+          </Grid>
           <GridForm xs={12} sm={12} md={6} lg={6}>
-            <ForgetPasswordForm>
-              <h2 style={{ marginTop: "10px" }}>{t('choose_new_password')}</h2>
+            <Form>
+              <h3 style={{ marginTop: "10px" }}>{t('choose_new_password')}</h3>
               <FormControl
                 className={styles.content}
                 required
                 variant="outlined"
               >
                 <InputLabel
-                  color = {errorPassword? "secondary": "primary"} 
+                  color={errorPassword ? "secondary" : "primary"}
                   required htmlFor="outlined-adornment-password"
                 >
-                {t('new_password')}
+                  {t('new_password')}
                 </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-password"
@@ -173,11 +177,11 @@ function ResetPassword(props) {
                 required
                 variant="outlined"
               >
-                <InputLabel 
-                  color={errorConfirmPassword? "secondary": "primary"}
+                <InputLabel
+                  color={errorConfirmPassword ? "secondary" : "primary"}
                   required htmlFor="outlined-adornment-password"
                 >
-                {t('confirm_Password')}
+                  {t('confirm_Password')}
                 </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-password"
@@ -199,27 +203,25 @@ function ResetPassword(props) {
                   labelWidth={145}
                 />
               </FormControl>
-              {(errorPassword || errorConfirmPassword) && (
+              {(invalidPass) && (
                 <p style={{ marginTop: "10px", color: "red" }}>
-                {t('eightcharcter')}
+                  {t('eightcharcter')}
                 </p>
               )}
               <div className={styles.btnStyleOuter}>
-                <NavBtn className={styles.btnStyle}>
+                <NavBtn>
                   <NavBtnLink2 to="/login">{t('cancel')}</NavBtnLink2>
                 </NavBtn>
-                <NavBtn className={styles.btnStyle}>
-                  <NavBtnLink
-                    to={(errorPassword || errorConfirmPassword) ? "/resetPassword" : "/login"}
-                    onClick={handleBtnClick}
-                  >
+                <Button
+                  onClick={handleBtnClick}
+                >
                   {t('submit')}
-                  </NavBtnLink>
-                </NavBtn>
+                </Button>
               </div>
-            </ForgetPasswordForm>
+            </Form>
           </GridForm>
         </GridContainer>
+        </StylesProvider>
       </ThemeProvider>
     </div>
   );

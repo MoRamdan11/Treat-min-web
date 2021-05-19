@@ -16,8 +16,18 @@ import FormControl from "@material-ui/core/FormControl";
 import { NavBtn, NavBtnLink, NavBtnLink2 } from "./Buttons";
 import { useHistory, NavLink } from "react-router-dom";
 import { useTranslation, initReactI18next } from "react-i18next";
+import Globals from "../navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
+  
 
 const theme = createMuiTheme({
+  direction: Globals.direction,
   palette: {
     primary: {
       main: "#19a25d",
@@ -147,6 +157,7 @@ function EditUserInfo() {
   };
   const { t } = useTranslation();
   return (
+    <StylesProvider jss={jss}>
     <div className={classes.container}>
       <ThemeProvider theme={theme}>
         <div className={classes.wrapper}>
@@ -207,6 +218,7 @@ function EditUserInfo() {
         </div>
       </ThemeProvider>
     </div>
+    </StylesProvider>
   );
 }
 

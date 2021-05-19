@@ -2,23 +2,26 @@ import React, { useState } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-
-//import NavBar from "../../component/navbar/index";
-import Navbar from "../../component/navbar/index";
-import Sidebar from "../../component/SideBar";
-//import { btnStyle, newStyle } from "./loginElements";
 import {
   GridContainer,
-  GridImg,
-  ForgetPasswordImg,
+  Img,
   GridForm,
-  ForgetPasswordForm,
+  Form,
   NavBtn,
-  NavBtnLink,
+  Button,
   NavBtnLink2
-} from "./forgetPasswordElements";
+} from "../elements";
 import { useTranslation, initReactI18next } from "react-i18next";
+import axios from "axios";
+import Globals from "../../component/navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const theme = createMuiTheme({
+  direction:Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
@@ -31,39 +34,7 @@ const useStyles = makeStyles({
     marginTop: "10px",
     width: "100%"
   },
-  loginBtn: {
-    marginTop: "50px"
-  },
-  card: {
-    height: "50%"
-  },
-  gridStyle: {
-    backgroundColor: "#235274",
-    width: "100%",
-    margin: "0"
-  },
-  birth: {
-    width: "80px",
-    marginTop: "10px",
-    marginBottom: "10px",
-    marginLeft: "5px"
-  },
-  genderLabel: {
-    color: "black",
-    fontWeight: "bold"
-  },
-  radioStyle: {
-    position: "relative",
-    left: "20px"
-  },
-  btnStyle: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "10px",
-    marginBottom: "15px",
-    marginLeft: "10px"
-  },
+
   btnStyleOuter: {
     display: "flex",
     justifyContent: "center",
@@ -92,34 +63,54 @@ function ForgetPassword(props) {
       setErrorEmail(true);
     }
   }
-  const handleSignClick = () => {
+  const handleSignClick = (event) => {
+    event.preventDefault();
     if (errorEmail) {
       setInValidEmail(true);
       props.history.push('/forgetPassword');
     } else {
+      axios.post('/api/accounts/password-email/', { email: email }).then((response) => {
+        console.log(response.data.details);
+        localStorage.setItem('email', email);
+        props.history.push('/verificationCode');
+      }).catch((error) => {
+        console.log(error.response.data);
+      })
       setInValidEmail(false);
-      props.history.push('/verificationCode');
     }
   }
   const handleEnterClick = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      handleSignClick();
+      if (errorEmail) {
+        setInValidEmail(true);
+        props.history.push('/forgetPassword');
+      } else {
+        axios.post('/api/accounts/password-email/', { email: email }).then((response) => {
+          console.log(response.data.details);
+          localStorage.setItem('email', email);
+          props.history.push('/verificationCode');
+        }).catch((error) => {
+          console.log(error.response.data);
+        })
+        setInValidEmail(false);
+      }
     }
   }
   const { t } = useTranslation();
   return (
     <div>
       <ThemeProvider theme={theme}>
+      <StylesProvider jss={jss}>
         <GridContainer container>
-          <GridImg xs={12} sm={12} md={6} lg={6}>
-            <ForgetPasswordImg
+          <Grid xs={12} sm={12} md={6} lg={6}>
+            <Img
               src={require("../../images/Forgot password.png").default}
               alt="ForgetPassword"
             />
-          </GridImg>
+          </Grid>
           <GridForm xs={12} sm={12} md={6} lg={6}>
-            <ForgetPasswordForm>
+            <Form>
               <h2 style={{ marginTop: "10px" }}>{t('findaccount')}</h2>
               <TextField
                 className={styles.content}
@@ -131,26 +122,22 @@ function ForgetPassword(props) {
                 onKeyPress={handleEnterClick}
               />
               {inValidEmail && <p style={{ color: "red", marginTop: "5px" }}>
-              {t('emailnotfound')}
-                </p>}
+                {t('emailnotfound')}
+              </p>}
               <div className={styles.btnStyleOuter}>
-                <NavBtn className={styles.btnStyle}>
+                <NavBtn>
                   <NavBtnLink2 to="/login">{t('cancel')}</NavBtnLink2>
                 </NavBtn>
-                <NavBtn
-                  className={styles.btnStyle}
+                <Button
+                  onClick={handleSignClick}
                 >
-                  <NavBtnLink
-                    onClick={handleSignClick}
-                    to={errorEmail ? "/forgetPassword" : "/verificationCode"}
-                  >
                   {t('send_ver_code')}
-                  </NavBtnLink>
-                </NavBtn>
+                </Button>
               </div>
-            </ForgetPasswordForm>
+            </Form>
           </GridForm>
         </GridContainer>
+        </StylesProvider>
       </ThemeProvider>
     </div>
   );

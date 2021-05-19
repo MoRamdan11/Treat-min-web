@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./styles.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages";
@@ -16,12 +16,11 @@ import FindServices from "./pages/FindServices";
 import Team from "./pages/team/team";
 import Footer from "./component/navbar/Footer/Footer";
 import Grid from "@material-ui/core/Grid";
-import Emergency from "./pages/Emergency";
+import Emergncy  from "./component/Emergency/Emergncy";
 import Location from "./pages/Location";
 import EditUserInfo from "./component/EditUserInfo/EditUserInfo";
 //reducer
 import configureStore from "./Redux/store/configureStore";
-import {addClinic} from "./Redux/actions/clinics";
 import getVisibleClinics from "./Redux/selectors/clinics";
 import {setSpeciality} from "./Redux/actions/filterClinics";
 import AddDataToRedux from "./component/DrCards/data";
@@ -32,15 +31,46 @@ import SetupAccount from "./pages/signup/setupAccount";
 import Navbar from "./component/navbar/index";
 import Sidebar from "./component/SideBar";
 import ResetAcoountPassword from "./component/EditUserInfo/resetPassword";
-export default function App() {
+import axios from "axios";
+import {addClinic} from "./Redux/actions/clinics";
+import { fetchClinic } from "./Redux/actions/filterClinics";
+import { connect } from "react-redux";
+import Auth from "./Auth/auth";
+function App(props) {
+  const [doctors, setDoctors] = useState([]);
+  var doctors2 = [];
   const [isOpen, serIsOpen] = useState(false);
   const toggle = () => {
     serIsOpen(!isOpen);
   };
+  /*useEffect(() => {
+     function getClinics(i){
+      const data =  axios.get(`/api/clinics/${i}/details/`).then(respons => {
+        doctors2.push(...respons.data.details);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+    for(var i = 1; i < 29; i++){
+      getClinics(i);
+      console.log('doctor', doctors2);
+      setDoctors((prevVal) => {
+        console.log('prevDoc', prevVal);
+        return [...prevVal, ...doctors2]
+      })
+      doctors2 = [];
+    }
+    //setDoctors(doctors2);
+    doctors.map((doctor) => { props.dispatch(addClinic(doctor)); });
+  }, [])
+  /*useEffect(() => {
+    doctors2.map((doctor) => {
+      props.dispatch(addClinic(doctor));
+    })
+  }, [doctors2])*/
   return (
     <Router>
       <Route>
-        <AddDataToRedux />
         <AddSpecialRoomsToRedux />
         <AddServicesToRedux />
         <Sidebar isOpen={isOpen} toggle={toggle} />
@@ -59,7 +89,7 @@ export default function App() {
           <Route path="/FindServices" component={FindServices} />
           <Route path="/team" component={Team} />
           <Route path="/MyAccount" component={Account} />
-          <Route path="/Emergency" component={Emergency} />
+          <Route path="/Emergncy" component={Emergncy} />
           <Route path="/Emergency2" component={Location} />
           <Route path="/EditUserInfo" component={EditUserInfo} />
           <Route path="/ChangePassword" component={ResetAcoountPassword} />
@@ -69,37 +99,9 @@ export default function App() {
     </Router>
   );
 }
-//<Route path="/signUp" component={SignUp} />
-/*//start reducer test
-  const store = configureStore();
-  store.dispatch(addClinic({
-    avatar: "AH",
-    name: "DR.Ahmed Mohamed ",
-    specalist: "Cardiology",
-    rating_total: 5,
-    hospital: "Daar EL-FOUAD HOspital",
-    waiting: "10 minutes",
-    price: "300 L.E",
-    callus: "16370",
-    avaliabledate1: "Today 5:00 pm",
-    avaliabledate2: "Tomorrow 4:00 pm",
-    avaliabledate3: "Tomorrow 5:00 pm",
-  }));
-  store.dispatch(addClinic({
-    avatar: "RS",
-    name: "Dr.Rana Elsaeed",
-    specalist: "ocalist",
-    rating_total: 5,
-    hospital: "Daar EL-FOUAD HOspital ",
-    waiting: "10 minutes",
-    price: "350 L.E",
-    callus: "16370",
-    avaliabledate1: "Today 2:00 pm",
-    avaliabledate2: "Tomorrow 1:00 pm",
-    avaliabledate3: "Tomorrow 3:00 pm",
-  }));
-  store.dispatch(setSpeciality('ocalist'));
-  const state = store.getState();
-  const visibleClinics = getVisibleClinics(state.clinics, state.filterClinics);
-  console.log(visibleClinics);
-  //end reducer test*/
+const mapStateToProps = (state) => {
+  return {
+    filters: state.filterClinics
+  };
+}
+export default connect(mapStateToProps)(App);

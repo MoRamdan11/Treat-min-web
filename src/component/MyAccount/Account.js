@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles,createMuiTheme } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import { Typography } from "@material-ui/core";
@@ -16,6 +16,17 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import { useHistory } from "react-router-dom";
 import { useTranslation, initReactI18next } from "react-i18next";
+import Globals from "../navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset ,ThemeProvider} from '@material-ui/core/styles';
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
+
 
 const useStyles = makeStyles({
   container: {
@@ -199,6 +210,8 @@ function Account() {
   };
 
   return (
+    <ThemeProvider theme={theme}>
+    <StylesProvider jss={jss}>
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.columnOne}>
@@ -297,6 +310,8 @@ function Account() {
         </div>
       </div>
     </div>
+    </StylesProvider>
+    </ThemeProvider>
   );
 }
 

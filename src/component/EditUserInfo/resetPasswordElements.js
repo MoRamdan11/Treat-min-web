@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import { Link as LinkR } from "react-router-dom";
 
+
 export const GridContainer = styled(Grid)`
     width: 100%;
     margin: 0px;

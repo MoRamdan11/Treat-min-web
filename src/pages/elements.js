@@ -1,46 +1,22 @@
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import { Link as LinkR } from "react-router-dom";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import TextField from "@material-ui/core/TextField";
 import { NavLink } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
 
 export const GridContainer = styled(Grid)`
   width: 100%;
   margin: 0px;
   background-color: #235274;
-  /*@media screen and (max-width: 768px) {
-    width: 768px;
-  }
-  @media screen and (max-width: 480px) {
-    width: 480px;
-  }*/
-`;
-
-export const GridImg = styled(Grid)`
   text-align: center;
 `;
 
-export const LoginImg = styled.img`
+export const Img = styled.img`
   width: 600px;
   height: 600px;
-  /*@media screen and (max-width: 700px) {
-    width: 500px;
-    height: 500px;
-  }
-  @media screen and (max-width: 480px) {
-    width: 300px;
-    height: 300px;
-    display: none;
-  }*/
   @media screen and (min-width: 1080px) {
-    margin-left: 100px;
+    margin: auto 100px auto 100px;
   }
-  /*@media screen and (max-width: 300px) {
-    margin-left: 0px;
-    width: 200px;
-    height: 200px;
-  }*/
   @media screen and (max-width: 900px) {
     display: none;
   }
@@ -54,30 +30,22 @@ export const GridForm = styled(Grid)`
   }
 `;
 
-export const LoginForm = styled.form`
+export const Form = styled.form`
   width: 370px;
-  /*height: 270px;*/
   border: 1px solid #f9f9f9;
   border-radius: 20px;
   text-align: center;
   background-color: #f9f9f9;
   margin: 0 auto 0 auto;
   padding: 20px 20px 0 20px;
-  /*@media screen and (max-width: 480px) {
-    width: 320px;
-    height: 270px;
-  }
-  @media screen and (max-width: 350px) {
-    width: 250px;
-  }*/
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 900px){
     width: 80%;
     margin: 20% auto 10% auto;
   }
   @media screen and (min-width: 1024px){
     position: relative;
     left: 40px;
-    top: 30px;
+    top: 40px;
   }
 `;
 
@@ -86,7 +54,7 @@ export const NavBtn = styled.nav`
   align-items: center;
 `;
 
-export const NavBtnLink = styled(LinkR)`
+export const Button = styled.button`
   border-radius: 50px;
   background: #19a25d;
   white-space: nowrap;
@@ -117,46 +85,31 @@ export const NavBtnLink2 = styled(LinkR)`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+  margin: auto 10px auto 10px;
   &:hover {
     transition: all 0.2sease-in-out;
     background: #f5f5f5;
     color: #205072;
   }
 `;
-
-export const MyTextField = styled(TextField)`
-  width: 100%;
-  /*@media screen and (max-width: 480px) {
-    width: 250px;
-  }
-  @media screen and (max-width: 350px) {
-    width: 200px;
-  }*/
-`;
-
-export const MyOutlinedInput = styled(OutlinedInput)`
-  /*width: 320px;
-  @media screen and (max-width: 480px) {
-    width: 250px;
-  }
-  @media screen and (max-width: 350px) {
-    width: 200px;
-  }*/
-`;
-
+//for login Page
 export const ForgetPassword = styled(NavLink)`
   text-decoration: underLine;
   color: blue;
   float: right;
   clear: both;
-  /*@media screen and (max-width: 480px) {
-    position: relative;
-    left: 60px;
-    top: 10px;
+`;
+
+//for verification code
+export const Code = styled(TextField)`
+  width: 50px;
+  margin: 10px;
+  background-color: white;
+  color: black;
+  @media screen and (max-width: 400px){
+    margin: 10px 5px 10px 5px;
   }
-  @media screen and (min-width: 700px) {
-    position: relative;
-    left: 90px;
-    top: 10px;
-  }*/
+  @media screen and (max-width: 320px){
+      margin: 10px 15px 10px 15px;
+  }
 `;

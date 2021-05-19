@@ -2,7 +2,6 @@ import { v4 as uuid } from 'uuid';
 
 export const addClinic = ({
     avatar = '',
-    name = '',
     specalist = '',
     rating = 0,
     hospital = '',
@@ -11,16 +10,19 @@ export const addClinic = ({
     callus = '',
     rating_total = 0,
     rating_users = 0,
-    avaliabledate1 = '',
-    avaliabledate2 = '',
-    avaliabledate3 = ''
+    schedules =  [],
+    doctor: {
+        name= '',
+        title= ''
+    }
 } = {}) => {
+    const spaceIndex = name.indexOf(' ');
+    avatar = (name[0] + ' ' + name[spaceIndex + 1]).toUpperCase();
     return {
         type: 'ADD_CLINIC',
         clinic: {
             id: uuid(),
             avatar,
-            name,
             specalist,
             rating,
             hospital,
@@ -29,9 +31,11 @@ export const addClinic = ({
             callus,
             rating_total,
             rating_users,
-            avaliabledate1,
-            avaliabledate2,
-            avaliabledate3
+            schedules,
+            doctor:{
+                name,
+                title
+            },
         }
     }
 }

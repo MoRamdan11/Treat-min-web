@@ -13,7 +13,18 @@ import FindClincalSection from '../FindClincal'
 import FindSpecialRoomSection from '../FindSpecialRooms'
 import FindServicesSection from '../FindServices';
 import { useTranslation} from "react-i18next";
+import Globals from "../navbar/global";
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
+const theme = createMuiTheme({
+  direction: Globals.direction,
+});
+
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 function TabPanel(props) {
   
   const { children, value, index, ...other } = props;
@@ -82,6 +93,7 @@ export default function NavTabs() {
   };
 
   return (
+    <StylesProvider jss={jss}>
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs
@@ -105,5 +117,6 @@ export default function NavTabs() {
         <FindServicesSection/>
       </TabPanel>
     </div>
+    </StylesProvider>
   );
 }
