@@ -5,6 +5,13 @@ export const fetchClinic = (fetch = true) => {
         fetch
     }
 }
+
+export const fetchEntities = (fetchEntities = true) => {
+    return{
+        type: 'SET_FETCH_ENTITIES',
+        fetchEntities
+    }
+}
 export const setTextFilter = (text = '') => {
     //for searching
     return{

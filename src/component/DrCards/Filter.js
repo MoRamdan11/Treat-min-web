@@ -25,6 +25,7 @@ import { ThemeProvider } from "@material-ui/core";
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import getVisibleEntities from "../../Redux/selectors/entities";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const useStyles = makeStyles((theme) => ({
@@ -124,12 +125,16 @@ const Filter = (props) => {
               }}
             >
               <option aria-label={t('none')} value="" />
+              {props.entities.map((entity, index) => {
+                return(<option>{entity.name}</option>)
+              })}
+              {/*<option aria-label={t('none')} value="" />
               <option value={"Cardiology"}>{t('cardiology')}</option>
               <option value={"Chest and Respiratory"}>{t('chest')}</option>
               <option value={"Dentistry"}>{t('dentistry')}</option>
               <option value={"Hepatology"}>{t('hepatology')}</option>
               <option value={"Internal Medicine"}>{t('internal')}</option>
-              <option value={"Neurosurgery"}>{t('neurosurgery')}</option>
+              <option value={"Neurosurgery"}>{t('neurosurgery')}</option>*/}
             </Select>
           </FormControl>
           <FormControl variant="outlined" className={classes.formControl}>
@@ -226,7 +231,8 @@ const Filter = (props) => {
 }
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterClinics
+    filters: state.filterClinics,
+    entities: getVisibleEntities(state.entities)
   };
 }
 export default connect(mapStateToProps)(Filter);

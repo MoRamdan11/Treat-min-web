@@ -36,6 +36,7 @@ import {addClinic} from "./Redux/actions/clinics";
 import { fetchClinic } from "./Redux/actions/filterClinics";
 import { connect } from "react-redux";
 import Auth from "./Auth/auth";
+import AddEntitiesToRedux from "./component/DrCards/entitiesData";
 function App(props) {
   const [doctors, setDoctors] = useState([]);
   var doctors2 = [];
@@ -71,6 +72,8 @@ function App(props) {
   return (
     <Router>
       <Route>
+        <AddEntitiesToRedux />
+        <AddDataToRedux />
         <AddSpecialRoomsToRedux />
         <AddServicesToRedux />
         <Sidebar isOpen={isOpen} toggle={toggle} />

@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     marginTop: "20px",
     width: "500px",
-    "@media screen and (max-width: 500px)":{
+    "@media screen and (max-width: 500px)": {
       width: "100%"
     }
   }
@@ -90,7 +90,7 @@ const theme = createMuiTheme({
 function valuetext(value) {
   return `${value}{t('le')}`;
 }
-const Prices= [
+const Prices = [
   {
     value: 100,
     label: '100L.E',
@@ -141,14 +141,9 @@ const FindForm = (props) => {
     setService(event.target.value);
   };
 
-  const handlePriceChange = (event) => {
-    const price = event.target.value;
-    if (price === "") {
-      props.dispatch(setPriceFilter(0));
-    } else {
-      const intPrice = parseInt(price);
-      props.dispatch(setPriceFilter(intPrice));
-    }
+  const handlePriceChange = (event, newValue) => {
+    const price = newValue;
+    props.dispatch(setPriceFilter(price));
   }
 
   const handleSearchChange = (event) => {
@@ -194,88 +189,89 @@ const FindForm = (props) => {
   };
   const { t } = useTranslation();
   return (
-    <ThemeProvider theme = {theme}>
-    <StylesProvider jss={jss}>
-    <div>
-      <h1 className={classes.title}> {t('find_room')}</h1>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label1">
-        {t('special_room')}
-        </InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select1"
-          open={Sopen}
-          onClose={ShandleClose}
-          onOpen={ShandleOpen}
-          value={props.filters.room}
-          onChange={handleRoomChange}
-        >
-        <MenuItem value="" data-id="1">
-        <em>{t('none')}</em>
-      </MenuItem>
-      <MenuItem value={10} data-id="1">
-      {t('labor')}
-      </MenuItem>
-      <MenuItem value={20} data-id="1">
-      {t('intensive')}
-      </MenuItem>
-      <MenuItem value={30} data-id="1">
-      {t('covidr')}
-      </MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label2">
-        {t('hospital')}
-        </InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label2"
-          id="demo-controlled-open-select2"
-          open={Hopen}
-          onClose={HhandleClose}
-          onOpen={HhandleOpen}
-          value={props.filters.hospital}
-          onChange={HospitalhandleChange}
-        >
-        <MenuItem value="" data-id="2">
-        <em>{t('none')}</em>
-      </MenuItem>
-      <MenuItem value={10} data-id="2">
-      {t('daar')}
-      </MenuItem>
-      <MenuItem value={20} data-id="2">
-      {t('midan')}
-      </MenuItem>
-        </Select>
-      </FormControl>
-      <div className={classes.root}>
-      <Typography id="discrete-slider-always" gutterBottom>
-      {t('price')}
-      </Typography>
-      <Slider
-        max={500}
-        defaultValue={150}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider-always"
-        step={50}
-        marks={Prices}
-        valueLabelDisplay="on"
-      />
-    </div>
-      <div style={{ textAlign: "center", marginBottom: "10px" }}>
-        <FormControl
-          variant="outlined"
-          className={classes.searchStyle}
-        >
-        <div class="form-group has-search">
-        <span class="fa fa-search form-control-feedback"></span>
-        <input type="text" class="form-control" placeholder={t('searchroom')} onChange={handleSearchChange}/>
-      </div>
-        </FormControl>
-      </div>
-    </div>
-    </StylesProvider>
+    <ThemeProvider theme={theme}>
+      <StylesProvider jss={jss}>
+        <div>
+          <h1 className={classes.title}> {t('find_room')}</h1>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label1">
+              {t('special_room')}
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select1"
+              open={Sopen}
+              onClose={ShandleClose}
+              onOpen={ShandleOpen}
+              value={props.filters.room}
+              onChange={handleRoomChange}
+            >
+              <MenuItem value="" data-id="1">
+                <em>{t('none')}</em>
+              </MenuItem>
+              <MenuItem value={10} data-id="1">
+                {t('labor')}
+              </MenuItem>
+              <MenuItem value={20} data-id="1">
+                {t('intensive')}
+              </MenuItem>
+              <MenuItem value={30} data-id="1">
+                {t('covidr')}
+              </MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label2">
+              {t('hospital')}
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label2"
+              id="demo-controlled-open-select2"
+              open={Hopen}
+              onClose={HhandleClose}
+              onOpen={HhandleOpen}
+              value={props.filters.hospital}
+              onChange={HospitalhandleChange}
+            >
+              <MenuItem value="" data-id="2">
+                <em>{t('none')}</em>
+              </MenuItem>
+              <MenuItem value={10} data-id="2">
+                {t('daar')}
+              </MenuItem>
+              <MenuItem value={20} data-id="2">
+                {t('midan')}
+              </MenuItem>
+            </Select>
+          </FormControl>
+          <div className={classes.root}>
+            <Typography id="discrete-slider-always" gutterBottom>
+              {t('price')}
+            </Typography>
+            <Slider
+              max={500}
+              defaultValue={500}
+              getAriaValueText={valuetext}
+              aria-labelledby="discrete-slider-always"
+              step={50}
+              marks={Prices}
+              onChange={handlePriceChange}
+              valueLabelDisplay="on"
+            />
+          </div>
+          <div style={{ textAlign: "center", marginBottom: "10px" }}>
+            <FormControl
+              variant="outlined"
+              className={classes.searchStyle}
+            >
+              <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder={t('searchroom')} onChange={handleSearchChange} />
+              </div>
+            </FormControl>
+          </div>
+        </div>
+      </StylesProvider>
     </ThemeProvider>
   );
 };

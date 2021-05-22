@@ -9,7 +9,7 @@ const Emergncy = () => {
         <div>
         <h1 className="header"> We are here to help you </h1>
         <h2 className="subheader">keep calm , call 123 then choose first aid to save human life or nearest hospital</h2>
-        <img src={require("./Nursing home-bro.png").default} alt="loading..."  className="image"/>
+        <img src={require("./Nursing home.gif").default} alt="loading..."  className="image"/>
         <div className="btn__container">
        <NavBtnLink className="btn"> First Aid</NavBtnLink></div>
        <div className="btn__container">

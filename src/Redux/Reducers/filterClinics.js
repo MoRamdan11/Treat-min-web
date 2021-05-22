@@ -17,6 +17,9 @@ const filterClinicsReducer = ((state = filterReducerDefaultState, action) => {
         case 'SET_FETCH_CLINIC':{
             return{...state, fetch: action.fetch}
         }
+        case 'SET_FETCH_ENTITIES': {
+            return{...state, fetchEntities: action.fetchEntities}
+        }
         case 'SET_TEXT_FILTER':
             return {...state, text: action.text};
         case 'SET_SPECIALITY': 

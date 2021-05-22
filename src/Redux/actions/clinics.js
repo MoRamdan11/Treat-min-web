@@ -11,6 +11,8 @@ export const addClinic = ({
     rating_total = 0,
     rating_users = 0,
     schedules =  [],
+    id,
+    api,
     doctor: {
         name= '',
         title= ''
@@ -32,6 +34,8 @@ export const addClinic = ({
             rating_total,
             rating_users,
             schedules,
+            id_Schedule: id,
+            api,
             doctor:{
                 name,
                 title

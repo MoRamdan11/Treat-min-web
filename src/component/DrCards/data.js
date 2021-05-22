@@ -17,6 +17,7 @@ class AddDataToRedux extends React.Component{
       const data = await axios.get(`/api/clinics/${i}/details/`).then((response) => {
         const drData = response.data.details.map((card) => ({
           ...card,
+          api: i,
           specalist: response.data.entity
         }))
         this.setState({doctors: [...this.state.doctors, ...drData]});

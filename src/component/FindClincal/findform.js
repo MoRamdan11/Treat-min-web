@@ -1,6 +1,6 @@
 import React from "react";
-import"./findform.css";
-import { makeStyles ,createMuiTheme } from "@material-ui/core/styles";
+import "./findform.css";
+import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 import { InputLabel } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
@@ -28,6 +28,7 @@ import { ThemeProvider } from "styled-components";
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import getVisibleEntities from "../../Redux/selectors/entities";
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -37,7 +38,7 @@ function valuetext(value) {
 const theme = createMuiTheme({
   direction: Globals.direction,
 });
-const Prices= [
+const Prices = [
   {
     value: 100,
     label: '100L.E',
@@ -103,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   searchStyle: {
     borderRadius: "50px",
     width: "500px",
-    "@media screen and (max-width: 500px)":{
+    "@media screen and (max-width: 500px)": {
       width: "100%"
     }
   }
@@ -120,10 +121,12 @@ const FindForm = (props) => {
   const [Dopen, setDOpen] = React.useState(false);
   const [SEopen, setSEOpen] = React.useState(false);
   const [Popen, setPOpen] = React.useState(false);//price Open
-  const [price, setPrice] = React.useState([20, 37]);
+  const [price, setPrices] = React.useState([20, 37]);
 
   const handlePriceChange = (event, newValue) => {
-    setPrice(newValue);
+    const price = newValue;
+    //setPrices(price);
+    props.dispatch(setPrice(price));
   };
 
   const SpecialictyhandleChange = (event) => {
@@ -192,103 +195,95 @@ const FindForm = (props) => {
   }
   return (
     <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>
-    <div>
-      <h1 className={classes.title}> {t('find_clincal')}</h1>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label1">
-        {t('specialist')}
-        </InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select1"
-          open={Sopen}
-          onClose={ShandleClose}
-          onOpen={ShandleOpen}
-          value={props.filters.speciality}
-          onChange={SpecialictyhandleChange}
-        >
-        <MenuItem value="" data-id="1">
-        <em>{t('none')}</em>
-      </MenuItem>
-      <MenuItem value={'Cardiology'} data-id="1">
-      {t('cardiology')}
-      </MenuItem>
-      <MenuItem value={'Chest and Respiratory'} data-id="1">
-      {t('chest')}
-      </MenuItem>
-      <MenuItem value={'Dentistry'} data-id="1">
-      {t('dentistry')}
-      </MenuItem>
-      <MenuItem value={'Hepatology'} data-id="1">
-      {t('hepatology')}
-      </MenuItem>
-      <MenuItem value={'Internal Medicine'} data-id="1">
-      {t('internal')}
-      </MenuItem>
-      <MenuItem value={'Neurosurgery'} data-id="1">
-      {t('neurosurgery')}
-      </MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label2">
-        {t('hospital')}
-        </InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label2"
-          id="demo-controlled-open-select2"
-          open={Hopen}
-          onClose={HhandleClose}
-          onOpen={HhandleOpen}
-          value={props.filters.hospital}
-          onChange={HospitalhandleChange}
-        >
-        <MenuItem value="" data-id="2">
-        <em>{t('none')}</em>
-      </MenuItem>
-      <MenuItem value={'Daar El fouad'} data-id="2">
-      {t('daar')}
-      </MenuItem>
-      <MenuItem value={'elmidan'}data-id="2">
-      {t('midan')}
-      </MenuItem>
-        </Select>
-      </FormControl>
-      <div className={classes.root}>
-      <Typography id="discrete-slider-always" gutterBottom>
-      {t('price')}
-      </Typography>
-      <Slider
-        max={500}
-        defaultValue={150}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider-always"
-        step={50}
-        marks={Prices}
-        valueLabelDisplay="on"
-      />
-    </div>
-      <div style={{ textAlign: "center", marginTop: "10px" }}>
-        <FormControl
-          variant="outlined"
-          className={classes.searchStyle}
-        >
-        <div class="form-group has-search">
-        <span class="fa fa-search form-control-feedback"></span>
-        <input type="text" class="form-control" placeholder={t('search')} onChange={handleSearchChange}/>
-      </div>
-        </FormControl>
-      </div>
-    </div>
-    </StylesProvider>
+      <StylesProvider jss={jss}>
+        <div>
+          <h1 className={classes.title}> {t('find_clincal')}</h1>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label1">
+              {t('specialist')}
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select1"
+              open={Sopen}
+              onClose={ShandleClose}
+              onOpen={ShandleOpen}
+              value={props.filters.speciality}
+              onChange={SpecialictyhandleChange}
+            >
+              <MenuItem value="" data-id="1">
+                <em>{t('none')}</em>
+              </MenuItem>
+              {props.entities.map((entity, index) => {
+                return (
+                  <MenuItem value="" data-id="1">
+                    <em>{entity.name}</em>
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label2">
+              {t('hospital')}
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label2"
+              id="demo-controlled-open-select2"
+              open={Hopen}
+              onClose={HhandleClose}
+              onOpen={HhandleOpen}
+              value={props.filters.hospital}
+              onChange={HospitalhandleChange}
+            >
+              <MenuItem value="" data-id="2">
+                <em>{t('none')}</em>
+              </MenuItem>
+              <MenuItem value={'Daar El fouad'} data-id="2">
+                {t('daar')}
+              </MenuItem>
+              <MenuItem value={'elmidan'} data-id="2">
+                {t('midan')}
+              </MenuItem>
+            </Select>
+          </FormControl>
+          <div className={classes.root}>
+            <Typography id="discrete-slider-always" gutterBottom>
+              {t('price')}
+            </Typography>
+            <Slider
+              max={500}
+              defaultValue={500}
+              getAriaValueText={valuetext}
+              aria-labelledby="discrete-slider-always"
+              step={50}
+              marks={Prices}
+              valueLabelDisplay="on"
+              onChange={handlePriceChange}
+            //value = {props.filters.price}
+            />
+          </div>
+          <div style={{ textAlign: "center", marginTop: "10px" }}>
+            <FormControl
+              variant="outlined"
+              className={classes.searchStyle}
+            >
+              <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder={t('search')} onChange={handleSearchChange} />
+              </div>
+            </FormControl>
+          </div>
+        </div>
+      </StylesProvider>
     </ThemeProvider>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterClinics
+    filters: state.filterClinics,
+    entities: getVisibleEntities(state.entities)
   };
 }
 export default connect(mapStateToProps)(FindForm);
