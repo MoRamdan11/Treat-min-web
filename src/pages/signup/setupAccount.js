@@ -26,13 +26,6 @@ import {
   GenderLabel
 } from "./setupAccountElements";
 import axios from "axios";
-import Globals from "../../component/navbar/global";
-import { create } from 'jss';
-import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/core/styles';
-
-// Configure JSS
-const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 const useStyles = makeStyles({
   content: {
@@ -61,7 +54,6 @@ const useStyles = makeStyles({
   },
 });
 const theme = createMuiTheme({
-  direction:Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
@@ -200,7 +192,6 @@ function SetupAccount(props) {
   return (
     <div>
       <ThemeProvider theme={theme}>
-      <StylesProvider jss={jss}>
         <GridContainer container>
           <Grid xs={12} sm={12} md={6} lg={6}>
             <SignUpImg
@@ -359,7 +350,6 @@ function SetupAccount(props) {
             </SignUpForm>
           </GridForm>
         </GridContainer>
-        </StylesProvider>
       </ThemeProvider>
     </div>
   );

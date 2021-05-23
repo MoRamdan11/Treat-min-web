@@ -19,12 +19,13 @@ import {
   NavBtn,
   Button,
   NavBtnLink2,
-  ForgetPassword
+  ForgetPassword,
+  FindAccount
 } from "../elements";
 import axios from "axios";
-import Globals from "../../component/navbar/global";
+import { connect } from "react-redux";
+import { setAuth } from "../../Redux/actions/Auth";
 const theme = createMuiTheme({
-  direction:Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
@@ -62,6 +63,7 @@ function Login(props) {
   const [visibility, setVisibility] = useState(false);
   const [inValidEmail, setInValidEmail] = useState(false);
   const [inValidPass, setInValidPass] = useState(false);
+  const [loginFailed, setLoginFailed] = useState(false);
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     if (emailValue.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
@@ -99,8 +101,11 @@ function Login(props) {
         const token = response.data.token;
         localStorage.setItem('token', token);
         localStorage.setItem('isLogin', 'true');
+        props.dispatch(setAuth(true));
         props.history.push('/');
       }).catch((error) => {
+        console.log('loginFilled');
+        setLoginFailed(true);
         console.log(error);
       })
 
@@ -127,8 +132,11 @@ function Login(props) {
           const token = response.data.token;
           localStorage.setItem('token', token);
           localStorage.setItem('isLogin', 'true');
+          props.dispatch(setAuth(true));
           props.history.push('/');
         }).catch((error) => {
+          console.log('loginFilled');
+          setLoginFailed(true);
           console.log(error);
         })
 
@@ -204,12 +212,17 @@ function Login(props) {
                   labelWidth={80}
                 />
               </FormControl>
-              {inValidPass && <div><p style={{ color: "red", marginTop: "5px", float: "left", clear: "both" }}>
+              {inValidPass && <div><p style={{ color: "red", marginTop: "5px" }}>
                 {t('eightcharcter')}
               </p></div>}
-              <br />
-              <div style={{ paddingTop: "10px", paddingBottom: "2px" }}>
-                <p style={{ display: "inline" }}>
+              {loginFailed && <div><p style={{ color: "red", marginTop: "5px" }}>
+                {t('loginfailed')}&nbsp;&nbsp;
+                <FindAccount to="/forgetPassword">
+                  {t('findaccount')}?
+                </FindAccount>
+              </p></div>}
+              <div style={{marginTop: "5px", paddingBottom: "2px" }}>
+                <p style={{ display: "inline" , fontWeight: "bold"}}>
                   {t('newuser')}&nbsp;&nbsp;
                 </p>
                 <NavLink className={styles.signUp} to="/SignUp">
@@ -234,4 +247,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default connect()(Login);

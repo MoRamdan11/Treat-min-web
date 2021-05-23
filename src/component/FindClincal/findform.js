@@ -239,6 +239,9 @@ const FindForm = (props) => {
               <MenuItem value="" data-id="2">
                 <em>{t('none')}</em>
               </MenuItem>
+              <MenuItem value="Nasr city Clincs" data-id="2">
+                <em>{"Nasr city Clincs"}</em>
+              </MenuItem>
               <MenuItem value={'Daar El fouad'} data-id="2">
                 {t('daar')}
               </MenuItem>

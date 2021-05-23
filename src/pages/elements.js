@@ -45,7 +45,7 @@ export const Form = styled.form`
   @media screen and (min-width: 1024px){
     position: relative;
     left: 40px;
-    top: 40px;
+    top: 20px;
   }
 `;
 
@@ -100,6 +100,10 @@ export const ForgetPassword = styled(NavLink)`
   clear: both;
 `;
 
+export const FindAccount = styled(NavLink)`
+  text-decoration: underLine;
+  color: blue;
+`;
 //for verification code
 export const Code = styled(TextField)`
   width: 50px;

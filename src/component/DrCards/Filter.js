@@ -149,6 +149,9 @@ const Filter = (props) => {
               }}
             >
               <option aria-label={t('none')} value="" />
+              <option value="Nasr city Clincs" data-id="2">
+                {"Nasr city Clincs"}
+              </option>
               <option value={"Daar El fouad"}>{t('daar')}</option>
               <option value={"elmidan"}>{t('midan')}</option>
             </Select>

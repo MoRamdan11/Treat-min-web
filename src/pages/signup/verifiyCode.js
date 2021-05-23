@@ -14,15 +14,7 @@ import {
 } from "../elements";
 import { useTranslation, initReactI18next } from "react-i18next";
 import axios from "axios";
-import Globals from "../../component/navbar/global";
-import { create } from 'jss';
-import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/core/styles';
-
-// Configure JSS
-const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const theme = createMuiTheme({
-  direction:Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
@@ -163,7 +155,6 @@ function VerificationCode(props) {
   return (
     <div>
       <ThemeProvider theme={theme}>
-      <StylesProvider jss={jss}>
         <GridContainer container>
           <Grid xs={12} sm={12} md={6} lg={6}>
             <Img
@@ -233,7 +224,6 @@ function VerificationCode(props) {
             </Form>
           </GridForm>
         </GridContainer>
-        </StylesProvider>
       </ThemeProvider>
     </div>
   );

@@ -4,11 +4,18 @@ const filterSpecialRoomsReducerReducerDefaultState = {
     hospital: '',
     price: 0,
     sortBy: '',
+    fetchEntities: false,
+    fetch: false
     //sort by ==> 'A to Z' || 'Z to A' || 'Lowest Price' || 'Highest Price' || 'Date'
 };
 
 const filterSpecialRoomsReducer = ((state = filterSpecialRoomsReducerReducerDefaultState, action) => {
     switch (action.type) {
+        case 'SET_FETCH_ROOMS': 
+            return {...state, fetch: action.fetch};
+        case 'SET_FETCH_ROOMS_ENTITIES': {
+            return {...state, fetchEntities: action.fetchEntities}
+        }
         case'SET_TEXT_FILTER':
             return {...state, text: action.text};
         case 'SET_ROOM_FILTER':

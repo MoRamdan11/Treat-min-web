@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const theme = createMuiTheme({
-    direction: Globals.direction,
+  direction: Globals.direction,
   palette: {
     primary: {
       main: "#19a25d"
@@ -102,124 +102,132 @@ function Filter(props) {
   const { t } = useTranslation();
   return (
     <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>
-      <div style={{ textAlign: "center" }}>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel
-            htmlFor="outlined-age-native-simple"
-            className={classes.inputLabel}
-          >
-          {t('room')}
-        </InputLabel>
-          <Select
-            native
-            value={props.filters.room}
-            onChange={handleChange}
-            inputProps={{
-              name: "Room",
-              id: "outlined-age-native-simple",
-            }}
-          >
-          <option aria-label={t('none')} value="" />
-          <option value={"Labor"}>{t('labor')}</option>
-          <option value={"Intensive treatment"}>
-          {t('intensive')}
-        </option>
-          <option value={"Covid"}>{t('covidr')}</option>
-          </Select>
-        </FormControl>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel
-            htmlFor="outlined-age-native-simple"
-            className={classes.inputLabel}
-          >
-          {t('hospital')}
-        </InputLabel>
-          <Select
-            native
-            value={props.filters.hospital}
-            onChange={handleChange}
-            inputProps={{
-              name: "Hospital",
-              id: "outlined-age-native-simple",
-            }}
-          >
-          <option aria-label={t('none')} value="" />
-          <option value={"Daar El fouad"}>{t('daar')}</option>
-          <option value={"elmidan"}>{t('midan')}</option>
-          </Select>
-        </FormControl>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel
-            htmlFor="outlined-age-native-simple"
-            className={classes.inputLabel}
-          >
-          {t('price')}
-        </InputLabel>
-          <Select
-            native
-            value={props.filters.price}
-            onChange={handleChange}
-            inputProps={{
-              name: "Max Price",
-              id: "outlined-age-native-simple",
-            }}
-          >
-            <option aria-label={t('price')} value="" />
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="150">150</option>
-            <option value="200">200</option>
-            <option value="250">250</option>
-            <option value="300">300</option>
-            <option value="350">350</option>
-            <option value="400">400</option>
-            <option value="450">450</option>
-            <option value="500">500</option>
-          </Select>
-        </FormControl>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel
-            htmlFor="outlined-age-native-simple"
-            className={classes.inputLabel}
-          >
-          {t('sort')}
-        </InputLabel>
-          <Select
-            native
-            value={props.filters.sortBy}
-            onChange={handleChange}
-            inputProps={{
-              name: "Sort",
-              id: "outlined-age-native-simple",
-            }}
-          >
-          <option aria-label={t('none')} value="" />
-          <option value={"A to Z"}>{t('atoz')}</option>
-          <option value={"Z to A"}>{t('ztoa')}</option>
-          <option value={"Lowest Price"}>{t('lowestprice')}</option>
-          <option value={"Highest Price"}>{t('highestprice')}</option>
-          </Select>
-        </FormControl>
-        <div style={{ textAlign: "center", marginBottom: "10px" }}>
-          <FormControl
-            variant="outlined"
-            className={classes.searchStyle}
-          >
-          <div class="form-group has-search">
-          <span class="fa fa-search form-control-feedback"></span>
-          <input type="text" class="form-control" placeholder={t('searchroom')} onChange={handleSearchChange}/>
-        </div>
+      <StylesProvider jss={jss}>
+        <div style={{ textAlign: "center" }}>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel
+              htmlFor="outlined-age-native-simple"
+              className={classes.inputLabel}
+            >
+              {t('room')}
+            </InputLabel>
+            <Select
+              native
+              value={props.filters.room}
+              onChange={handleChange}
+              inputProps={{
+                name: "Room",
+                id: "outlined-age-native-simple",
+              }}
+            >
+              <option aria-label={t('none')} value="" />
+              {props.entities.map((entity) => {
+                return (
+                  <option value={entity.name}>
+                    {entity.name}
+                  </option>
+                );
+              })}
+              <option value={"Labor"}>{t('labor')}</option>
+              <option value={"Intensive treatment"}>
+                {t('intensive')}
+              </option>
+              <option value={"Covid"}>{t('covidr')}</option>
+            </Select>
           </FormControl>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel
+              htmlFor="outlined-age-native-simple"
+              className={classes.inputLabel}
+            >
+              {t('hospital')}
+            </InputLabel>
+            <Select
+              native
+              value={props.filters.hospital}
+              onChange={handleChange}
+              inputProps={{
+                name: "Hospital",
+                id: "outlined-age-native-simple",
+              }}
+            >
+              <option aria-label={t('none')} value="" />
+              <option value={"Daar El fouad"}>{t('daar')}</option>
+              <option value={"elmidan"}>{t('midan')}</option>
+            </Select>
+          </FormControl>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel
+              htmlFor="outlined-age-native-simple"
+              className={classes.inputLabel}
+            >
+              {t('price')}
+            </InputLabel>
+            <Select
+              native
+              value={props.filters.price}
+              onChange={handleChange}
+              inputProps={{
+                name: "Max Price",
+                id: "outlined-age-native-simple",
+              }}
+            >
+              <option aria-label={t('price')} value="" />
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="150">150</option>
+              <option value="200">200</option>
+              <option value="250">250</option>
+              <option value="300">300</option>
+              <option value="350">350</option>
+              <option value="400">400</option>
+              <option value="450">450</option>
+              <option value="500">500</option>
+            </Select>
+          </FormControl>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel
+              htmlFor="outlined-age-native-simple"
+              className={classes.inputLabel}
+            >
+              {t('sort')}
+            </InputLabel>
+            <Select
+              native
+              value={props.filters.sortBy}
+              onChange={handleChange}
+              inputProps={{
+                name: "Sort",
+                id: "outlined-age-native-simple",
+              }}
+            >
+              <option aria-label={t('none')} value="" />
+              <option value={"A to Z"}>{t('atoz')}</option>
+              <option value={"Z to A"}>{t('ztoa')}</option>
+              <option value={"Lowest Price"}>{t('lowestprice')}</option>
+              <option value={"Highest Price"}>{t('highestprice')}</option>
+            </Select>
+          </FormControl>
+          <div style={{ textAlign: "center", marginBottom: "10px" }}>
+            <FormControl
+              variant="outlined"
+              className={classes.searchStyle}
+            >
+              <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder={t('searchroom')} onChange={handleSearchChange} />
+              </div>
+            </FormControl>
+          </div>
         </div>
-      </div>
       </StylesProvider>
     </ThemeProvider>
   );
 }
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterSpecialRooms
+    filters: state.filterSpecialRooms,
+    entities: state.specialRoomsEntities
   };
 }
 export default connect(mapStateToProps)(Filter);

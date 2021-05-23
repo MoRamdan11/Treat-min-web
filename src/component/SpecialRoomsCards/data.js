@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import { addSpecialRoom } from "../../Redux/actions/specialRooms";
+import { fetchRooms } from "../../Redux/actions/specialRoomsFilter";
+import axios from 'axios';
 const AddSpecialRoomsToRedux = (props) => {
-  const specialRooms = [
+  const specialRooms2 = [
     {
       avatar: "#1",
       room: "Intensive treatment",
@@ -93,11 +95,48 @@ const AddSpecialRoomsToRedux = (props) => {
       services: {},
     },
   ];
-  return(
-    <div style = {{height: "0px", width: "0px"}}>
-      {specialRooms.map((specialRoom) => {props.dispatch(addSpecialRoom(specialRoom));})}
+  const [rooms, setRooms] = useState([]);
+  useEffect(() => {
+    async function fetchRoomsData() {
+      for (var i = 1; i <= 3; i++) {
+        if (props.filters.fetch === true) {
+          return
+        }
+        const data = await axios.get(`api/rooms/${i}/details/`).then((response) => {
+          const roomData = response.data.details.map((card) => ({
+            ...card,
+            api: i,
+            room: response.data.entity,
+            services: []
+          }));
+          let serv = rooms;
+          serv.push(...roomData);
+          setRooms(serv);
+        }).catch((error) => {
+          console.log(error);
+        }).finally(() => {
+          console.log('finalRooms', rooms);
+          rooms.map((room) => {
+            props.dispatch(addSpecialRoom(room))
+          });
+          setRooms([]);
+        })
+      }
+      specialRooms2.map((room) => {
+        props.dispatch(addSpecialRoom(room))
+      });
+      props.dispatch(fetchRooms(true));
+    }
+    fetchRoomsData();
+  }, [])
+  return (
+    <div style={{ height: "0px", width: "0px" }}>
     </div>
-  );  
+  );
 }
-
-export default connect()(AddSpecialRoomsToRedux);
+const mapStateToProps = (state) => {
+  return {
+    filters: state.filterSpecialRooms
+  };
+}
+export default connect(mapStateToProps)(AddSpecialRoomsToRedux);

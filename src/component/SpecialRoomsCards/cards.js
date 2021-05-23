@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles ,createMuiTheme,ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Card } from "@material-ui/core";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
@@ -45,7 +45,7 @@ const theme = createMuiTheme({
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-  
+
   return (
     <div
       role="tabpanel"
@@ -156,7 +156,7 @@ const OutlinedCard = ({
   price,
   callus,
   dispatch,
-  services:{
+  services: {
     wifi,
     beds,
     tv,
@@ -187,111 +187,111 @@ const OutlinedCard = ({
     setHover(!hover);
   };
   const handleDeleteCLick = () => {
-    dispatch(removeSpecialRoom({id}));
+    dispatch(removeSpecialRoom({ id }));
   }
   var gridDivider = 0;
-  gridDivider = beds >= 1? gridDivider + 1 : gridDivider;
-  gridDivider = wifi? gridDivider + 1 : gridDivider;
-  gridDivider = tv ?  gridDivider + 1 : gridDivider;
-  gridDivider = fridge? gridDivider + 1: gridDivider;
+  gridDivider = beds >= 1 ? gridDivider + 1 : gridDivider;
+  gridDivider = wifi ? gridDivider + 1 : gridDivider;
+  gridDivider = tv ? gridDivider + 1 : gridDivider;
+  gridDivider = fridge ? gridDivider + 1 : gridDivider;
   console.log(gridDivider);
   const { t } = useTranslation();
   return (
     <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>
-    <Card className={classes.root} variant="outlined">
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {avatar}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <DeleteIcon 
-              fontSize = "large" 
-              className = {classes.deleteIcon}
-              onClick = {handleDeleteCLick}
-            />
-          </IconButton>
-        }
-      />
-      <CardContent>
-        <h1 className={classes.title} color="textSecondary" gutterBottom>
-          {room} {t('room')} 
-        </h1>
-        <Typography className={classes.pos}>{hospital} {t('hospital')} </Typography>
-        <IconButton className={classes.GradeIcon} aria-label="settings">
-          <GradeIcon />
-        </IconButton>
-        {rating}
-        <Paper square className={classes.Tab}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            variant="fullWidth"
-            indicatorColor="default"
-            textColor="default"
-            aria-label="icon label tabs example"
-          >
-            <Tab
-              className={classes.Tab}
-              icon={<EventAvailableOutlinedIcon />}
-              label={t('service')} 
-            />
-            <Tab className={classes.Tab} icon={<LocalAtmIcon />} label={t('fees')}  />
-            <Tab className={classes.Tab} icon={<CallIcon />} label={t('calus')}  />
-          </Tabs>
-          <TabPanel value={value} index={0}>
-            <Grid container className = "seviceGrid">
-              {gridDivider === 0 && <Grid item xs={12} sm={12} md={12} lg={12} >
-                    <h3 style = {{ margin: "0 auto 0 auto", color: "#f05454"}}>{t('servicenotavaliable')} </h3>
-                    </Grid>
-              }
-              {beds > 0 && <Grid item xs={12 / gridDivider}>
-                <Button
-                  startIcon={<SingleBedIcon />}
-                  className={classes.services}
-                >
-                  {beds} {t('bed')} 
-                </Button>
-              </Grid>}
-              {wifi && <Grid item xs={12 / gridDivider}>
-                <Button
-                  startIcon={<WifiOutlined />}
-                  className={classes.services}
-                >
-                {t('wifi')} 
-                </Button>
-              </Grid>
-              }
-              {tv && <Grid item xs={12 / gridDivider}>
-                <Button startIcon={<TvIcon />} className={classes.services}>
-                {t('tv')} 
-                </Button>
-              </Grid>
-              }
-              {fridge && <Grid item xs={12 / gridDivider}>
-                <Button
-                  startIcon={<KitchenIcon />}
-                  className={classes.services}
-                >
-                {t('fridge')} 
-                </Button>
-              </Grid>
-              }
-            </Grid>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            {price} {t('le')} 
-          </TabPanel> 
-          <TabPanel value={value} index={2}>
-            {callus}
-          </TabPanel>
-        </Paper>
-      </CardContent>
-    </Card>
-    </StylesProvider>
+      <StylesProvider jss={jss}>
+        <Card className={classes.root} variant="outlined">
+          <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                {avatar}
+              </Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <DeleteIcon
+                  fontSize="large"
+                  className={classes.deleteIcon}
+                  onClick={handleDeleteCLick}
+                />
+              </IconButton>
+            }
+          />
+          <CardContent>
+            <h1 className={classes.title} color="textSecondary" gutterBottom>
+            {t('room')} {room} 
+            </h1>
+            <Typography className={classes.pos}>{hospital} {t('hospital')} </Typography>
+            <IconButton className={classes.GradeIcon} aria-label="settings">
+              <GradeIcon />
+            </IconButton>
+            {rating}
+            <Paper square className={classes.Tab}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="fullWidth"
+                indicatorColor="default"
+                textColor="default"
+                aria-label="icon label tabs example"
+              >
+                <Tab
+                  className={classes.Tab}
+                  icon={<EventAvailableOutlinedIcon />}
+                  label={t('service')}
+                />
+                {/*<Tab className={classes.Tab} icon={<LocalAtmIcon />} label={t('fees')} />*/}
+                <Tab className={classes.Tab} icon={<CallIcon />} label={t('calus')} />
+              </Tabs>
+              <TabPanel value={value} index={0}>
+                <Grid container className="seviceGrid">
+                  {gridDivider === 0 && <Grid item xs={12} sm={12} md={12} lg={12} >
+                    <h3 style={{ margin: "0 auto 0 auto", color: "#f05454" }}>{t('servicenotavaliable')} </h3>
+                  </Grid>
+                  }
+                  {beds > 0 && <Grid item xs={12 / gridDivider}>
+                    <Button
+                      startIcon={<SingleBedIcon />}
+                      className={classes.services}
+                    >
+                      {beds} {t('bed')}
+                    </Button>
+                  </Grid>}
+                  {wifi && <Grid item xs={12 / gridDivider}>
+                    <Button
+                      startIcon={<WifiOutlined />}
+                      className={classes.services}
+                    >
+                      {t('wifi')}
+                    </Button>
+                  </Grid>
+                  }
+                  {tv && <Grid item xs={12 / gridDivider}>
+                    <Button startIcon={<TvIcon />} className={classes.services}>
+                      {t('tv')}
+                    </Button>
+                  </Grid>
+                  }
+                  {fridge && <Grid item xs={12 / gridDivider}>
+                    <Button
+                      startIcon={<KitchenIcon />}
+                      className={classes.services}
+                    >
+                      {t('fridge')}
+                    </Button>
+                  </Grid>
+                  }
+                </Grid>
+              </TabPanel>
+              {/*<TabPanel value={value} index={1}>
+                {price} {t('le')}
+              </TabPanel>*/}
+              <TabPanel value={value} index={1}>
+                {callus}
+              </TabPanel>
+            </Paper>
+          </CardContent>
+        </Card>
+      </StylesProvider>
     </ThemeProvider>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles,createMuiTheme ,ThemeProvider} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { useTranslation, initReactI18next } from "react-i18next";
 import {
@@ -15,16 +15,6 @@ import {
   TeamImg,
   SupervisorsDiv
 } from "./teamElements";
-import Globals from "../../component/navbar/global";
-import { create } from 'jss';
-import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/core/styles';
-
-// Configure JSS
-const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
-const theme = createMuiTheme({
-  direction: Globals.direction,
-});
 
 const useStyles = makeStyles({
   super: {
@@ -80,8 +70,6 @@ const Team = () => {
   const { t } = useTranslation();
   return (
     <div>
-    <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>
       <GridContainer container>
         <Grid className={styles.gridImg} xs={12} sm={12} md={12} lg={12}>
           <TeamImg src={require("../../images/Team work-bro.png").default} />
@@ -171,31 +159,29 @@ const Team = () => {
             </div>
           </Grid>
           <GridMobileElements container xs={12} sm={12} md={12} lg={12}>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={4}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={2}>
               <AvaterImg src={require("../../images/ahmed_cropped.png").default} />
               <h2 className={styles.fontStyle}>{t('ahmed')}</h2>
             </GridElement>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={4}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={2}>
               <AvaterImg src={require("../../images/gerges.jpg").default} />
               <h2 className={styles.fontStyle}>{t('gerges')}</h2>
             </GridElement>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={4}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={2}>
               <AvaterImg src={require("../../images/khalid_cropped.png").default} />
               <h2 className={styles.fontStyle}>{t('khaled')}</h2>
             </GridElement>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={6} lg={6}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={6} lg={2}>
               <AvaterImg src={require("../../images/menna_cropped.png").default} />
               <h2 className={styles.fontStyle}>{t('menna')}</h2>
             </GridElement>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={6} lg={6}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={6} lg={2}>
               <AvaterImg src={require("../../images/mohamedimg.png").default} />
               <h2 className={styles.fontStyle}>{t('ramdan')}</h2>
             </GridElement>
           </GridMobileElements>
         </GridMobile>
       </GridContainer>
-      </StylesProvider>
-      </ThemeProvider>
     </div>
   );
 };

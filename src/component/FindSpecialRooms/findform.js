@@ -209,6 +209,13 @@ const FindForm = (props) => {
               <MenuItem value="" data-id="1">
                 <em>{t('none')}</em>
               </MenuItem>
+              {props.entities.map((entity) => {
+                return (
+                  <MenuItem value={entity.name} data-id="3">
+                    <em>{entity.name}</em>
+                  </MenuItem>
+                );
+              })}
               <MenuItem value={10} data-id="1">
                 {t('labor')}
               </MenuItem>
@@ -278,7 +285,8 @@ const FindForm = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterSpecialRooms
+    filters: state.filterSpecialRooms,
+    entities: state.specialRoomsEntities
   }
 }
 

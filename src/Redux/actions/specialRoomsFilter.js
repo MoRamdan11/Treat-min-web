@@ -1,5 +1,17 @@
 //filters special rooms action
+export const fetchRooms = (fetch = false) => {
+    return{
+        type: 'SET_FETCH_ROOMS',
+        fetch
+    }
+}
 
+export const fetchRoomsEntities = (fetchEntities = false) => {
+    return{
+        type: 'SET_FETCH_ROOMS_ENTITIES',
+        fetchEntities
+    }
+}
 export const setTextFilterSP = (text = '') => {
     //for searching
     return{
