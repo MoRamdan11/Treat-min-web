@@ -156,7 +156,7 @@ function Filter(props) {
               <option value={"elmidan"}>{t('midan')}</option>
             </Select>
           </FormControl>
-          <FormControl variant="outlined" className={classes.formControl}>
+          {/*<FormControl variant="outlined" className={classes.formControl}>
             <InputLabel
               htmlFor="outlined-age-native-simple"
               className={classes.inputLabel}
@@ -184,7 +184,7 @@ function Filter(props) {
               <option value="450">450</option>
               <option value="500">500</option>
             </Select>
-          </FormControl>
+          </FormControl>*/}
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel
               htmlFor="outlined-age-native-simple"

@@ -255,16 +255,6 @@ const FindForm = (props) => {
             <Typography id="discrete-slider-always" gutterBottom>
               {t('price')}
             </Typography>
-            <Slider
-              max={500}
-              defaultValue={500}
-              getAriaValueText={valuetext}
-              aria-labelledby="discrete-slider-always"
-              step={50}
-              marks={Prices}
-              onChange={handlePriceChange}
-              valueLabelDisplay="on"
-            />
           </div>
           <div style={{ textAlign: "center", marginBottom: "10px" }}>
             <FormControl

@@ -169,7 +169,7 @@ function DialogSelect(props) {
                     <option value={"elmidan"}>{t('midan')}</option>
                   </Select>
                 </FormControl>
-                <FormControl variant="filled" className={classes.formControl}>
+                {/*<FormControl variant="filled" className={classes.formControl}>
                   <InputLabel htmlFor="filled-age-native-simple">{t('price')}</InputLabel>
                   <Select
                     native
@@ -192,7 +192,7 @@ function DialogSelect(props) {
                     <option value="450">450</option>
                     <option value="500">500</option>
                   </Select>
-                </FormControl>
+                </FormControl>*/}
                 <FormControl variant="filled" className={classes.formControl}>
                   <InputLabel htmlFor="filled-age-native-simple">{t('sort')}</InputLabel>
                   <Select
