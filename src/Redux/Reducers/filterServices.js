@@ -1,16 +1,24 @@
 //filterServices Reducer
 
 const filterSReducerDefaultState = {
+    fetch: false,
     text: '',
     service: '',
     hospital: '',
     price: 0,
     sortBy: '',
+    fetchEntities: false,
     //sort by ==> 'A to Z' || 'Z to A' || 'Lowest Price' || 'Highest Price'
 };
 
 const filterServicesReducer = (state = filterSReducerDefaultState, action) => {
     switch (action.type) {
+        case 'SET_FETCH_SERVICES':{
+            return{...state, fetch: action.fetch}
+        }
+        case 'SET_FETCH_SERVICES_ENTITIES': {
+            return {...state, fetchEntities: action.fetchEntities}
+        }
         case 'SET_TEXT_FILTER':
             return {...state, text: action.text};
         case 'SET_SERVICE_FILTER': 

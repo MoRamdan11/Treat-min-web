@@ -130,7 +130,7 @@ const FindForm = (props) => {
   };
 
   const SpecialictyhandleChange = (event) => {
-    const speciality = event.target.value
+    const speciality = event.target.value;
     setStateSpecialicty(speciality);
     props.dispatch(setSpeciality(speciality));
   };
@@ -216,7 +216,7 @@ const FindForm = (props) => {
               </MenuItem>
               {props.entities.map((entity, index) => {
                 return (
-                  <MenuItem value="" data-id="1">
+                  <MenuItem value={entity.name} data-id="1">
                     <em>{entity.name}</em>
                   </MenuItem>
                 );

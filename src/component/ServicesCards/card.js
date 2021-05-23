@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles ,createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 import { Card } from "@material-ui/core";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
@@ -41,7 +41,7 @@ const theme = createMuiTheme({
 });
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
- 
+
   return (
     <div
       role="tabpanel"
@@ -144,8 +144,8 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2)
   },
-  CardActions:{
-    hight:50
+  CardActions: {
+    hight: 50
   },
 }));
 
@@ -159,6 +159,8 @@ const OutlinedCard = ({
   price,
   callus,
   dispatch,
+  rating_total,
+  rating_users,
   avaliabledate1,
   avaliabledate2,
   avaliabledate3
@@ -193,98 +195,99 @@ const OutlinedCard = ({
   const onHover = () => {
     setHover(!hover);
   };
-  function handleDeleteCard(){
-    dispatch(removeService({id}));
+  function handleDeleteCard() {
+    dispatch(removeService({ id }));
   };
   const avaliableappoinmenthandleChange = (event) => {
     const avaliableappoinment = event.target.value
     setStateavaliableappoinment(avaliableappoinment);
-   // props.dispatch(setSpeciality(avaliableappoinment));
+    // props.dispatch(setSpeciality(avaliableappoinment));
   };
   const { t } = useTranslation();
   return (
     <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>
-    <Card className={classes.root} variant="outlined">
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {avatar}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings" onClick = {handleDeleteCard}>
-            <DeleteIcon fontSize = "large"  className = {classes.deleteIcon}/>
-          </IconButton>
-        }
-      />
-      <CardContent>
-        <h1 className={classes.title} color="textSecondary" gutterBottom>
-          {service}
-        </h1>
-        <Typography>{hospital} {t('hospital')}</Typography>
-        <IconButton className={classes.GradeIcon} aria-label="settings">
-          <GradeIcon />
-        </IconButton>
-        {rating}
-        <Paper square className={classes.Tab}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            variant="fullWidth"
-            indicatorColor="default"
-            textColor="default"
-            aria-label="icon label tabs example"
-          >
-            <Tab
-              className={classes.Tab}
-              icon={<HourglassEmptyIcon />}
-              label={t('time')}
-            />
-            <Tab className={classes.Tab} icon={<LocalAtmIcon />} label={t('fees')} />
-            <Tab className={classes.Tab} icon={<CallIcon />} label={t('calus')}  />
-          </Tabs>
-          <TabPanel value={value} index={0}>
-            {waiting}
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            {price}
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            {callus}
-          </TabPanel>
-        </Paper>
-        <form className={classes.container} noValidate>
-        <div style={{ textAlign: "center" }}>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel htmlFor="outlined-age-native-simple" >
-          {t('avaliableappoinment')}
-          </InputLabel>
-          <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select1"
-          open={APopen}
-          onClose={APhandleClose}
-          onOpen={APhandleOpen}
-          //value={props.filters.speciality}
-          onChange={avaliableappoinmenthandleChange }
-        >
-            <option aria-label={t('none')} value="" />
-            <option value={"avaliabledate1"}>{avaliabledate1}</option>
-            <option value={"avaliabledate2"}>{avaliabledate2}</option>
-            <option value={"avaliabledate3"}>{avaliabledate3}</option>
-          </Select>
-        </FormControl>
-        </div>
-        </form>
-      </CardContent>
-      <CardActions>
-        <NavBtn3>
-          <NavBtnLink3 to="/Book">{t('book')}</NavBtnLink3>
-        </NavBtn3>
-      </CardActions>
-    </Card>
-    </StylesProvider>
+      <StylesProvider jss={jss}>
+        <Card className={classes.root} variant="outlined">
+          <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                {avatar}
+              </Avatar>
+            }
+            action={
+              <IconButton aria-label="settings" onClick={handleDeleteCard}>
+                <DeleteIcon fontSize="large" className={classes.deleteIcon} />
+              </IconButton>
+            }
+          />
+          <CardContent>
+            <h1 className={classes.title} color="textSecondary" gutterBottom>
+              {service}
+            </h1>
+            <Typography>{hospital} {t('hospital')}</Typography>
+            {rating_total}
+            <IconButton className={classes.GradeIcon} aria-label="settings">
+              <GradeIcon />
+            </IconButton>
+            
+            <Paper square className={classes.Tab}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="fullWidth"
+                indicatorColor="default"
+                textColor="default"
+                aria-label="icon label tabs example"
+              >
+                <Tab
+                  className={classes.Tab}
+                  icon={<HourglassEmptyIcon />}
+                  label={t('time')}
+                />
+                <Tab className={classes.Tab} icon={<LocalAtmIcon />} label={t('fees')} />
+                <Tab className={classes.Tab} icon={<CallIcon />} label={t('calus')} />
+              </Tabs>
+              <TabPanel value={value} index={0}>
+                {waiting}
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                {price} {t('le')}
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                {callus}
+              </TabPanel>
+            </Paper>
+            <form className={classes.container} noValidate>
+              <div style={{ textAlign: "center" }}>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel htmlFor="outlined-age-native-simple" >
+                    {t('avaliableappoinment')}
+                  </InputLabel>
+                  <Select
+                    labelId="demo-controlled-open-select-label"
+                    id="demo-controlled-open-select1"
+                    open={APopen}
+                    onClose={APhandleClose}
+                    onOpen={APhandleOpen}
+                    //value={props.filters.speciality}
+                    onChange={avaliableappoinmenthandleChange}
+                  >
+                    <option aria-label={t('none')} value="" />
+                    <option value={"avaliabledate1"}>{avaliabledate1}</option>
+                    <option value={"avaliabledate2"}>{avaliabledate2}</option>
+                    <option value={"avaliabledate3"}>{avaliabledate3}</option>
+                  </Select>
+                </FormControl>
+              </div>
+            </form>
+          </CardContent>
+          <CardActions>
+            <NavBtn3>
+              <NavBtnLink3 to="/Book">{t('book')}</NavBtnLink3>
+            </NavBtn3>
+          </CardActions>
+        </Card>
+      </StylesProvider>
     </ThemeProvider>
   );
 };

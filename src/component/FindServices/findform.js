@@ -201,15 +201,13 @@ const FindForm = (props) => {
               <MenuItem value="" data-id="3">
                 <em>{t('none')}</em>
               </MenuItem>
-              <MenuItem value={10} data-id="2">
-                {t('blood')}
-              </MenuItem>
-              <MenuItem value={20} data-id="2">
-                {t('ray')}
-              </MenuItem>
-              <MenuItem value={30} data-id="2">
-                {t('incubsulation')}
-              </MenuItem>
+              {props.entities.map((entity) => {
+                return (
+                  <MenuItem value={entity.name} data-id="3">
+                    <em>{entity.name}</em>
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
@@ -270,7 +268,8 @@ const FindForm = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterServices
+    filters: state.filterServices,
+    entities: state.servicesEntities
   }
 }
 

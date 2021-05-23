@@ -1,5 +1,18 @@
 // servicesfilters actions
 //SE --> shortcut for service
+export const fetchServices = (fetch = false) => {
+    return{
+        type: 'SET_FETCH_SERVICES',
+        fetch
+    }
+}
+
+export const fetchServicesEntities = (fetchEntities = false) => {
+    return{
+        type: 'SET_FETCH_SERVICES_ENTITIES',
+        fetchEntities
+    }
+}
 
 export const setTextFilterSE = (text = '') => {
     return {

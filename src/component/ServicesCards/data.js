@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { addService } from "../../Redux/actions/services";
-
+import axios from "axios";
+import { fetchServices } from "../../Redux/actions/filterServices";
 const AddServicesToRedux = (props) => {
-  const services = [
+  const services2 = [
     {
       id: 1,
-      avatar: "BT",
-      service: "Blood Test",
+      service: "أشعة مقطعية",
       hospital: "Waddi El-Nile",
       rating: 5,
       waiting: "10 minutes",
@@ -19,8 +19,7 @@ const AddServicesToRedux = (props) => {
     },
     {
       id: 2,
-      avatar: "XR",
-      service: "X-Ray",
+      service: "تحليل دم",
       hospital: "Dar El-Fouad",
       rating: 5,
       waiting: "10 minutes",
@@ -32,8 +31,7 @@ const AddServicesToRedux = (props) => {
     },
     {
       id: 3,
-      avatar: "IN",
-      service: "Incabsulation",
+      service: "أشعة مقطعية",
       hospital: "Waddi El-Nile",
       rating: 5,
       waiting: "60 minutes",
@@ -45,8 +43,7 @@ const AddServicesToRedux = (props) => {
     },
     {
       id: 4,
-      avatar: "MN",
-      service: "Resonance Ray",
+      service: "تحليل دم",
       hospital: "Ain Shams ElTkhossy",
       rating: 3,
       waiting: "15 minutes",
@@ -58,8 +55,7 @@ const AddServicesToRedux = (props) => {
     },
     {
       id: 5,
-      avatar: "SA",
-      service: "Transsectional Ray",
+      service: "أشعة مقطعية",
       hospital: "EL souadi El almany",
       rating: 4,
       waiting: "5 minutes",
@@ -71,8 +67,7 @@ const AddServicesToRedux = (props) => {
     },
     {
       id: 6,
-      avatar: "E",
-      service: "DNA Test",
+      service: "رسم قلب",
       hospital: "Electerical",
       rating: 4,
       waiting: "45 minutes",
@@ -83,11 +78,48 @@ const AddServicesToRedux = (props) => {
       avaliabledate3: "Tomorrow 3:00 pm",
     }    
   ];
+  const [services, setService] = useState([]);
+  useEffect(() => {
+    async function fetchServicesData() {
+      for (var i = 1; i <= 3; i++) {
+        if(props.filters.fetch === true){
+          return
+        }
+        const data = await axios.get(`api/services/${i}/details/`).then((response) => {
+          const serviceData = response.data.details.map((card) => ({
+            ...card,
+            api: i,
+            service: response.data.entity
+          }));
+          let serv = services;
+          serv.push(...serviceData);
+          setService(serv);
+        }).catch((error) => {
+          console.log(error);
+        }).finally(() => {
+          console.log('finalservice', services);
+          services.map((service) => {
+            props.dispatch(addService(service))
+          });
+          setService([]);
+        })
+      }
+      services2.map((service) => {
+        props.dispatch(addService(service))
+      });
+      props.dispatch(fetchServices(true));
+    }
+    fetchServicesData();
+  }, [])
+  
   return (
     <div style = {{height: "0px", width: "0px"}}>
-      {services.map((service) => {props.dispatch(addService(service));})}
     </div>
   ); 
 }
-
-export default connect()(AddServicesToRedux);
+const mapStateToProps = (state) => {
+  return {
+    filters: state.filterServices
+  };
+}
+export default connect(mapStateToProps)(AddServicesToRedux);

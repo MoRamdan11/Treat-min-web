@@ -171,23 +171,23 @@ const Team = () => {
             </div>
           </Grid>
           <GridMobileElements container xs={12} sm={12} md={12} lg={12}>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={2}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={4}>
               <AvaterImg src={require("../../images/ahmed_cropped.png").default} />
               <h2 className={styles.fontStyle}>{t('ahmed')}</h2>
             </GridElement>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={2}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={4}>
               <AvaterImg src={require("../../images/gerges.jpg").default} />
               <h2 className={styles.fontStyle}>{t('gerges')}</h2>
             </GridElement>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={2}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={4} lg={4}>
               <AvaterImg src={require("../../images/khalid_cropped.png").default} />
               <h2 className={styles.fontStyle}>{t('khaled')}</h2>
             </GridElement>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={6} lg={2}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={6} lg={6}>
               <AvaterImg src={require("../../images/menna_cropped.png").default} />
               <h2 className={styles.fontStyle}>{t('menna')}</h2>
             </GridElement>
-            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={6} lg={2}>
+            <GridElement className = {styles.mobileAvater} xs={12} sm={12} md={6} lg={6}>
               <AvaterImg src={require("../../images/mohamedimg.png").default} />
               <h2 className={styles.fontStyle}>{t('ramdan')}</h2>
             </GridElement>

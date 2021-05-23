@@ -1,12 +1,12 @@
 //Clinics Actions
-export const fetchClinic = (fetch = true) => {
+export const fetchClinic = (fetch = false) => {
     return{
         type: 'SET_FETCH_CLINIC',
         fetch
     }
 }
 
-export const fetchEntities = (fetchEntities = true) => {
+export const fetchEntities = (fetchEntities = false) => {
     return{
         type: 'SET_FETCH_ENTITIES',
         fetchEntities

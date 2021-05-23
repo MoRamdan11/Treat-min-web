@@ -122,9 +122,11 @@ function Filter(props) {
             }}
           >
             <option aria-label={t('none')}  value="" />
-            <option value={"Blood Test"}>{t('blood')} </option>
-            <option value={"Incabsulation"}>{t('incubsulation')} </option>
-            <option value={"X-Ray"}>{t('ray')} </option>
+            {props.entities.map((entity) => {
+              return(
+                <option value={entity.name}>{entity.name}</option>
+              );
+            })}
           </Select>
         </FormControl>
         <FormControl variant="outlined" className={classes.formControl}>
@@ -219,7 +221,8 @@ function Filter(props) {
 
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterServices
+    filters: state.filterServices,
+    entities: state.servicesEntities
   }
 }
 

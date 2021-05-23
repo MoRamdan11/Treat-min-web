@@ -37,6 +37,7 @@ import { fetchClinic } from "./Redux/actions/filterClinics";
 import { connect } from "react-redux";
 import Auth from "./Auth/auth";
 import AddEntitiesToRedux from "./component/DrCards/entitiesData";
+import AddServicesEntitiesToRedux from "./component/ServicesCards/serrvicesEntities";
 function App(props) {
   const [doctors, setDoctors] = useState([]);
   var doctors2 = [];
@@ -44,35 +45,11 @@ function App(props) {
   const toggle = () => {
     serIsOpen(!isOpen);
   };
-  /*useEffect(() => {
-     function getClinics(i){
-      const data =  axios.get(`/api/clinics/${i}/details/`).then(respons => {
-        doctors2.push(...respons.data.details);
-      }).catch((error) => {
-        console.log(error);
-      });
-    }
-    for(var i = 1; i < 29; i++){
-      getClinics(i);
-      console.log('doctor', doctors2);
-      setDoctors((prevVal) => {
-        console.log('prevDoc', prevVal);
-        return [...prevVal, ...doctors2]
-      })
-      doctors2 = [];
-    }
-    //setDoctors(doctors2);
-    doctors.map((doctor) => { props.dispatch(addClinic(doctor)); });
-  }, [])
-  /*useEffect(() => {
-    doctors2.map((doctor) => {
-      props.dispatch(addClinic(doctor));
-    })
-  }, [doctors2])*/
   return (
     <Router>
       <Route>
         <AddEntitiesToRedux />
+        <AddServicesEntitiesToRedux />
         <AddDataToRedux />
         <AddSpecialRoomsToRedux />
         <AddServicesToRedux />

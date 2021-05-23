@@ -7,8 +7,10 @@ import servicesReducer from "../Reducers/services";
 import filterServicesReducer from "../Reducers/filterServices";
 import authReducer from "../Reducers/Auth";
 import entityReducer from "../Reducers/entities"; 
+import servicesEntitiesReducer from "../Reducers/servicesEntities";
 const configureStore = () => {
     const store = createStore(combineReducers({
+        servicesEntities: servicesEntitiesReducer,
         entities: entityReducer,
         clinics: clincsReducer,
         filterClinics: filterClinicsReducer,

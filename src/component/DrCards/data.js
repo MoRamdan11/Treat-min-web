@@ -11,7 +11,7 @@ class AddDataToRedux extends React.Component{
   }
   async componentDidMount(){
     for(var i = 1; i <= 29; i++){
-      if(this.props.filters.fetch === false){
+      if(this.props.filters.fetch === true){
         break;
       }
       const data = await axios.get(`/api/clinics/${i}/details/`).then((response) => {
@@ -30,7 +30,7 @@ class AddDataToRedux extends React.Component{
         this.setState({doctors: []});
       })
     }
-    this.props.fetchClinic(false);
+    this.props.fetchClinic(true);
   }
   render(){
     return(

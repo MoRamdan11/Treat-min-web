@@ -5,7 +5,7 @@ import { addEntity } from "../../Redux/actions/entities";
 import { fetchEntities } from "../../Redux/actions/filterClinics";
 const AddEntitiesToRedux = (props) => {
     useEffect(() => {
-        if (props.filters.fetchEntities === false) {
+        if (props.filters.fetchEntities === true) {
             return;
         }
         axios.get('/api/clinics/').then((response) => {
@@ -14,7 +14,7 @@ const AddEntitiesToRedux = (props) => {
                 props.dispatch(addEntity(entity));
             });
         }).finally(() => {
-            props.dispatch(fetchEntities(false));
+            props.dispatch(fetchEntities(true));
         })
     }, []);
     return (

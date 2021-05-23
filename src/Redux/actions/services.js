@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 // services actions
 
 export const addService = ({
@@ -5,7 +6,8 @@ export const addService = ({
     avatar = "",
     service = "",
     hospital = "",
-    rating = 0,
+    rating_total = 0,
+    rating_users = 0,
     waiting = "",
     price = 0,
     callus = "",
@@ -13,17 +15,21 @@ export const addService = ({
     avaliabledate2 = "",
     avaliabledate3 = ""
 } = {}) => {
+    const spaceIndex = service.indexOf(' ');
+    avatar = (service[0] + ' ' + service[spaceIndex + 1]).toUpperCase();
     return {
         type: 'ADD_SERVICE',
         serviceElement: {
-            id,
+            id: uuid(),
             avatar,
             service,
             hospital,
-            rating,
             waiting,
             price,
             callus,
+            apiId: id,
+            rating_total,
+            rating_users,
             avaliabledate1,
             avaliabledate2,
             avaliabledate3

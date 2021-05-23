@@ -1,7 +1,7 @@
 //filter clinic reducer
 
 const filterReducerDefaultState = {
-    fetch: true,
+    fetch: false,
     text: '',
     speciality: '',
     drName: '',

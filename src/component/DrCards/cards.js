@@ -16,7 +16,7 @@ import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import CallIcon from "@material-ui/icons/Call";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+//import Button from "@material-ui/core/Button";
 import { MenuItem } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
 import { Select } from "@material-ui/core";
@@ -31,7 +31,8 @@ import { createMuiTheme, withStyles } from "@material-ui/core/styles";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from "axios";
-
+import { Button } from "../../pages/elements";
+import { BookingButton } from "../navbar/NavBarElement";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -103,12 +104,12 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     //if we remove style schedules is centered
-    display: "flex",
+    /*display: "flex",
     flexWrap: "wrap",
     margin: "auto",
     width: "100%",
     padding: "10px",
-    textAlign: "center"
+    textAlign: "center"*/
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -138,7 +139,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4),
     minWidth: 250,
     display: "25%",
-    alignContent: "center"
+    alignContent: "center",
+    courser: "pointer"
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
@@ -176,7 +178,6 @@ const OutlinedCard = ({
       const request = await axios.get(`/api/clinics/${api}/details/${id_Schedule}/schedules`).then((response) => {
         setSchedules(response.data.schedules);
       })
-      console.log('sch', schedules);
     }
     getSchedules();
   }, [])
@@ -184,7 +185,7 @@ const OutlinedCard = ({
     setDate(event.target.value);
   };
   const avaliableappoinmenthandleChange = (event) => {
-    const avaliableappoinment = event.target.value
+    const avaliableappoinment = event.target.value;
     setStateavaliableappoinment(avaliableappoinment);
     // props.dispatch(setSpeciality(avaliableappoinment));
   };
@@ -211,6 +212,19 @@ const OutlinedCard = ({
   };
   function handleDeleteCard() {
     dispatch(removeClinic({ id }));
+  }
+  const handleBooking = (event) => {
+    event.preventDefault();
+    const schedule = event.target.value;
+    axios.post(`/api/clinics/${api}/details/${id_Schedule}/reserve/`, {
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then((response) => {
+      console.log('Booking', response);
+    }).catch((error) => {
+      console.log('Error', error);
+    })
   }
   const { t } = useTranslation();
   return (
@@ -278,21 +292,24 @@ const OutlinedCard = ({
                 open={APopen}
                 onClose={APhandleClose}
                 onOpen={() => { APhandleOpen(id_Schedule) }}
-                //value={props.filters.speciality}
+                value={avaliableappoinment}
                 onChange={avaliableappoinmenthandleChange}
               >
                 <option aria-label={t('none')} value="" />
                 {schedules.map((schedule) => {
-                  return (<option>{`${schedule.day} ${schedule.start} - ${schedule.end}`}</option>);
+                  return (<option value={`${schedule.day} ${schedule.start} - ${schedule.end}`}>{`${schedule.day} ${schedule.start} - ${schedule.end}`}</option>);
                 })}
               </Select>
             </FormControl>
           </div>
         </form>
       </CardContent>
-      <NavBtn3>
+      <BookingButton onClick={handleBooking}>
+        {t('book')}
+      </BookingButton>
+      {/*<NavBtn3>
         <NavBtnLink3 to="/Book">{t('book')}</NavBtnLink3>
-      </NavBtn3>
+      </NavBtn3>*/}
     </Card>
   );
 };

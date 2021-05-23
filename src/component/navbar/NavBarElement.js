@@ -232,3 +232,27 @@ export const Button2 = styled.button`
     color: #205072;
   }
 `;
+//booking Button
+export const BookingButton = styled.button`
+  border-radius: 50px;
+  background: #19a25d;
+  white-space: nowrap;
+  color: white;
+  font-size: 20px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  padding: 14px 40px;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  /*text-align: "center";
+  justify-content:"center";
+  display:flex;
+  float:center;*/
+  margin-bottom: 50px;
+  &:hover {
+    transition: all 0.2sease-in-out;
+    background: #f5f5f5;
+    color: #205072;
+  }
+`;
