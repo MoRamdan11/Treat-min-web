@@ -3,6 +3,7 @@ import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { NavLink } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
+import OtpInput from 'react-otp-input';
 import {
   GridContainer,
   Img,
@@ -21,7 +22,27 @@ const theme = createMuiTheme({
     }
   }
 });
-
+var error = {
+  border: "1px solid red",
+  color: "red"
+}
+var inputStyle = {
+  width: "3rem",
+  height: "3rem",
+  margin: "0 0.5rem",
+  fontSize: "2rem",
+  borderRadius: "4px",
+  border: "1px solid rgba(0, 0, 0, 0.3)",
+  borderColor: "#19a25d",
+  //color: "#19a25d"
+}
+var containerStyle = {
+  marginBottom: "10px",
+  textAlign: "center",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+}
 const useStyles = makeStyles({
   btnStyleOuter: {
     display: "flex",
@@ -35,10 +56,10 @@ const useStyles = makeStyles({
     margin: "10px",
     backgroundColor: "white",
     color: "black",
-    "@media screen and (max-width: 400px)":{
+    "@media screen and (max-width: 400px)": {
       margin: "10px 5px 10px 5px"
     },
-    "@media screen and (max-width: 320px)":{
+    "@media screen and (max-width: 320px)": {
       margin: "10px 15px 10px 15px"
     }
   },
@@ -51,58 +72,20 @@ const useStyles = makeStyles({
 function VerificationCode(props) {
   const styles = useStyles();
   const [state, setState] = useState({
-    code1: "",
-    errorcode1: true,
-    code2: "",
-    errorcode2: true,
-    code3: "",
-    errorcode3: true,
-    code4: "",
-    errorcode4: true,
-    invalidCode: false
+    invalidCode: false,
+    code: "",
+    errorCode: false
   });
-  const handleChange = (event) => {
-    const name = event.target.name;
-    var value = event.target.value;
-    if (!value || value.match(/^\d{1,1}$/)) {
-      setState({
-        ...state,
-        [name]: value,
-        ['error' + name]: false
-      });
-    } else {
-      setState({
-        ...state,
-        ['error' + name]: true
-      });
-    }
-    if (value.length > 1) {
-      value = value.substring(value.length - 1);
-      setState({
-        ...state,
-        [name]: value,
-        ['error' + name]: false
-      });
-    }
-    if (value.length === 0) {
-      setState({
-        ...state,
-        [name]: '',
-        ['error' + name]: true
-      });
-    }
-    console.log(value);
-  }
+  function handleCodeChange2(event) {
+    //const value = event.target.value;
+    setState({ code: event });
 
+    console.log("COOO", state.code);
+  }
   function handleResend() {
     setState({
-      code1: "",
-      errorcode1: true,
-      code2: "",
-      errorcode2: true,
-      code3: "",
-      errorcode3: true,
-      code4: "",
+      code: "",
+      errorCode: true,
       errorcode4: true,
       invalidCode: false
     });
@@ -116,12 +99,10 @@ function VerificationCode(props) {
 
   function handlebtnClick(event) {
     event.preventDefault();
-    if (!state.errorcode1 && !state.errorcode2 && !state.errorcode3 && !state.errorcode4) {
-      setState({invalidCode: false});
+    if (state.code.length === 4) {
+      setState({ invalidCode: false });
       const email = localStorage.getItem('email');
-      console.log(email);
-      const codeVal = state.code1 + state.code2 + state.code3 + state.code4;
-      console.log(codeVal);
+      const codeVal = state.code;
       axios.patch('/api/accounts/register-code/', {
         email: email,
         code: parseInt(codeVal, 10)
@@ -131,23 +112,40 @@ function VerificationCode(props) {
       }).catch((error) => {
         setState({
           invalidCode: true,
-          errorcode1: true,
-          errorcode2: true,
-          errorcode3: true,
-          errorcode4: true
+          errorCode: true
         });
         console.log(error.response.data);
       })
     } else {
-      setState({invalidCode: true});
+      setState({ invalidCode: true });
+      setState({ errorCode: true });
       props.history.push('/verifiyCode');
     }
   }
   function handleEnterKey(event) {
     if (event.key === 'Enter') {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        handlebtnClick();
+      event.preventDefault();
+      if (state.code.length === 4) {
+        setState({ invalidCode: false });
+        const email = localStorage.getItem('email');
+        const codeVal = state.code;
+        axios.patch('/api/accounts/register-code/', {
+          email: email,
+          code: parseInt(codeVal, 10)
+        }).then((response) => {
+          props.history.push('/SetupAccount');
+          console.log(response);
+        }).catch((error) => {
+          setState({
+            invalidCode: true,
+            errorCode: true
+          });
+          console.log(error.response.data);
+        })
+      } else {
+        setState({ invalidCode: true });
+        setState({ errorCode: true });
+        props.history.push('/verifiyCode');
       }
     }
   }
@@ -165,44 +163,17 @@ function VerificationCode(props) {
           <GridForm xs={12} sm={12} md={6} lg={6}>
             <Form >
               <h2 style={{ marginTop: "10px" }}> {t('enter_ver_code')}</h2>
-              <TextField
-                className={styles.code}
-                variant="outlined"
-                required
-                name={"code1"}
-                onChange={handleChange}
-                value={state.code1}
-                error={state.errorcode1}
+              <OtpInput
+                separator={<span style={{ margin: "0px" }}>-</span>}
+                onChange={handleCodeChange2}
+                errorStyle={error}
+                hasErrored={state.errorCode}
+                value={state.code}
+                inputStyle={inputStyle}
+                containerStyle={containerStyle}
+                onKeyPress = {handleEnterKey}
               />
-              <TextField
-                className={styles.code}
-                variant="outlined"
-                required
-                name={"code2"}
-                onChange={handleChange}
-                value={state.code2}
-                error={state.errorcode2}
-              />
-              <TextField
-                className={styles.code}
-                variant="outlined"
-                required
-                name={"code3"}
-                onChange={handleChange}
-                value={state.code3}
-                error={state.errorcode3}
-              />
-              <TextField
-                className={styles.code}
-                variant="outlined"
-                required
-                name={"code4"}
-                onChange={handleChange}
-                onKeyPress={handleEnterKey}
-                value={state.code4}
-                error={state.errorcode4}
-              />
-              {state.invalidCode && <p style={{color: "red"}}>{t('wrongCode')}</p>}
+              {state.invalidCode && <p style={{ color: "red" }}>{t('wrongCode')}</p>}
               <p>
                 {t('dont_recieve_code')}&nbsp;&nbsp;
                 <NavLink

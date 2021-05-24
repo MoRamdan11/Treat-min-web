@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-
+import { setUserProfile } from '../Redux/actions/Auth';
 const Auth = (props) => {
     useEffect(() => {
         if(props.filters.fetch === false){
@@ -12,9 +12,10 @@ const Auth = (props) => {
                  headers:{
                      'Authorization': 'Token ' + localStorage.getItem('token')
                  }
-             }).then(() => {
-                 console.log("Mo");
+             }).then((response) => {
                  localStorage.setItem('isLogin', 'true');
+                 console.log('Profile', response.data);
+                 props.dispatch(setUserProfile(response.data));
              }).catch(() => {
                 //localStorage.setItem('isLogin', 'false');
              })

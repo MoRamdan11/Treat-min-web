@@ -49,6 +49,7 @@ function SignUp1(props) {
   const [emailRepeated, setEmailRepeated] = useState(false);
   function handleEmailChange(event) {
     const emailValue = event.target.value;
+    setEmailRepeated(false);
     if (emailValue.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
       setEmail(emailValue);
       setErrorEmail(false);
@@ -79,7 +80,22 @@ function SignUp1(props) {
   const handleEnterClick = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      handleSignClick();
+      if (errorEmail) {
+        setInValidEmail(true);
+        props.history.push('/SignUp');
+      } else {
+        //valid email 
+        setInValidEmail(false);
+        axios.post('/api/accounts/register-email/', { "email": email }).then((response) => {
+          console.log(response.data.details);
+          localStorage.setItem('email', email);
+          props.history.push('/verifiyCode');
+        }).catch((error) => {
+          console.log(error.response.data);
+          setEmailRepeated(error.response.data);
+          props.history.push('/SignUp');
+        });
+      }
     }
   }
   const { t } = useTranslation();

@@ -45,7 +45,7 @@ export const NavLogo = styled(LinkR)`
   text-decoration: none;
   @media screen and (max-width: 768px) {
     position: sticky;
-    
+  }
 `;
 export const MobileIcon = styled.div`
   display: none;
@@ -250,6 +250,32 @@ export const BookingButton = styled.button`
   display:flex;
   float:center;*/
   margin-bottom: 50px;
+  &:hover {
+    transition: all 0.2sease-in-out;
+    background: #f5f5f5;
+    color: #205072;
+  }
+`;
+export const UserName = styled.div`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  background-color: #f6dfeb;
+  text-align: center;
+`;
+
+export const Button3 = styled.button`
+  border-radius: 50px;
+  background: #c64756;
+  white-space: nowrap;
+  /*padding: 10px 22px;*/
+  color: white;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
   &:hover {
     transition: all 0.2sease-in-out;
     background: #f5f5f5;

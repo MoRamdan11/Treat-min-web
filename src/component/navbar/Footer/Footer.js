@@ -69,86 +69,86 @@ function Footer() {
   var currentYear = currentDate.getFullYear();
   const styles = useStyles();
   return (
-    
+
     <MessengerCustomerChat
-    pageId="105983478314658"
-    appId="423865358655348"
-  />,
-  <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>
-    
-    <GridContainer xs={12} sm={12} md={12} lg={12} container>
-      <GridLogo xs={12} sm={12} md={3} lg={3}>
-        <img className={styles.lgogImg} src={require("./icons/treat.png").default} />
-        <NavLink to="#">
-          <img
-            className={styles.iconStyle}
-            src={require("./icons/apple2.png").default}
-          />
-        </NavLink>
-        <NavLink to="#">
-          <img
-            className={styles.iconStyle}
-            src={require("./icons/playstore.png").default}
-          />
-        </NavLink>
-      </GridLogo>
-      <GridCompany xs={6} sm={6} md={2} lg={2}>
-        <H3>{t('company')}</H3>
-        <FooterLink to="/">{t('aboutus')}</FooterLink>
-        <FooterLink to="/team">{t('team')}</FooterLink>
-      </GridCompany>
-      <GridServices xs={6} sm={6} md={2} lg={2}>
-        <H3>{t('service')}</H3>
-        <FooterLink to="FindClinical">{t('clinic')}</FooterLink>
-        <FooterLink to="FindServices">{t('service')}</FooterLink>
-        <FooterLink to="FindSpecialRooms">{t('special_room')}</FooterLink>
-        <EmergencyLink to="/Emergency">{t('emergency')}</EmergencyLink>
-      </GridServices>
-      <GridUsefulLinks xs={12} sm={12} md={2} lg={2}>
-        <H3>{t('usefullink')}</H3>
-        <FooterLink to="/">{t('home')}</FooterLink>
-        <FooterLink to="/MyAccount">{t('account')}</FooterLink>
-        <FooterLink to="#">{t('help')}</FooterLink>
-      </GridUsefulLinks>
-      <GridContactUs xs={12} sm={12} md={3} lg={2}>
-        <H3>{t('contactus')}</H3>
-        <IconButton size="small" className={styles.mailStyle} href="#">
-          <MailIcon />
-        </IconButton>
-        <p className={styles.phoneNumber}>info.treatmin@gmail.com</p>
-        <br />
-        <NavLink to="#">
-          <imgya
-            className={styles.socialIcon}
-            style={{ marginLeft: "20px" }}
-            src={require("./icons/facebook.png").default}
-          />
-        </NavLink>
-        <NavLink to="#">
-          <img
-            className={styles.socialIcon}
-            src={require("./icons/instagram.png").default}
-          />
-        </NavLink>
-        <NavLink to="#">
-          <img
-            className={styles.socialIcon}
-            src={require("./icons/Twitter.png").default}
-          />
-        </NavLink>
-        <NavLink to="#">
-          <img
-            className={styles.socialIcon}
-            src={require("./icons/linkedin.png").default}
-          />
-        </NavLink>
-      </GridContactUs>
-      <div className={styles.rights}>
-        <h3>{t('right')} &copy; Treat-min {currentYear}</h3>
-      </div>
-    </GridContainer>
-    </StylesProvider>
+      pageId="105983478314658"
+      appId="423865358655348"
+    />,
+    <ThemeProvider theme={theme}>
+      <StylesProvider jss={jss}>
+
+        <GridContainer container>
+          <GridLogo xs={12} sm={12} md={3} lg={3}>
+            <img className={styles.lgogImg} src={require("./icons/treat.png").default} />
+            <NavLink to="#">
+              <img
+                className={styles.iconStyle}
+                src={require("./icons/apple2.png").default}
+              />
+            </NavLink>
+            <NavLink to="#">
+              <img
+                className={styles.iconStyle}
+                src={require("./icons/playstore.png").default}
+              />
+            </NavLink>
+          </GridLogo>
+          <GridCompany xs={6} sm={6} md={2} lg={2}>
+            <H3>{t('company')}</H3>
+            <FooterLink to="/">{t('aboutus')}</FooterLink>
+            <FooterLink to="/team">{t('team')}</FooterLink>
+          </GridCompany>
+          <GridServices xs={6} sm={6} md={2} lg={2}>
+            <H3>{t('service')}</H3>
+            <FooterLink to="FindClinical">{t('clinic')}</FooterLink>
+            <FooterLink to="FindServices">{t('service')}</FooterLink>
+            <FooterLink to="FindSpecialRooms">{t('special_room')}</FooterLink>
+            <EmergencyLink to="/Emergency">{t('emergency')}</EmergencyLink>
+          </GridServices>
+          <GridUsefulLinks xs={12} sm={12} md={2} lg={2}>
+            <H3>{t('usefullink')}</H3>
+            <FooterLink to="/">{t('home')}</FooterLink>
+            <FooterLink to="/MyAccount">{t('account')}</FooterLink>
+            <FooterLink to="#">{t('help')}</FooterLink>
+          </GridUsefulLinks>
+          <GridContactUs xs={12} sm={12} md={3} lg={2}>
+            <H3>{t('contactus')}</H3>
+            <IconButton size="small" className={styles.mailStyle} href="#">
+              <MailIcon />
+            </IconButton>
+            <p className={styles.phoneNumber}>info.treatmin@gmail.com</p>
+            <br />
+            <NavLink to="#">
+              <img
+                className={styles.socialIcon}
+                style={{ marginLeft: "20px" }}
+                src={require("./icons/facebook.png").default}
+              />
+            </NavLink>
+            <NavLink to="#">
+              <img
+                className={styles.socialIcon}
+                src={require("./icons/instagram.png").default}
+              />
+            </NavLink>
+            <NavLink to="#">
+              <img
+                className={styles.socialIcon}
+                src={require("./icons/Twitter.png").default}
+              />
+            </NavLink>
+            <NavLink to="#">
+              <img
+                className={styles.socialIcon}
+                src={require("./icons/linkedin.png").default}
+              />
+            </NavLink>
+          </GridContactUs>
+          <div className={styles.rights}>
+            <h3>{t('right')} &copy; Treat-min {currentYear}</h3>
+          </div>
+        </GridContainer>
+      </StylesProvider>
     </ThemeProvider>
   );
 }

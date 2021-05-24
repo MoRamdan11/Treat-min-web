@@ -216,15 +216,7 @@ const FindForm = (props) => {
                   </MenuItem>
                 );
               })}
-              <MenuItem value={10} data-id="1">
-                {t('labor')}
-              </MenuItem>
-              <MenuItem value={20} data-id="1">
-                {t('intensive')}
-              </MenuItem>
-              <MenuItem value={30} data-id="1">
-                {t('covidr')}
-              </MenuItem>
+
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>

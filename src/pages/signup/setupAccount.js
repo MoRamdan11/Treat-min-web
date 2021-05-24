@@ -80,6 +80,7 @@ function SetupAccount(props) {
   const [errorPassword, setErrorPassword] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(true);
+  const [failedPassword, setFailedPassword] = useState(false);
   const [birthDate, setBirthDate] = useState("");
   const [errorBirth, setErrorBirth] = useState(true);
   const [gender, setGender] = useState("male");
@@ -89,10 +90,12 @@ function SetupAccount(props) {
   const [errorPhone, setErrorPhone] = useState(true);
   const [name, setName] = useState("");
   const [errorName, setErrorName] = useState(true);
+  const [failedName, setFailedName] = useState(false);
   function hnadlePasswordChange(event) {
     const passwordVal = event.target.value;
-    if (passwordVal.length >= 8 && passwordVal.length <= 32) {
-      if(password === confirmPassword){
+    if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {
+      if (passwordVal === confirmPassword) {
+        setFailedPassword(false);
         setErrorConfirmPassword(false);
       }
       setPassword(passwordVal);
@@ -105,6 +108,7 @@ function SetupAccount(props) {
   function hnadleConfirmPasswordChange(event) {
     const confirmPasswordVal = event.target.value;
     if (confirmPasswordVal === password) {
+      setFailedPassword(false);
       setConfirmPassword(confirmPasswordVal);
       setErrorConfirmPassword(false);
     } else {
@@ -151,12 +155,13 @@ function SetupAccount(props) {
     }
   }
 
-  function handleNameChange(event){
+  function handleNameChange(event) {
     const nameVal = event.target.value;
-    if(nameVal.match(/^[a-z0-9A-Z_-]{3,15}$/)){
+    if (nameVal.match(/^[a-z0-9A-Z_-]{3,15}$/) && nameVal[0].match(/^[a-zA-Z_-]{1,1}$/)) {
       setName(nameVal);
       setErrorName(false);
-    }else{
+      setFailedName(false);
+    } else {
       setErrorName(true);
     }
   }
@@ -164,10 +169,39 @@ function SetupAccount(props) {
     event.preventDefault();
     if (!errorName && !errorPassword && !errorConfirmPassword &&
       !errorBirth && !errorGender && !errorPhone) {
+      axios.post('/api/accounts/register/', {
+        email: localStorage.getItem('email'),
+        password: password,
+        name: name,
+        phone: phone,
+        birth: birthDate,
+        gender: gender,
+      }).then((response) => {
+        console.log(response);
+        props.history.push('/login');
+      }).catch((error) => {
+        console.log(error.response.data);
+      });
+    } else {
+      if (errorPassword || errorConfirmPassword) {
+        setFailedPassword(true);
+      }
+      if (errorName) {
+        setFailedName(true);
+      }
+      props.history.push('/SetupAccount');
+    }
+  }
+
+  const handleEnterClick = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (!errorName && !errorPassword && !errorConfirmPassword &&
+        !errorBirth && !errorGender && !errorPhone) {
         axios.post('/api/accounts/register/', {
           email: localStorage.getItem('email'),
           password: password,
-          name: "Mohamed",
+          name: name,
           phone: phone,
           birth: birthDate,
           gender: gender,
@@ -177,15 +211,15 @@ function SetupAccount(props) {
         }).catch((error) => {
           console.log(error.response.data);
         });
-    } else {
-      props.history.push('/SetupAccount');
-    }
-  }
-
-  const handleEnterClick = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      handleBtnClick();
+      } else {
+        if (errorPassword || errorConfirmPassword) {
+          setFailedPassword(true);
+        }
+        if (errorName) {
+          setFailedName(true);
+        }
+        props.history.push('/SetupAccount');
+      }
     }
   }
   const { t } = useTranslation();
@@ -211,6 +245,11 @@ function SetupAccount(props) {
                 error={errorName}
                 onKeyPress={handleEnterClick}
               />
+              {failedName &&
+                <p style={{ color: "red", marginBottom: "5px" }}>
+                  {t('userNameError')}
+                </p>
+              }
               <FormControl
                 className={styles.content}
                 required
@@ -273,7 +312,7 @@ function SetupAccount(props) {
                   labelWidth={145}
                 />
               </FormControl>
-              {(errorPassword || errorConfirmPassword) && (
+              {(failedPassword) && (
                 <p style={{ color: "red", marginBottom: "5px" }}>
                   {t('eightcharcter')}
                 </p>

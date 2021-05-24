@@ -1,4 +1,4 @@
-import React,{Suspense } from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { Provider } from 'react-redux';
@@ -30,18 +30,18 @@ i18next
       loadPath: '/assets/localization/{{lng}}/translation.json',
     },
   })
-  const loadingMarkup = (
-    <div className="py-4 text-center">
-      <h3>Loading..</h3>
-    </div>
-  )
+const loadingMarkup = (
+  <div className="py-4 text-center">
+    <h3>Loading..</h3>
+  </div>
+)
 ReactDOM.render(
   <Suspense fallback={loadingMarkup}>
-  <React.StrictMode>
-    <Provider store = {store}>
-      <App/>
-    </Provider>
-  </React.StrictMode>, 
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>,
   </Suspense>,
   rootElement
 );

@@ -89,7 +89,7 @@
     "cancel":"Cancel",
     "choose_new_password":"Choose New Password :",
     "new_password":"New Password",
-    "eightcharcter":"Password must be at least 8 characters!",
+    "eightcharcter":"Password must be at least 8 characters (Letters & numbers)!",
     "submit":" Submit",
     "confirm_Password":"Confirm Password",
     "change":"Change",
@@ -143,5 +143,7 @@
     "rightLeft": "right",
     "wrongCode": "Wrong Code!",
     "userName": "Username",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "userNameError": "Username must be at least 3 characters and start with a letter!",
+    "startLetter": "Username must start with a letter!"
 }

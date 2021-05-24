@@ -11,7 +11,9 @@ import {
   NavBtnLink,
   NavItems2,
   Button,
-  Button2
+  Button2,
+  Button3,
+  UserName
 } from "./NavBarElement";
 import { FaBars } from "react-icons/fa";
 import { useTranslation, initReactI18next } from "react-i18next";
@@ -19,6 +21,7 @@ import i18next from 'i18next'
 import cookies from 'js-cookie'
 import classNames from 'classnames';
 import axios from "axios";
+import { connect } from "react-redux";
 
 const languages = [
   {
@@ -47,37 +50,37 @@ const GlobeIcon = ({ width = 24, height = 24 }) => (
   </svg>
 )
 
-const Navbar = ({ toggle }) => {
+const Navbar = ({ toggle, auth, name }) => {
   const [isLogin, setIsLogin] = useState(false);
-  
-  
+  const local = localStorage.getItem('isLogin');
+
   const currentLanguageCode = cookies.get('i18next') || 'en'
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
   const { t } = useTranslation();
 
   const handleLogOut = () => {
-    console.log( localStorage.getItem('token'));
-    axios.post('/api/accounts/logout/', {},{
+    console.log(localStorage.getItem('token'));
+    axios.post('/api/accounts/logout/', {}, {
       headers: {
         'Authorization': 'Token ' + localStorage.getItem('token')
       }
-    }).then((response)=> {
+    }).then((response) => {
       console.log('leo');
       localStorage.setItem('isLogin', 'false');
       localStorage.removeItem('token');
       setIsLogin(false);
-    }).catch((error) => {console.log(error);})
+    }).catch((error) => { console.log(error); })
   }
 
   useEffect(() => {
-    if(localStorage.getItem('isLogin') === "true") {
-      console.log("Mohamedddd");
+    if (localStorage.getItem('isLogin') === "true") {
+      console.log("login");
       setIsLogin(true);
-    }else{
-      console.log("Mohamedddd");
+    } else {
+      console.log("logout");
       setIsLogin(false);
     }
-  }, [localStorage.getItem('isLogin')])
+  }, [auth.isLogin])
   useEffect(() => {
     console.log('Setting page stuff')
     document.body.dir = currentLanguage.dir || 'ltr'
@@ -155,6 +158,9 @@ const Navbar = ({ toggle }) => {
               </div>
             </NavItems2>
           </NavMenu>
+          {/*<NavBtn>
+            <Button3 disabled>{auth.name}</Button3>
+          </NavBtn>*/}
           {isLogin ?
             <NavBtn>
               <Button2 onClick={handleLogOut}>{t('logout')}</Button2>
@@ -162,12 +168,17 @@ const Navbar = ({ toggle }) => {
             :
             <NavBtn>
               <NavBtnLink to="/login">{t('login')}</NavBtnLink>
-            </NavBtn>        
-          }          
+            </NavBtn>
+          }
         </NavbarContainer>
       </Nav>
     </>
   );
 };
-export default Navbar;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
+}
+export default connect(mapStateToProps)(Navbar);
 
