@@ -77,7 +77,7 @@ function Login(props) {
 
   function hnadlePasswordChange(event) {
     const passwordVal = event.target.value;
-    if ((passwordVal.length >= 8 && passwordVal.length <= 32)) {
+    if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {
       setPassword(passwordVal);
       setErrorPassword(false);
       setInValidPass(false);
@@ -175,7 +175,7 @@ function Login(props) {
                 required
                 error={errorEmail}
               />
-              {inValidEmail && <p style={{ color: "red", marginTop: "5px", float: "left", clear: "both" }}>
+              {inValidEmail && <p style={{ color: "red", marginTop: "5px" }}>
                 {t('emailnotvalid')}
               </p>}
               <ForgetPassword to="/forgetPassword">
@@ -216,15 +216,15 @@ function Login(props) {
                 {t('eightcharcter')}
               </p></div>}
               {loginFailed && <div><p style={{ color: "red", marginTop: "5px" }}>
-                {t('loginfailed')}&nbsp;&nbsp;
+                <p style={{ display: "inline" }}>{t('failedLogin')}&nbsp;&nbsp;</p>
                 <FindAccount to="/forgetPassword">
                   {t('findaccount')}?
                 </FindAccount>
               </p></div>}
-              <div style={{marginTop: "5px", paddingBottom: "2px" }}>
-                <p style={{ display: "inline" , fontWeight: "bold"}}>
+              <div style={{ marginTop: "5px", paddingBottom: "2px" }}>
+                <h5 style={{ display: "inline" }}>
                   {t('newuser')}&nbsp;&nbsp;
-                </p>
+                </h5>
                 <NavLink className={styles.signUp} to="/SignUp">
                   {t('signup')}
                 </NavLink>

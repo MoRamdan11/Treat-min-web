@@ -83,11 +83,14 @@ function SetupAccount(props) {
   const [failedPassword, setFailedPassword] = useState(false);
   const [birthDate, setBirthDate] = useState("");
   const [errorBirth, setErrorBirth] = useState(true);
+  const [failedBirth, setBirthFailed] = useState(false);
   const [gender, setGender] = useState("male");
   const [errorGender, setErrorGender] = useState(true);
+  const [failedGender, setFailedGender] = useState(false);
   const [visibility, setVisibility] = useState(false);
   const [phone, setPhone] = useState("");
   const [errorPhone, setErrorPhone] = useState(true);
+  const [failedPhone, setFailedPhone] = useState(false);
   const [name, setName] = useState("");
   const [errorName, setErrorName] = useState(true);
   const [failedName, setFailedName] = useState(false);
@@ -127,6 +130,7 @@ function SetupAccount(props) {
     if (birth && birth <= date) {
       setBirthDate(birth);
       setErrorBirth(false);
+      setBirthFailed(false);
     } else {
       setErrorBirth(true);
     }
@@ -137,6 +141,7 @@ function SetupAccount(props) {
     if (genderValue === "M" || genderValue === "F") {
       setGender(genderValue);
       setErrorGender(false);
+      setFailedGender(false);
     } else {
       setErrorGender(true);
     }
@@ -147,17 +152,15 @@ function SetupAccount(props) {
     if (phoneValue.match(/^\d{11,11}$/)) {
       setPhone(phoneValue);
       setErrorPhone(false);
+      setFailedPhone(false);
     } else {
       setErrorPhone(true);
-    }
-    if (phoneValue.length === 0) {
-      setErrorPhone(false);
     }
   }
 
   function handleNameChange(event) {
     const nameVal = event.target.value;
-    if (nameVal.match(/^[a-z0-9A-Z_-]{3,15}$/) && nameVal[0].match(/^[a-zA-Z_-]{1,1}$/)) {
+    if (nameVal.match(/^[a-z0-9 A-Z_-]{3,15}$/) && nameVal[0].match(/^[a-zA-Z_-]{1,1}$/)) {
       setName(nameVal);
       setErrorName(false);
       setFailedName(false);
@@ -189,6 +192,15 @@ function SetupAccount(props) {
       if (errorName) {
         setFailedName(true);
       }
+      if (errorPhone) {
+        setFailedPhone(true);
+      }
+      if (errorGender) {
+        setFailedGender(true);
+      }
+      if (errorBirth) {
+        setBirthFailed(true);
+      }
       props.history.push('/SetupAccount');
     }
   }
@@ -217,6 +229,15 @@ function SetupAccount(props) {
         }
         if (errorName) {
           setFailedName(true);
+        }
+        if (errorPhone) {
+          setFailedPhone(true);
+        }
+        if (errorGender) {
+          setFailedGender(true);
+        }
+        if (errorBirth) {
+          setBirthFailed(true);
         }
         props.history.push('/SetupAccount');
       }
@@ -327,6 +348,11 @@ function SetupAccount(props) {
                 type="tel"
                 error={errorPhone}
               />
+              {failedPhone &&
+                <p style={{ color: "red", marginBottom: "5px" }}>
+                  {t('phoneError')}
+                </p>
+              }
               <div>
                 <p
                   style={{
@@ -336,7 +362,7 @@ function SetupAccount(props) {
                     fontWeight: "bold"
                   }}
                 >
-                  {t('date')}
+                  {t('myBirthDate')}
                 </p>
                 <TextField
                   id="date"
@@ -350,7 +376,13 @@ function SetupAccount(props) {
                   onChange={handleBirthChange}
                   onKeyPress={handleEnterClick}
                 />
+                {(failedBirth) && (
+                  <p style={{ color: "red", marginBottom: "5px" }}>
+                    {t('birthError')}
+                  </p>
+                )}
               </div>
+
               <FormControl required error={errorGender} component="fieldset">
                 <GenderLabel component="legend">
                   {t('gender')}
@@ -376,6 +408,11 @@ function SetupAccount(props) {
                   />
                 </RadioGroup>
               </FormControl>
+              {failedGender &&
+                <p style={{ color: "red", marginBottom: "5px" }}>
+                  {t('genderError')}
+                </p>
+              }
               <div className={styles.btnStyleOuter}>
                 <NavBtn>
                   <NavBtnLink2 to="/login">{t('cancel')}</NavBtnLink2>

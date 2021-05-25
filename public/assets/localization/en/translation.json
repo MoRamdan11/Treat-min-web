@@ -145,5 +145,12 @@
     "userName": "Username",
     "logout": "Log Out",
     "userNameError": "Username must be at least 3 characters and start with a letter!",
-    "startLetter": "Username must start with a letter!"
+    "startLetter": "Username must start with a letter!",
+    "phoneError": "Mobile Number must contain 11 numbers!",
+    "genderError": "Please Select your Gender!",
+    "birthError": "Please pick your birth date!",
+    "incompliteCode": "Plesae enter 4 digits code!",
+    "myBirthDate": "Birth Date",
+    "failedLogin": "Login is failed!",
+    "emailRejected": "This email doesn't belong to any current user!"
 }

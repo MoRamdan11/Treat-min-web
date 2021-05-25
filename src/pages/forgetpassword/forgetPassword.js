@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
+import { NavLink } from "react-router-dom";
 import {
   GridContainer,
   Img,
@@ -45,47 +46,53 @@ function ForgetPassword(props) {
   const [email, setEmail] = useState("");
   const [errorEmail, setErrorEmail] = useState(true);
   const [inValidEmail, setInValidEmail] = useState(false);
+  const [emailnotfound, setEmailNotFound] = useState(false);
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     if (emailValue.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
       setEmail(emailValue);
       setErrorEmail(false);
       setInValidEmail(false);
+      setEmailNotFound(false);
     } else {
       setErrorEmail(true);
     }
   }
   const handleSignClick = (event) => {
     event.preventDefault();
-    if (errorEmail) {
+    if (errorEmail && !emailnotfound) {
       setInValidEmail(true);
       props.history.push('/forgetPassword');
     } else {
       axios.post('/api/accounts/password-email/', { email: email }).then((response) => {
         console.log(response.data.details);
         localStorage.setItem('email', email);
+        setInValidEmail(false);
         props.history.push('/verificationCode');
       }).catch((error) => {
         console.log(error.response.data);
+        setEmailNotFound(true);
+        setErrorEmail(true);
       })
-      setInValidEmail(false);
     }
   }
   const handleEnterClick = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      if (errorEmail) {
+      if (errorEmail && !emailnotfound) {
         setInValidEmail(true);
         props.history.push('/forgetPassword');
       } else {
         axios.post('/api/accounts/password-email/', { email: email }).then((response) => {
           console.log(response.data.details);
           localStorage.setItem('email', email);
+          setInValidEmail(false);
           props.history.push('/verificationCode');
         }).catch((error) => {
           console.log(error.response.data);
+          setEmailNotFound(true);
+          setErrorEmail(true);
         })
-        setInValidEmail(false);
       }
     }
   }
@@ -115,6 +122,19 @@ function ForgetPassword(props) {
               {inValidEmail && <p style={{ color: "red", marginTop: "5px" }}>
                 {t('emailnotfound')}
               </p>}
+              {emailnotfound &&
+                <div style={{ marginTop: "5px", paddingBottom: "2px" }}>
+                  <p style={{ color: "red", marginTop: "5px" }}>
+                    {t('emailRejected')}
+                  </p>
+                  <h5 style={{ display: "inline" }}>
+                    {t('newuser')}&nbsp;&nbsp;
+                  </h5>
+                  <NavLink className={styles.signUp} to="/SignUp">
+                    {t('signup')}
+                  </NavLink>
+                </div>
+              }
               <div className={styles.btnStyleOuter}>
                 <NavBtn>
                   <NavBtnLink2 to="/login">{t('cancel')}</NavBtnLink2>

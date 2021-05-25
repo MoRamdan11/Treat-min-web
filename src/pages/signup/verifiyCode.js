@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
 import { NavLink } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import OtpInput from 'react-otp-input';
@@ -74,20 +73,19 @@ function VerificationCode(props) {
   const [state, setState] = useState({
     invalidCode: false,
     code: "",
-    errorCode: false
+    errorCode: false,
+    incompliteCode: false
   });
   function handleCodeChange2(event) {
-    //const value = event.target.value;
-    setState({ code: event });
-
-    console.log("COOO", state.code);
+    const value = event;
+    setState({ code: value });
   }
   function handleResend() {
     setState({
       code: "",
       errorCode: true,
-      errorcode4: true,
-      invalidCode: false
+      invalidCode: false,
+      incompliteCode: false
     });
     axios.post('/api/accounts/register-email/', { "email": localStorage.getItem('email') }).then((response) => {
       console.log(response.data.details);
@@ -99,7 +97,7 @@ function VerificationCode(props) {
 
   function handlebtnClick(event) {
     event.preventDefault();
-    if (state.code.length === 4) {
+    if (!state.errorCode && state.code && state.code.length === 4) {
       setState({ invalidCode: false });
       const email = localStorage.getItem('email');
       const codeVal = state.code;
@@ -117,6 +115,9 @@ function VerificationCode(props) {
         console.log(error.response.data);
       })
     } else {
+      if (!state.code || state.code.length < 4) {
+        setState({ incompliteCode: true });
+      }
       setState({ invalidCode: true });
       setState({ errorCode: true });
       props.history.push('/verifiyCode');
@@ -125,7 +126,7 @@ function VerificationCode(props) {
   function handleEnterKey(event) {
     if (event.key === 'Enter') {
       event.preventDefault();
-      if (state.code.length === 4) {
+      if (!state.errorCode && state.code && state.code.length === 4) {
         setState({ invalidCode: false });
         const email = localStorage.getItem('email');
         const codeVal = state.code;
@@ -161,7 +162,7 @@ function VerificationCode(props) {
             />
           </Grid>
           <GridForm xs={12} sm={12} md={6} lg={6}>
-            <Form >
+            <Form>
               <h2 style={{ marginTop: "10px" }}> {t('enter_ver_code')}</h2>
               <OtpInput
                 separator={<span style={{ margin: "0px" }}>-</span>}
@@ -171,9 +172,13 @@ function VerificationCode(props) {
                 value={state.code}
                 inputStyle={inputStyle}
                 containerStyle={containerStyle}
-                onKeyPress = {handleEnterKey}
+                onKeyPress={handleEnterKey}
+                numInputs={4}
+                isInputNum={false}
+                isInputSecure={false}
               />
               {state.invalidCode && <p style={{ color: "red" }}>{t('wrongCode')}</p>}
+              {state.incompliteCode && <p style={{ color: "red" }}>{t('incompliteCode')}</p>}
               <p>
                 {t('dont_recieve_code')}&nbsp;&nbsp;
                 <NavLink

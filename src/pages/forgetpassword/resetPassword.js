@@ -55,12 +55,13 @@ function ResetPassword(props) {
   const [invalidPass, setInvalidPass] = useState(false);
   function hnadlePasswordChange(event) {
     const passwordVal = event.target.value;
-    if (passwordVal.length >= 8 && passwordVal.length <= 32) {
-      if (confirmPassword === password) {
+    if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {
+      if (confirmPassword === passwordVal) {
         setErrorConfirmPassword(false);
       }
       setPassword(passwordVal);
       setErrorPassword(false);
+      setInvalidPass(false);
     } else {
       setErrorPassword(true);
     }
@@ -71,6 +72,7 @@ function ResetPassword(props) {
     if (confirmNewPassword === password) {
       setConfirmPassword(confirmNewPassword);
       setErrorConfirmPassword(false);
+      setInvalidPass(false);
     } else {
       setErrorConfirmPassword(true);
     }
