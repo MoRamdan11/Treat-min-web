@@ -152,5 +152,10 @@
     "incompliteCode": "Plesae enter 4 digits code!",
     "myBirthDate": "Birth Date",
     "failedLogin": "Login is failed!",
-    "emailRejected": "This email doesn't belong to any current user!"
+    "emailRejected": "This email doesn't belong to any current user!",
+    "pickappointment": "Pick Your Appointment Date",
+    "failedReserve": "You have made this reservation in advance!",
+    "errorpicker": "Please pick your appointment date!",
+    "errorschedule": "Please select your suitable appointment!",
+    "errorreservelogin": "You are not logged in yet!"
 }

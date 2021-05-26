@@ -117,3 +117,23 @@ export const Code = styled(TextField)`
       margin: 10px 15px 10px 15px;
   }
 `;
+
+export const NavBtnLink55 = styled(LinkR)`
+  border-radius: 50px;
+  background: #93329e;
+  white-space: nowrap;
+  padding: 10px 22px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  margin: auto 10px auto 10px;
+  &:hover {
+    transition: all 0.2sease-in-out;
+    background: #f5f5f5;
+    color: #205072;
+  }
+`;

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import { Card } from "@material-ui/core";
 import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
@@ -34,20 +33,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from "axios";
 import { Button } from "../../pages/elements";
 import { BookingButton } from "../navbar/NavBarElement";
-import {
-  NavBtn,
-  NavBtnLink55
-} from "../../pages/elements";
-//Picker Imports
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
-import moment from "moment";
-import MomentLocaleUtils from 'react-day-picker/moment';
-import 'moment/locale/ja';
-import 'moment/locale/ar';
-import 'moment/locale/it';
-import 'moment/locale/de';
-import { matchDays, matchDaysAr, dayIndex } from "./days";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -152,7 +137,6 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     backgroundColor: "primary",
     margin: theme.spacing(4),
-    marginBottom: theme.spacing(1),
     minWidth: 250,
     display: "25%",
     alignContent: "center",
@@ -164,17 +148,9 @@ const useStyles = makeStyles((theme) => ({
   CardActions: {
     hight: 50
   },
-  datePicker: {
-    zIndex: 99,
-  },
-  datePicker2: {
-    cursor: "notAllowed",
-    pointerEvents: "none"
-  }
 }));
 
 const OutlinedCard = ({
-  auth,
   id,
   id_Schedule,
   avatar,
@@ -184,27 +160,19 @@ const OutlinedCard = ({
   hospital,
   waiting,
   price,
+  callus,
   dispatch,
   api
 }) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [avaliableappoinment, setStateavaliableappoinment] = React.useState("");
-  const [errorSelector, setErrorSelector] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [date, setDate] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [APopen, setAPOpen] = React.useState(false);
   const [schedules, setSchedules] = React.useState([]);
-  const [selectedDate, setSelectedDate] = React.useState("");
-  const [errorPicker, setErrorPicker] = React.useState(false);
-  const [locale, setLocale] = React.useState('en');
-  const [daysOfWeek, setDaysOfWeek] = React.useState([]);
-  const [appointmentId, setAppointmentId] = React.useState(0);
-  const [failedReserve, setFailedReserve] = React.useState(false);
-  const [errorLogin, setErrorLogin] = React.useState(false);
-  const [accept, setAccept] = React.useState(false);
-  const defaultWeekDays = [0, 1, 2, 3, 4, 5, 6];
+
   useEffect(() => {
     async function getSchedules() {
       const request = await axios.get(`/api/clinics/${api}/details/${id_Schedule}/schedules`).then((response) => {
@@ -216,27 +184,10 @@ const OutlinedCard = ({
   const handleDate = (event) => {
     setDate(event.target.value);
   };
-  const handleOptionClick = (event) => {
-    const id = event.target.id;
-    console.log('weid', id);
-    setAppointmentId(id);
-  }
   const avaliableappoinmenthandleChange = (event) => {
-    setAccept(false);
-    setDaysOfWeek(defaultWeekDays);
-    setSelectedDate("");
-    setErrorSelector(false);
     const avaliableappoinment = event.target.value;
-    if (avaliableappoinment === '') {
-      setErrorPicker(false);
-    }
     setStateavaliableappoinment(avaliableappoinment);
-    const array = defaultWeekDays.filter((day) => {
-      return day !== dayIndex[avaliableappoinment];
-    });
-    setDaysOfWeek(array);
-    console.log('appointment', avaliableappoinment);
-    console.log('weeeek', daysOfWeek);
+    // props.dispatch(setSpeciality(avaliableappoinment));
   };
   const APhandleClose = () => {
     setAPOpen(false);
@@ -262,50 +213,20 @@ const OutlinedCard = ({
   function handleDeleteCard() {
     dispatch(removeClinic({ id }));
   }
-  function handlePickerChange(event) {
-    const value = moment(event).format('YYYY-MM-DD');
-    setErrorPicker(false);
-    setSelectedDate(value);
-    console.log('pickingDate', value);
-  }
-  function handleSelectChange(e) {
-    const locale = e.target.value;
-    setLocale(locale);
-  }
   const handleBooking = (event) => {
     event.preventDefault();
-    if (auth.isLogin === false) {
-      setErrorLogin(true);
-      return;
-    }
-    if (avaliableappoinment === "") {
-      setErrorSelector(true);
-      return;
-    }
-    if (selectedDate === "") {
-      setErrorPicker(true);
-      return;
-    }
-
+    const schedule = event.target.value;
     axios.post(`/api/clinics/${api}/details/${id_Schedule}/reserve/`, {
-      schedule: `${appointmentId}`,
-      appointment_date: `${selectedDate}`
-    },
-      {
-        headers: {
-          'Authorization': 'Token ' + localStorage.getItem('token')
-        }
-      }).then((response) => {
-        console.log('Booking', response);
-        setFailedReserve(false);
-        setAccept(true);
-      }).catch((error) => {
-        setFailedReserve(true);
-        console.log('Error', error.message);
-      })
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then((response) => {
+      console.log('Booking', response);
+    }).catch((error) => {
+      console.log('Error', error);
+    })
   }
   const { t } = useTranslation();
-
   return (
     <Card className={classes.root} variant="outlined">
       <CardHeader
@@ -325,12 +246,12 @@ const OutlinedCard = ({
           {t('dr')}. {doctor.name}
         </h1>
         <Typography>{specalist}</Typography>
-        {rating}
         <IconButton className={classes.GradeIcon} aria-label="settings">
           <GradeIcon />
         </IconButton>
+        {rating}
         <Typography className={classes.pos} color="textSecondary">
-          {t('workat')} {hospital.name} {t('hospital')}
+          {t('workat')} {hospital} {t('hospital')}
         </Typography>
         <Paper square className={classes.Tab}>
           <Tabs
@@ -341,14 +262,22 @@ const OutlinedCard = ({
             textColor="default"
             aria-label="icon label tabs example"
           >
+            <Tab
+              className={classes.Tab}
+              icon={<HourglassEmptyIcon />}
+              label={t('time')}
+            />
             <Tab className={classes.Tab} icon={<LocalAtmIcon />} label={t('fees')} />
             <Tab className={classes.Tab} icon={<CallIcon />} label={t('calus')} />
           </Tabs>
           <TabPanel value={value} index={0}>
-            {price} {t('le')}
+            {waiting}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {hospital.phone}
+            {price} {t('le')}
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            {callus}
           </TabPanel>
         </Paper>
         <form className={classes.container} noValidate>
@@ -368,123 +297,21 @@ const OutlinedCard = ({
               >
                 <option aria-label={t('none')} value="" />
                 {schedules.map((schedule) => {
-                  return (
-                    <option
-                      onClick={handleOptionClick}
-                      key={schedule.id}
-                      value={`${matchDays[schedule.day]}`}
-                      id={schedule.id}
-                    >
-                      {`${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
-                    </option>
-                  );
+                  return (<option value={`${schedule.day} ${schedule.start} - ${schedule.end}`}>{`${schedule.day} ${schedule.start} - ${schedule.end}`}</option>);
                 })}
               </Select>
             </FormControl>
-            {(avaliableappoinment !== '' && auth.isLogin && !accept) &&
-              <div style={{ backgroundColor: "#caf7e3", borderRadius: "20px", textAlign: "center" }}>
-                {/*edffec*/}
-                <h3>{t('pickappointment')}</h3>
-                <div style={{ backgroundColor: "#93329e", height: "50px", padding: "10px" }}>
-                  <h4 style={{ display: "inline", color: "white" }}>Picker Language: </h4>
-                  <select style={{ display: "inline" }} onChange={handleSelectChange}>
-                    <option value="en">English</option>
-                    <option value="ja">Japanese</option>
-                    <option value="ar">Arabic</option>
-                    <option value="it">Italian</option>
-                    <option value="de">German</option>
-                  </select>
-                </div>
-
-                <DayPickerInput
-                  classNames={{
-                    overlay: classes.datePicker,
-                  }}
-                  format="YYYY-MM-DD"
-                  value={selectedDate}
-                  onDayChange={handlePickerChange}
-                  dayPickerProps={{
-
-                    localeUtils: MomentLocaleUtils,
-                    locale: locale,
-                    selectedDays: selectedDate,
-                    modifiers: {
-                      disabled: [
-                        {
-                          daysOfWeek: daysOfWeek
-                        },
-                        {
-                          before: new Date(moment())
-                        },
-                        {
-                          //after: new Date(moment('2021-05-30', 'YYYY-MM-DD'))
-                        }
-                      ]
-                    }
-                  }}
-                />
-              </div>
-            }
           </div>
         </form>
       </CardContent>
-      {(!auth.isLogin && avaliableappoinment !== '') &&
-        <div style={{
-          margin: "20px", padding: "5px",
-          backgroundColor: "#caf7e3", display: "flex",
-          justifyContent: "center", alignItems: "center",
-          marginBottom: "20px", borderRadius: "20px"
-        }}>
-          <p style={{ color: "red", margin: " 0px", fontWeight: "bold" }}>
-            {t('errorreservelogin')}
-          </p>
-          <NavBtn>
-            <NavBtnLink55 to="/SignUp">{t('signup')}</NavBtnLink55>
-          </NavBtn>
-          <NavBtn>
-            <NavBtnLink55 to="/login">{t('login')}</NavBtnLink55>
-          </NavBtn>
-        </div>
-      }
-      {(failedReserve && !errorPicker && !errorSelector && !errorLogin) &&
-        <div>
-          <p style={{ color: "red" }}>
-            {t('failedReserve')}
-          </p>
-        </div>
-      }
-      {(errorPicker && !errorSelector && !errorLogin) &&
-        <div>
-          <p style={{ color: "red" }}>
-            {t('errorpicker')}
-          </p>
-        </div>
-      }
-      {errorSelector && !errorLogin &&
-        <div>
-          <p style={{ color: "red", marginTop: "5px" }}>
-            {t('errorschedule')}
-          </p>
-        </div>
-      }
-      {accept &&
-        <div style={{
-          margin: "20px", padding: "5px",
-          backgroundColor: "#93329e", color: "white",
-          marginBottom: "20px", borderRadius: "20px"
-        }}>
-          <h3>Your Appointment has been reserved successfully</h3>
-        </div>
-      }
       <BookingButton onClick={handleBooking}>
         {t('book')}
       </BookingButton>
+      {/*<NavBtn3>
+        <NavBtnLink3 to="/Book">{t('book')}</NavBtnLink3>
+      </NavBtn3>*/}
     </Card>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth
-  };
-}
-export default connect(mapStateToProps)(OutlinedCard);
+
+export default connect()(OutlinedCard);

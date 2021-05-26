@@ -10,9 +10,12 @@ const AddEntitiesToRedux = (props) => {
         }
         axios.get('/api/clinics/').then((response) => {
             const entities = response.data.clinics;
+            console.log('DrEntities', entities);
             entities.map((entity) => {
                 props.dispatch(addEntity(entity));
             });
+        }).catch((error) => {
+            console.log('error', error);
         }).finally(() => {
             props.dispatch(fetchEntities(true));
         })
