@@ -14,7 +14,7 @@ class AddDataToRedux extends React.Component{
       if(this.props.filters.fetch === true){
         break;
       }
-      const data = await axios.get(`/api/clinics/${i}/details/`).then((response) => {
+      const data = await axios.get(`/api/clinics/${i}/schedules/`).then((response) => {
         const drData = response.data.details.map((card) => ({
           ...card,
           api: i,

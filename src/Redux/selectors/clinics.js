@@ -5,7 +5,7 @@ const getVisibleClinics = (clinics, {text, speciality, drName, hospital, price, 
                          clinic.hospital.toLowerCase().includes(text.toLowerCase()) || false;
         const specialityMatch = (speciality === '') || (clinic.specalist === speciality);
         const drNameMatch = (drName === '') || (clinic.name === drName);
-        const hospitalMatch = (hospital === '') || (clinic.hospital === hospital);
+        const hospitalMatch = (hospital === '') || (clinic.hospital.name === hospital);
         const priceMatch = (price === 0) || (clinic.price <= price);
         const genderMatch = true //there is no field in card related to gender
         return textMatch && specialityMatch && drNameMatch && hospitalMatch && priceMatch && genderMatch;

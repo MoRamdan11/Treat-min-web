@@ -157,5 +157,7 @@
     "failedReserve": "You have made this reservation in advance!",
     "errorpicker": "Please pick your appointment date!",
     "errorschedule": "Please select your suitable appointment!",
-    "errorreservelogin": "You are not logged in yet!"
+    "errorreservelogin": "You are not logged in yet!",
+    "address": "Address",
+    "sucessReserve": "تم حجز موعدك بنجاح"
 }

@@ -157,5 +157,7 @@
     "failedReserve": "لقد أجريت هذا الحجز مسبقًا!",
     "errorpicker": "يرجى اختيار تاريخ الحجز!",
     "errorschedule": "الرجاء تحديد موعدك المناسب!",
-    "errorreservelogin": "لم تقم بتسجيل الدخول بعد!"
+    "errorreservelogin": "لم تقم بتسجيل الدخول بعد!",
+    "address": "العنوان",
+    "sucessReserve" : "Your appointment has been booked successfully"
   }

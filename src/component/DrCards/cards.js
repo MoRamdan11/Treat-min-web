@@ -34,6 +34,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from "axios";
 import { Button } from "../../pages/elements";
 import { BookingButton } from "../navbar/NavBarElement";
+import HomeIcon from '@material-ui/icons/Home';
 import {
   NavBtn,
   NavBtnLink55
@@ -89,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: "20%",
     hight: "5%",
+    textAlign: "center"
   },
   bullet: {
     display: "inline-block",
@@ -182,6 +184,7 @@ const OutlinedCard = ({
   specalist,
   rating,
   hospital,
+  schedules,
   waiting,
   price,
   dispatch,
@@ -195,7 +198,7 @@ const OutlinedCard = ({
   const [date, setDate] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [APopen, setAPOpen] = React.useState(false);
-  const [schedules, setSchedules] = React.useState([]);
+  //const [schedules, setSchedules] = React.useState([]);
   const [selectedDate, setSelectedDate] = React.useState("");
   const [errorPicker, setErrorPicker] = React.useState(false);
   const [locale, setLocale] = React.useState('en');
@@ -205,14 +208,14 @@ const OutlinedCard = ({
   const [errorLogin, setErrorLogin] = React.useState(false);
   const [accept, setAccept] = React.useState(false);
   const defaultWeekDays = [0, 1, 2, 3, 4, 5, 6];
-  useEffect(() => {
+  /*useEffect(() => {
     async function getSchedules() {
       const request = await axios.get(`/api/clinics/${api}/details/${id_Schedule}/schedules`).then((response) => {
         setSchedules(response.data.schedules);
       })
     }
     getSchedules();
-  }, [])
+  }, [])*/
   const handleDate = (event) => {
     setDate(event.target.value);
   };
@@ -226,6 +229,7 @@ const OutlinedCard = ({
     setDaysOfWeek(defaultWeekDays);
     setSelectedDate("");
     setErrorSelector(false);
+    setFailedReserve(false);
     const avaliableappoinment = event.target.value;
     if (avaliableappoinment === '') {
       setErrorPicker(false);
@@ -342,12 +346,16 @@ const OutlinedCard = ({
             aria-label="icon label tabs example"
           >
             <Tab className={classes.Tab} icon={<LocalAtmIcon />} label={t('fees')} />
+            <Tab className={classes.Tab} icon={<HomeIcon/>} label={t('address')} />
             <Tab className={classes.Tab} icon={<CallIcon />} label={t('calus')} />
           </Tabs>
           <TabPanel value={value} index={0}>
             {price} {t('le')}
           </TabPanel>
           <TabPanel value={value} index={1}>
+            {hospital.area}, {hospital.city}
+          </TabPanel>
+          <TabPanel value={value} index={2}>
             {hospital.phone}
           </TabPanel>
         </Paper>
@@ -446,7 +454,7 @@ const OutlinedCard = ({
           </NavBtn>
         </div>
       }
-      {(failedReserve && !errorPicker && !errorSelector && !errorLogin) &&
+      {(failedReserve && !errorPicker && !errorSelector && !errorLogin && avaliableappoinment !== '') &&
         <div>
           <p style={{ color: "red" }}>
             {t('failedReserve')}
@@ -473,7 +481,7 @@ const OutlinedCard = ({
           backgroundColor: "#93329e", color: "white",
           marginBottom: "20px", borderRadius: "20px"
         }}>
-          <h3>Your Appointment has been reserved successfully</h3>
+          <h3>{t('sucessReserve')}</h3>
         </div>
       }
       <BookingButton onClick={handleBooking}>

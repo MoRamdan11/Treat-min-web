@@ -39,6 +39,7 @@ import Auth from "./Auth/auth";
 import AddEntitiesToRedux from "./component/DrCards/entitiesData";
 import AddServicesEntitiesToRedux from "./component/ServicesCards/serrvicesEntities";
 import AddRoomsEntitiesToRedux from "./component/SpecialRoomsCards/specialRoomsEntities";
+
 function App(props) {
   const [doctors, setDoctors] = useState([]);
   var doctors2 = [];
@@ -49,6 +50,7 @@ function App(props) {
   return (
     <Router>
       <Route> 
+        <Auth />
         <AddRoomsEntitiesToRedux />
         <AddEntitiesToRedux />
         <AddServicesEntitiesToRedux />
