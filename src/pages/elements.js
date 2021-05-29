@@ -137,7 +137,7 @@ export const Code = styled(TextField)`
 
 export const NavBtnLink55 = styled(LinkR)`
   border-radius: 50px;
-  background: #93329e;
+  background:  #235274;
   white-space: nowrap;
   padding: 10px 22px;
   color: white;
