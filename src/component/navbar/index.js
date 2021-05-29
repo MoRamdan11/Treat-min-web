@@ -141,6 +141,7 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
                             })}
                             onClick={() => {
                               i18next.changeLanguage(code)
+                              window.location.reload(false);
                             }}
                           >
                             <span
