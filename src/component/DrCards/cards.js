@@ -34,6 +34,7 @@ import axios from "axios";
 import { Button } from "../../pages/elements";
 import { BookingButton } from "../navbar/NavBarElement";
 import HomeIcon from '@material-ui/icons/Home';
+import cookies from 'js-cookie';
 import {
   NavBtn,
   NavBtnLink55
@@ -47,7 +48,9 @@ import 'moment/locale/ja';
 import 'moment/locale/ar';
 import 'moment/locale/it';
 import 'moment/locale/de';
+import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr} from "./Cincs"
 import { matchDays, matchDaysAr, dayIndex } from "./days";
+import {clinicsEN,clinicsAR} from "./clinicsnames"
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -173,6 +176,21 @@ const useStyles = makeStyles((theme) => ({
     pointerEvents: "none"
   }
 }));
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'eg',
+  },
+]
+const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
 
 const OutlinedCard = ({
   auth,
@@ -307,23 +325,18 @@ const OutlinedCard = ({
             {avatar}
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings" onClick={handleDeleteCard}>
-            <DeleteIcon fontSize="large" className={classes.deleteIcon} />
-          </IconButton>
-        }
       />
       <CardContent>
         <h1 className={classes.title} color="textSecondary" gutterBottom>
           {t('dr')}. {doctor.name}
         </h1>
-        <Typography>{specalist}</Typography>
+        <Typography> {currentLanguage.dir?`${clinicsAR[specalist]} ` :`${clinicsEN[specalist]}`} </Typography>
         {rating_total}
         <IconButton className={classes.GradeIcon} aria-label="settings">
           <GradeIcon />
         </IconButton>
         <Typography className={classes.pos} color="textSecondary">
-          {t('workat')} {hospital.name} {t('hospital')}
+          {t('workat')} {currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} 
         </Typography>
         <Paper square className={classes.Tab}>
           <Tabs
@@ -342,7 +355,7 @@ const OutlinedCard = ({
             {price} {t('le')}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {hospital.area}, {hospital.city}
+          {currentLanguage.dir?`${ matchAddressAr[hospital.name]} ` :`${ matchAddressEn[hospital.name]}`} 
           </TabPanel>
           <TabPanel value={value} index={2}>
             {hospital.phone}
@@ -369,10 +382,10 @@ const OutlinedCard = ({
                     <option
                       onClick={handleOptionClick}
                       key={schedule.id}
-                      value={`${matchDays[schedule.day]}`}
+                      value={currentLanguage.dir? `${matchDaysAr[schedule.day]}`:`${matchDays[schedule.day]}`}
                       id={schedule.id}
                     >
-                      {`${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
+                    {currentLanguage.dir?`${matchDaysAr[schedule.day]} ${schedule.start} - ${schedule.end}` :`${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
                     </option>
                   );
                 })}

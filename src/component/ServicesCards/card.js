@@ -49,6 +49,9 @@ import 'moment/locale/it';
 import 'moment/locale/de';
 import { matchDays, matchDaysAr, dayIndex } from "../DrCards/days";
 import axios from "axios";
+import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr} from "../DrCards/Cincs"
+import {ServicesEN,ServicesAR} from "./service"
+import cookies from 'js-cookie';
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -167,7 +170,21 @@ const useStyles = makeStyles((theme) => ({
     hight: 50
   },
 }));
-
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'eg',
+  },
+]
+const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
 const OutlinedCard = ({
   auth,
   id,
@@ -306,17 +323,12 @@ const OutlinedCard = ({
                 {avatar}
               </Avatar>
             }
-            action={
-              <IconButton aria-label="settings" onClick={handleDeleteCard}>
-                <DeleteIcon fontSize="large" className={classes.deleteIcon} />
-              </IconButton>
-            }
           />
           <CardContent>
             <h1 className={classes.title} color="textSecondary" gutterBottom>
               {service}
             </h1>
-            <Typography>{hospital.name} {t('hospital')}</Typography>
+            <Typography>{currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} </Typography>
             {rating_total}
             <IconButton className={classes.GradeIcon} aria-label="settings">
               <GradeIcon />
@@ -339,7 +351,7 @@ const OutlinedCard = ({
                 {price} {t('le')}
               </TabPanel>
               <TabPanel value={value} index={1}>
-                {hospital.area}, {hospital.city}
+              {currentLanguage.dir?`${ matchAddressAr[hospital.name]} ` :`${ matchAddressEn[hospital.name]}`} 
               </TabPanel>
               <TabPanel value={value} index={2}>
                 {hospital.phone}
@@ -366,10 +378,10 @@ const OutlinedCard = ({
                         <option
                           onClick={handleOptionClick}
                           key={schedule.id}
-                          value={`${matchDays[schedule.day]}`}
+                          value={currentLanguage.dir? `${matchDaysAr[schedule.day]}`:`${matchDays[schedule.day]}`}
                           id={schedule.id}
                         >
-                          {`${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
+                        {currentLanguage.dir?`${matchDaysAr[schedule.day]} ${schedule.start} - ${schedule.end}` :`${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
                         </option>
                       );
                     })}

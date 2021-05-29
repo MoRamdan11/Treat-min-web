@@ -31,6 +31,9 @@ import getVisibleEntities from "../../Redux/selectors/entities";
 import getVisibleHospitals from "../../Redux/selectors/hospitals";
 import getVisibleCities from "../../Redux/selectors/cities";
 import getVisibleRegions from "../../Redux/selectors/regions";
+import cookies from 'js-cookie';
+import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr,matchAreaEn,matchAreaAr,matchCityEn, matchCityAr} from "./Cincs"
+import {clinicsEN,clinicsAR} from "./clinicsnames";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const useStyles = makeStyles((theme) => ({
@@ -119,6 +122,22 @@ const Filter = (props) => {
     });
   };
   const { t } = useTranslation();
+  const languages = [
+    {
+      code: 'en',
+      name: 'English',
+      country_code: 'gb',
+    },
+    {
+      code: 'ar',
+      name: 'العربية',
+      dir: 'rtl',
+      country_code: 'eg',
+    },
+  ]
+  const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
@@ -139,7 +158,7 @@ const Filter = (props) => {
               >
                 <option aria-label={t('none')} value="" />
                 {props.entities.map((entity) => {
-                  return (<option key={entity.id} value={entity.name}>{entity.name}</option>)
+                  return (<option key={entity.id} value={entity.name}>{currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`}</option>)
                 })}
               </Select>
             </FormControl>
@@ -159,13 +178,15 @@ const Filter = (props) => {
                   props.hospitals.map((hospital) => {
                     return (
                       <option key={hospital.id} value={hospital.name} data-id="2">
-                        {hospital.name}
+                      {currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} 
                       </option>
                     );
                   })
                 }
               </Select>
             </FormControl>
+            
+            
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel htmlFor="outlined-age-native-simple" variant="filled">{t('price')}</InputLabel>
               <Select
@@ -221,7 +242,7 @@ const Filter = (props) => {
                 {props.cities.map((city) => {
                   return (
                     <option key={city.id} value={city.name} data-id="2">
-                      {city.name}
+                    {currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`} 
                     </option>
                   );
                 })
@@ -243,7 +264,7 @@ const Filter = (props) => {
                 {props.regions.map((region) => {
                   return (
                     <option key={region.id} value={region.name} data-id="2">
-                      {region.name}
+                    {currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`} 
                     </option>
                   );
                 })}

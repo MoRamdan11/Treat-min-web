@@ -34,6 +34,9 @@ import getVisibleEntities from "../../Redux/selectors/entities";
 import getVisibleHospitals from "../../Redux/selectors/hospitals";
 import getVisibleCities from "../../Redux/selectors/cities";
 import getVisibleRegions from "../../Redux/selectors/regions";
+import cookies from 'js-cookie';
+import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr,matchAreaEn,matchAreaAr,matchCityEn, matchCityAr} from "../DrCards/Cincs";
+import {clinicsEN,clinicsAR} from "../DrCards/clinicsnames";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 function valuetext(value) {
@@ -113,6 +116,22 @@ const useStyles = makeStyles((theme) => ({
     }
   }
 }));
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'eg',
+  },
+]
+const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+
 const FindForm = (props) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -244,7 +263,7 @@ const FindForm = (props) => {
               {props.entities.map((entity) => {
                 return (
                   <MenuItem key={entity.id} value={entity.name} data-id="1">
-                    <em>{entity.name}</em>
+                    <em>{currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`}</em>
                   </MenuItem>
                 );
               })}
@@ -269,7 +288,7 @@ const FindForm = (props) => {
               {props.hospitals.map((hospital) => {
                 return (
                   <MenuItem key={hospital.id} value={hospital.name} data-id="2">
-                    <em>{hospital.name}</em>
+                    <em>{currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} </em>
                   </MenuItem>
                 );
               })}
@@ -294,7 +313,7 @@ const FindForm = (props) => {
               {props.cities.map((city) => {
                 return (
                   <MenuItem key={city.id} value={city.name} data-id="2">
-                    <em>{city.name}</em>
+                    <em>{currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`} </em>
                   </MenuItem>
                 );
               })}
@@ -319,7 +338,7 @@ const FindForm = (props) => {
               {props.regions.map((region) => {
                 return (
                   <MenuItem key={region.id} value={region.name} data-id="2">
-                    <em>{region.name}</em>
+                    <em>{currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`} </em>
                   </MenuItem>
                 );
               })}

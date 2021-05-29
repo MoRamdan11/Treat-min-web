@@ -36,6 +36,9 @@ import getVisibleEntities from "../../Redux/selectors/entities";
 import getVisibleHospitals from "../../Redux/selectors/hospitals";
 import getVisibleCities from "../../Redux/selectors/cities";
 import getVisibleRegions from "../../Redux/selectors/regions";
+import cookies from 'js-cookie';
+import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr,matchAreaEn,matchAreaAr,matchCityEn, matchCityAr} from "./Cincs"
+import {clinicsEN,clinicsAR} from "./clinicsnames";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const useStyles = makeStyles((theme) => ({
@@ -132,6 +135,21 @@ const DialogSelect = (props) => {
     props.dispatch(setTextFilter(searchValue));
   }
   const { t } = useTranslation();
+  const languages = [
+    {
+      code: 'en',
+      name: 'English',
+      country_code: 'gb',
+    },
+    {
+      code: 'ar',
+      name: 'العربية',
+      dir: 'rtl',
+      country_code: 'eg',
+    },
+  ]
+  const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
@@ -161,7 +179,7 @@ const DialogSelect = (props) => {
                   >
                     <option aria-label={t('none')} value="" />
                     {props.entities.map((entity, index) => {
-                      return (<option>{entity.name}</option>)
+                      return (<option>{currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`}</option>)
                     })}
                   </Select>
                 </FormControl>
@@ -182,7 +200,7 @@ const DialogSelect = (props) => {
                     {props.hospitals.map((hospital) => {
                       return (
                         <option value={hospital.name} data-id="2">
-                          {hospital.name}
+                        {currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} 
                         </option>
                       );
                     })}
@@ -242,7 +260,7 @@ const DialogSelect = (props) => {
                     {props.cities.map((city) => {
                       return (
                         <option value={city.name} data-id="2">
-                          {city.name}
+                        {currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`} 
                         </option>
                       );
                     })}
@@ -262,7 +280,7 @@ const DialogSelect = (props) => {
                     {props.regions.map((region) => {
                       return (
                         <option value={region.name} data-id="2">
-                          {region.name}
+                        {currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`} 
                         </option>
                       );
                     })}
