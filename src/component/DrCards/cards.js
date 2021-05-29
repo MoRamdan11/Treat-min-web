@@ -17,7 +17,6 @@ import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import CallIcon from "@material-ui/icons/Call";
 import TextField from "@material-ui/core/TextField";
-//import Button from "@material-ui/core/Button";
 import { MenuItem } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
 import { Select } from "@material-ui/core";
@@ -182,7 +181,7 @@ const OutlinedCard = ({
   avatar,
   doctor,
   specalist,
-  rating,
+  rating_total,
   hospital,
   schedules,
   waiting,
@@ -198,7 +197,6 @@ const OutlinedCard = ({
   const [date, setDate] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [APopen, setAPOpen] = React.useState(false);
-  //const [schedules, setSchedules] = React.useState([]);
   const [selectedDate, setSelectedDate] = React.useState("");
   const [errorPicker, setErrorPicker] = React.useState(false);
   const [locale, setLocale] = React.useState('en');
@@ -208,20 +206,12 @@ const OutlinedCard = ({
   const [errorLogin, setErrorLogin] = React.useState(false);
   const [accept, setAccept] = React.useState(false);
   const defaultWeekDays = [0, 1, 2, 3, 4, 5, 6];
-  /*useEffect(() => {
-    async function getSchedules() {
-      const request = await axios.get(`/api/clinics/${api}/details/${id_Schedule}/schedules`).then((response) => {
-        setSchedules(response.data.schedules);
-      })
-    }
-    getSchedules();
-  }, [])*/
+
   const handleDate = (event) => {
     setDate(event.target.value);
   };
   const handleOptionClick = (event) => {
     const id = event.target.id;
-    console.log('weid', id);
     setAppointmentId(id);
   }
   const avaliableappoinmenthandleChange = (event) => {
@@ -239,8 +229,6 @@ const OutlinedCard = ({
       return day !== dayIndex[avaliableappoinment];
     });
     setDaysOfWeek(array);
-    console.log('appointment', avaliableappoinment);
-    console.log('weeeek', daysOfWeek);
   };
   const APhandleClose = () => {
     setAPOpen(false);
@@ -303,6 +291,7 @@ const OutlinedCard = ({
         console.log('Booking', response);
         setFailedReserve(false);
         setAccept(true);
+        setStateavaliableappoinment('');
       }).catch((error) => {
         setFailedReserve(true);
         console.log('Error', error.message);
@@ -329,7 +318,7 @@ const OutlinedCard = ({
           {t('dr')}. {doctor.name}
         </h1>
         <Typography>{specalist}</Typography>
-        {rating}
+        {rating_total}
         <IconButton className={classes.GradeIcon} aria-label="settings">
           <GradeIcon />
         </IconButton>
@@ -394,7 +383,7 @@ const OutlinedCard = ({
                 {/*edffec*/}
                 <h3>{t('pickappointment')}</h3>
                 <div style={{ backgroundColor: "#93329e", height: "50px", padding: "10px" }}>
-                  <h4 style={{ display: "inline", color: "white" }}>Picker Language: </h4>
+                  <h4 style={{ display: "inline", color: "white" }}>{t('pickerlanguage')}: </h4>
                   <select style={{ display: "inline" }} onChange={handleSelectChange}>
                     <option value="en">English</option>
                     <option value="ja">Japanese</option>

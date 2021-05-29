@@ -29,6 +29,10 @@ const theme = createMuiTheme({
 
 
 const useStyles = makeStyles({
+  root:{
+    "body[dir=rtl] &": {
+      transform: "scaleX(-1)"
+  }},
   container: {
     backgroundColor: "#235274",
   },
@@ -195,6 +199,21 @@ const useStyles = makeStyles({
     top: "30%",
     right: "30%",
   },
+  ArrowDropDownIcon :{
+    root: {
+      "body[dir=rtl] &": {
+        transform: "scaleX(-1)"
+      }
+    }
+  },
+  ArrowDropUpIcon:{
+    root: {
+      "body[dir=rtl] &": {
+        transform: "scaleX(-1)"
+      }
+    }
+  }
+
 });
 function Account() {
   const { t } = useTranslation();

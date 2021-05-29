@@ -10,6 +10,8 @@ import {
   setServicesFilterSE,
   setHospitalFilterSE,
   setPriceFilterSE,
+  setCitySE,
+  setRegionSE
 } from "../../Redux/actions/filterServices";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -20,7 +22,11 @@ import { ThemeProvider } from "styled-components";
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
-
+//GetVisible services Entities, hospitals, cities and regions
+import getVisibleServicesEntities from "../../Redux/selectors/servicesEntities";
+import getVisibleHospitals from "../../Redux/selectors/hospitals";
+import getVisibleCities from "../../Redux/selectors/cities";
+import getVisibleRegions from "../../Redux/selectors/regions";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
@@ -115,6 +121,10 @@ const FindForm = (props) => {
   const [Hopen, setHOpen] = React.useState(false);
   const [Dopen, setDOpen] = React.useState(false);
   const [SEopen, setSEOpen] = React.useState(false);
+  const [Copen, setCOpen] = React.useState(false);
+  const [Aopen, setAOpen] = React.useState(false);
+  const [City, setStateCity] = React.useState("");
+  const [Area, setStateArea] = React.useState("");
   const [priceOpen, setPriceOpen] = React.useState(false);
 
   const SpecialictyhandleChange = (event) => {
@@ -132,6 +142,16 @@ const FindForm = (props) => {
     const service = event.target.value;
     setService(service);
     props.dispatch(setServicesFilterSE(service));
+  };
+  const CityhandleChange = (event) => {
+    const City = event.target.value;
+    setStateCity(City);
+    props.dispatch(setCitySE(City));
+  };
+  const AreahandleChange = (event) => {
+    const Area = event.target.value;
+    setStateArea(Area);
+    props.dispatch(setRegionSE(Area));
   };
 
   const ShandleClose = () => {
@@ -162,7 +182,20 @@ const FindForm = (props) => {
   const SEhandleOpen = () => {
     setSEOpen(true);
   };
+  const ChandleClose = () => {
+    setCOpen(false);
+  };
 
+  const ChandleOpen = () => {
+    setCOpen(true);
+  };
+  const AhandleClose = () => {
+    setAOpen(false);
+  };
+
+  const AhandleOpen = () => {
+    setAOpen(true);
+  };
   const handlePriceClose = () => {
     setPriceOpen(false);
   };
@@ -203,7 +236,7 @@ const FindForm = (props) => {
               </MenuItem>
               {props.entities.map((entity) => {
                 return (
-                  <MenuItem value={entity.name} data-id="3">
+                  <MenuItem key={entity.id} value={entity.name} data-id="3">
                     <em>{entity.name}</em>
                   </MenuItem>
                 );
@@ -220,18 +253,69 @@ const FindForm = (props) => {
               open={Hopen}
               onClose={HhandleClose}
               onOpen={HhandleOpen}
-              value={props.filters.hospital}
+              value={Hospital}
               onChange={HospitalhandleChange}
             >
               <MenuItem value="" data-id="2">
                 <em>{t('none')}</em>
               </MenuItem>
-              <MenuItem value={10} data-id="2">
-                {t('daar')}
+              {props.hospitals.map((hospital) => {
+                return (
+                  <MenuItem key={hospital.id} value={hospital.name} data-id="2">
+                    <em>{hospital.name}</em>
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label2">
+              {t('city')}
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label2"
+              id="demo-controlled-open-select2"
+              open={Copen}
+              value={City}
+              onClose={ChandleClose}
+              onOpen={ChandleOpen}
+              onChange={CityhandleChange}
+            >
+              <MenuItem value="" data-id="2">
+                <em>{t('none')}</em>
               </MenuItem>
-              <MenuItem value={20} data-id="2">
-                {t('midan')}
+              {props.cities.map((city) => {
+                return (
+                  <MenuItem key={city.id} value={city.name} data-id="2">
+                    <em>{city.name}</em>
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label2">
+              {t('area')}
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label2"
+              id="demo-controlled-open-select2"
+              open={Aopen}
+              onClose={AhandleClose}
+              onOpen={AhandleOpen}
+              value={Area}
+              onChange={AreahandleChange}
+            >
+              <MenuItem value="" data-id="2">
+                <em>{t('none')}</em>
               </MenuItem>
+              {props.regions.map((region) => {
+                return (
+                  <MenuItem key={region.id} value={region.name} data-id="2">
+                    <em>{region.name}</em>
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
           <div className={classes.root}>
@@ -269,7 +353,10 @@ const FindForm = (props) => {
 const mapStateToProps = (state) => {
   return {
     filters: state.filterServices,
-    entities: state.servicesEntities
+    entities: getVisibleServicesEntities(state.servicesEntities),
+    hospitals: getVisibleHospitals(state.hospitals),
+    cities: getVisibleCities(state.cities),
+    regions: getVisibleRegions(state.regions),
   }
 }
 

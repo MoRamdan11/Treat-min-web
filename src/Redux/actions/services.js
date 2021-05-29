@@ -2,18 +2,17 @@ import { v4 as uuid } from 'uuid';
 // services actions
 
 export const addService = ({
-    id = 0,
+    id,
+    api,
     avatar = "",
     service = "",
-    hospital = "",
+    hospital,
     rating_total = 0,
     rating_users = 0,
     waiting = "",
     price = 0,
     callus = "",
-    avaliabledate1 = "",
-    avaliabledate2 = "",
-    avaliabledate3 = ""
+    schedules = []
 } = {}) => {
     const spaceIndex = service.indexOf(' ');
     avatar = (service[0] + ' ' + service[spaceIndex + 1]).toUpperCase();
@@ -27,12 +26,11 @@ export const addService = ({
             waiting,
             price,
             callus,
-            apiId: id,
+            id_Schedule: id,
+            api,
             rating_total,
             rating_users,
-            avaliabledate1,
-            avaliabledate2,
-            avaliabledate3
+            schedules
         }
     }
 };

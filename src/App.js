@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import "./styles.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages";
@@ -6,7 +6,6 @@ import FindClincal from "./pages/FindClical";
 import NotFound from "./component/NotFound/index";
 import Login from "./pages/login/login";
 import SignUp from "./pages/signup/setupAccount";
-import FindSpecialRooms from "./pages/FindSpecialRooms";
 import ForgetPassword from "./pages/forgetpassword/forgetPassword";
 import VerificationCode from "./pages/forgetpassword/verificationCode";
 import ResetPassword from "./pages/forgetpassword/resetPassword";
@@ -24,7 +23,6 @@ import configureStore from "./Redux/store/configureStore";
 import getVisibleClinics from "./Redux/selectors/clinics";
 import {setSpeciality} from "./Redux/actions/filterClinics";
 import AddDataToRedux from "./component/DrCards/data";
-import AddSpecialRoomsToRedux from "./component/SpecialRoomsCards/data";
 import AddServicesToRedux from "./component/ServicesCards/data";
 import SignUp1 from "./pages/signup/firstSignUp";
 import SetupAccount from "./pages/signup/setupAccount";
@@ -38,11 +36,8 @@ import { connect } from "react-redux";
 import Auth from "./Auth/auth";
 import AddEntitiesToRedux from "./component/DrCards/entitiesData";
 import AddServicesEntitiesToRedux from "./component/ServicesCards/serrvicesEntities";
-import AddRoomsEntitiesToRedux from "./component/SpecialRoomsCards/specialRoomsEntities";
-
-function App(props) {
-  const [doctors, setDoctors] = useState([]);
-  var doctors2 = [];
+import Hospital from "./component/hospital and Cities/hospital";
+function App() {
   const [isOpen, serIsOpen] = useState(false);
   const toggle = () => {
     serIsOpen(!isOpen);
@@ -51,11 +46,10 @@ function App(props) {
     <Router>
       <Route> 
         <Auth />
-        <AddRoomsEntitiesToRedux />
+        <Hospital />
         <AddEntitiesToRedux />
         <AddServicesEntitiesToRedux />
         <AddDataToRedux />
-        <AddSpecialRoomsToRedux />
         <AddServicesToRedux />
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <Navbar toggle={toggle} />
@@ -69,7 +63,6 @@ function App(props) {
           <Route path="/verificationCode" component={VerificationCode} />
           <Route path="/verifiyCode" component={VerifiyCode} />
           <Route path="/resetPassword" component={ResetPassword} />
-          <Route path="/FindSpecialRooms" component={FindSpecialRooms} />
           <Route path="/FindServices" component={FindServices} />
           <Route path="/team" component={Team} />
           <Route path="/MyAccount" component={Account} />

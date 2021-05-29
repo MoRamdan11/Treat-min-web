@@ -13,6 +13,7 @@ import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset,ThemeProvider } from '@material-ui/core/styles';
 import Globals from "../navbar/global";
+import SearchNotFound from "../SearchNotFound";
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -42,7 +43,7 @@ const ServicesCard = (props) => {
   function FormRow() {
     return (
       <React.Fragment>
-        {props.services.length === 0 && <img className={classes.imgStyle} src={require('../../images/404 Error-bro.svg').default} />}
+        {props.services.length === 0 && <SearchNotFound />}
         {props.services.map((service, index) => {
           return (
             <Grid item xs={4} key={index}>
@@ -61,7 +62,7 @@ const ServicesCard = (props) => {
     <StylesProvider jss={jss}>
     <div>
       <DialogSelect />
-      {props.services.length === 0 && <img className={classes.imgStyle} src={require('../../images/404 Error-bro.svg').default} />}
+      {props.services.length === 0 && <SearchNotFound />}
       {props.services.map((service, index) => {
         return (
           <div>

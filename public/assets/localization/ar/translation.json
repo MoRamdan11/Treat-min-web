@@ -159,5 +159,11 @@
     "errorschedule": "الرجاء تحديد موعدك المناسب!",
     "errorreservelogin": "لم تقم بتسجيل الدخول بعد!",
     "address": "العنوان",
-    "sucessReserve" : "Your appointment has been booked successfully"
+    "sucessReserve" : "تم حجز موعدك بنجاح",
+    "searchnotfound": "لا توجد نتيجة للبحث",
+    "city":"محافظة",
+    "area":"منطقة",
+    "cairo":"القاهرة",
+    "nasrcity":"مدينة نصر",
+    "pickerlanguage": "لغة منتقي التاريخ"
   }

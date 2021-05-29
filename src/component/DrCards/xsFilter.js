@@ -24,14 +24,18 @@ import {
   setDrName,
   setHospitalName,
   setPrice,
-  setGender,
   setSortBy,
+  setRegionDR,
+  setCityDR
 } from "../../Redux/actions/filterClinics";
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+//GetVisible Clinics Entities, hospitals, cities and regions
 import getVisibleEntities from "../../Redux/selectors/entities";
-
+import getVisibleHospitals from "../../Redux/selectors/hospitals";
+import getVisibleCities from "../../Redux/selectors/cities";
+import getVisibleRegions from "../../Redux/selectors/regions";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const useStyles = makeStyles((theme) => ({
@@ -84,6 +88,14 @@ const DialogSelect = (props) => {
         props.dispatch(setHospitalName(value));
         break;
       }
+      case 'City': {
+        props.dispatch(setCityDR(value));
+        break;
+      }
+      case 'Area': {
+        props.dispatch(setRegionDR(value));
+        break;
+      }
       case 'price': {
         if (value === "") {
           props.dispatch(setPrice(0));
@@ -93,10 +105,10 @@ const DialogSelect = (props) => {
         }
         break;
       }
-      case 'Gender': {
+      /*case 'Gender': {
         props.dispatch(setGender(value));
         break;
-      }
+      }*/
       case 'Sort': {
         props.dispatch(setSortBy(value));
         break;
@@ -151,12 +163,6 @@ const DialogSelect = (props) => {
                     {props.entities.map((entity, index) => {
                       return (<option>{entity.name}</option>)
                     })}
-                    {/*<option value={"Cardiology"}>{t('cardiology')}</option>
-                    <option value={"Chest and Respiratory"}>{t('chest')}</option>
-                    <option value={"Dentistry"}>{t('dentistry')}</option>
-                    <option value={"Hepatology"}>{t('hepatology')}</option>
-                    <option value={"Internal Medicine"}>{t('internal')}</option>
-                    <option value={"Neurosurgery"}>{t('neurosurgery')}</option>*/}
                   </Select>
                 </FormControl>
                 <FormControl variant="filled" className={classes.formControl}>
@@ -173,11 +179,13 @@ const DialogSelect = (props) => {
                     }}
                   >
                     <option aria-label={t('none')} value="" />
-                    <option value="Nasr city Clincs" data-id="2">
-                      {"Nasr city Clincs"}
-                    </option>
-                    <option value={"Daar El fouad"}>{t('daar')}</option>
-                    <option value={"elmidan"}>{t('midan')}</option>
+                    {props.hospitals.map((hospital) => {
+                      return (
+                        <option value={hospital.name} data-id="2">
+                          {hospital.name}
+                        </option>
+                      );
+                    })}
                   </Select>
                 </FormControl>
                 <FormControl variant="filled" className={classes.formControl}>
@@ -204,7 +212,7 @@ const DialogSelect = (props) => {
                     <option value="500">500</option>
                   </Select>
                 </FormControl>
-                <FormControl variant="filled" className={classes.formControl}>
+                {/*<FormControl variant="filled" className={classes.formControl}>
                   <InputLabel htmlFor="filled-age-native-simple">{t('gender')}</InputLabel>
                   <Select
                     native
@@ -218,6 +226,46 @@ const DialogSelect = (props) => {
                     <option aria-label={t('none')} value="" />
                     <option value={"male"}>{t('male')}</option>
                     <option value={"female"}>{t('female')}</option>
+                  </Select>
+                </FormControl>*/}
+                <FormControl variant="filled" className={classes.formControl}>
+                  <InputLabel htmlFor="filled-age-native-simple">{t('city')}</InputLabel>
+                  <Select
+                    native
+                    onChange={handleChange}
+                    inputProps={{
+                      name: "City",
+                      id: "outlined-age-native-simple"
+                    }}
+                  >
+                    <option aria-label={t('none')} value="" />
+                    {props.cities.map((city) => {
+                      return (
+                        <option value={city.name} data-id="2">
+                          {city.name}
+                        </option>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+                <FormControl variant="filled" className={classes.formControl}>
+                  <InputLabel htmlFor="filled-age-native-simple">{t('area')}</InputLabel>
+                  <Select
+                    native
+                    onChange={handleChange}
+                    inputProps={{
+                      name: "Area",
+                      id: "outlined-age-native-simple"
+                    }}
+                  >
+                    <option aria-label={t('none')} value="" />
+                    {props.regions.map((region) => {
+                      return (
+                        <option value={region.name} data-id="2">
+                          {region.name}
+                        </option>
+                      );
+                    })}
                   </Select>
                 </FormControl>
                 <FormControl variant="filled" className={classes.formControl}>
@@ -268,6 +316,9 @@ const DialogSelect = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    hospitals: getVisibleHospitals(state.hospitals),
+    cities: getVisibleCities(state.cities),
+    regions: getVisibleRegions(state.regions),
     filters: state.filterClinics,
     entities: getVisibleEntities(state.entities)
   };

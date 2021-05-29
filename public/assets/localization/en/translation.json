@@ -159,5 +159,11 @@
     "errorschedule": "Please select your suitable appointment!",
     "errorreservelogin": "You are not logged in yet!",
     "address": "Address",
-    "sucessReserve": "تم حجز موعدك بنجاح"
+    "sucessReserve": "Your appointment has been booked successfully",
+    "searchnotfound":"Search Not Found",
+    "city":"City",
+    "area":"Area",
+    "cairo":"Cairo",
+    "nasrcity":"Nasr City",
+    "pickerlanguage": "Language of the date picker"
 }

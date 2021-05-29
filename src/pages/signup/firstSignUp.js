@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { makeStyles, createMuiTheme, ThemeProvider,StylesProvider,
+  jssPreset, } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
+import cookies from 'js-cookie';
+import i18next from 'i18next'
+import rtl from "jss-rtl";
+
+import { create } from "jss";
 import {
   GridContainer,
   Img,
@@ -13,6 +19,7 @@ import {
 } from "../elements";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 const theme = createMuiTheme({
   palette: {
@@ -21,8 +28,31 @@ const theme = createMuiTheme({
     }
   }
 });
+const overrides = {
+  TextField: {
+    root: {
+      "body[dir=rtl] &": {
+        transform: "scaleX(-1)"
+      }
+    }
+  }
+};
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'eg',
+  },
+]
 
 const useStyles = makeStyles({
+
   content: {
     marginTop: "10px",
     width: "100%",
@@ -47,6 +77,7 @@ function SignUp1(props) {
   const [errorEmail, setErrorEmail] = useState(true);
   const [inValidEmail, setInValidEmail] = useState(false);
   const [emailRepeated, setEmailRepeated] = useState(false);
+  
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     setEmailRepeated(false);
@@ -99,9 +130,17 @@ function SignUp1(props) {
     }
   }
   const { t } = useTranslation();
+  const ltrTheme = createMuiTheme({ direction: "ltr" });
+  const rtlTheme = createMuiTheme({ direction: "rtl", overrides });
+  const [isRtl, setIsRtl] = React.useState(false);
+  React.useLayoutEffect(() => {
+    document.body.setAttribute("dir", isRtl ? "rtl" : "ltr");
+  }, [isRtl]);
+  const currentLanguageCode = cookies.get('i18next') || 'en'
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
   return (
     <div>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={isRtl ? rtlTheme : ltrTheme}>
         <GridContainer container>
           <Grid xs={12} sm={12} md={6} lg={6}>
             <Img
@@ -120,6 +159,7 @@ function SignUp1(props) {
                 label={t('email')}
                 required
                 error={errorEmail}
+                dir={currentLanguage.dir || 'ltr'}
               />
               {inValidEmail && <p className={styles.notValidEmail}>{t('emailnotvalid')}</p>}
               {emailRepeated && <p className={styles.notValidEmail}>{t('repeatEmail')}</p>}

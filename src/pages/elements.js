@@ -3,7 +3,22 @@ import Grid from "@material-ui/core/Grid";
 import { Link as LinkR } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
-
+import cookies from 'js-cookie';
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'eg',
+  },
+]
+const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
 export const GridContainer = styled(Grid)`
   width: 100%;
   margin: 0px;
@@ -110,6 +125,8 @@ export const Code = styled(TextField)`
   margin: 10px;
   background-color: white;
   color: black;
+  dir:{currentLanguage.dir || 'ltr'};
+
   @media screen and (max-width: 400px){
     margin: 10px 5px 10px 5px;
   }

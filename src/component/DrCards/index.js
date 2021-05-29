@@ -9,6 +9,7 @@ import Filter from "./Filter";
 import DialogSelect from "./xsFilter";
 import { connect } from "react-redux";
 import getVisibleClinics from "../../Redux/selectors/clinics";
+import SearchNotFound from "../SearchNotFound";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,7 @@ const DrCard = (props) => {
   function Form() {
     return (
       <React.Fragment>
-        {props.clinics.length === 0 && <img className = {classes.imgStyle} src = {require('../../images/404 Error-bro.svg').default}/>}
+        {props.clinics.length === 0 && <SearchNotFound/>}
         {props.clinics.map((doc, index) => {
           return (
             <Grid item xs={4} key={index}>
@@ -52,7 +53,7 @@ const DrCard = (props) => {
   return IsMobile ? (
     <div>
       <DialogSelect />
-      {props.clinics.length === 0 && <img src = {require('../../images/404 Error-bro.svg').default}/>}
+      {props.clinics.length === 0 && <SearchNotFound/>}
       {props.clinics.map((doc, index) => {
         return (
           <div key={index}>

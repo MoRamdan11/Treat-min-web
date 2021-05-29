@@ -10,7 +10,6 @@ import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import FindClincalSection from '../FindClincal'
-import FindSpecialRoomSection from '../FindSpecialRooms'
 import FindServicesSection from '../FindServices';
 import { useTranslation} from "react-i18next";
 import Globals from "../navbar/global";
@@ -103,18 +102,14 @@ export default function NavTabs() {
           aria-label="nav tabs example"
         >
           <LinkTab className={classes.Tab} icon={<LocalHospitalIcon/>}label={t('clinic')} href="/drafts" {...a11yProps(0)} />
-          <LinkTab className={classes.Tab} icon={<LocalHotelIcon/>}label={t('special_room')} href="/trash" {...a11yProps(1)} />
-          <LinkTab className={classes.Tab} icon={<SettingsApplicationsIcon/>} label={t('service')} href="/spam" {...a11yProps(2)} />
+          <LinkTab className={classes.Tab} icon={<LocalHotelIcon/>}label={t('service')} href="/trash" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <FindClincalSection/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <FindSpecialRoomSection/>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <FindServicesSection/>
+      <FindServicesSection/>
       </TabPanel>
     </div>
     </StylesProvider>

@@ -1,14 +1,19 @@
-const getVisibleClinics = (clinics, {text, speciality, drName, hospital, price, gender, sortBy}) => {
+const getVisibleClinics = (clinics, {text, speciality, drName, hospital, price, city, region, sortBy}) => {
     return clinics.filter((clinic) => {
         const textMatch = text === '' || clinic.doctor.name.toLowerCase().includes(text.toLowerCase()) ||
                          clinic.specalist.toLowerCase().includes(text.toLowerCase()) ||
-                         clinic.hospital.toLowerCase().includes(text.toLowerCase()) || false;
+                         clinic.hospital.name.toLowerCase().includes(text.toLowerCase()) || false;
         const specialityMatch = (speciality === '') || (clinic.specalist === speciality);
         const drNameMatch = (drName === '') || (clinic.name === drName);
         const hospitalMatch = (hospital === '') || (clinic.hospital.name === hospital);
         const priceMatch = (price === 0) || (clinic.price <= price);
         const genderMatch = true //there is no field in card related to gender
-        return textMatch && specialityMatch && drNameMatch && hospitalMatch && priceMatch && genderMatch;
+        const cityMatch = (city === '') || (clinic.hospital.city === city);
+        console.log('hospital City', clinic.hospital.city);
+        console.log('cityFilter', city);
+        console.log('cityMatch', cityMatch);
+        const regionMatch = (region === '') || (clinic.hospital.area === region);
+        return cityMatch && textMatch && specialityMatch && drNameMatch && hospitalMatch && priceMatch && genderMatch  && regionMatch;
     }).sort((a, b) => {
         if(sortBy === 'A to Z' || sortBy === 'ا الى ي'){
             return a.doctor.name.toLowerCase() < b.doctor.name.toLowerCase()? -1 : 1;

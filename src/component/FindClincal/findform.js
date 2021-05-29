@@ -19,17 +19,21 @@ import {
   setDrName,
   setHospitalName,
   setPrice,
-  setGender,
   setSortBy,
-  setTextFilter
+  setTextFilter,
+  setRegionDR,
+  setCityDR
 } from "../../Redux/actions/filterClinics";
 import Globals from "../navbar/global"
 import { ThemeProvider } from "styled-components";
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+//GetVisible Clinics Entities, hospitals, cities and regions
 import getVisibleEntities from "../../Redux/selectors/entities";
-
+import getVisibleHospitals from "../../Redux/selectors/hospitals";
+import getVisibleCities from "../../Redux/selectors/cities";
+import getVisibleRegions from "../../Redux/selectors/regions";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 function valuetext(value) {
@@ -116,8 +120,12 @@ const FindForm = (props) => {
   const [Hospital, setStateHospital] = React.useState("");
   const [Doctor, setDoctor] = React.useState("");
   const [Service, setService] = React.useState("");
+  const [City, setStateCity] = React.useState("");
+  const [Area, setStateArea] = React.useState("");
   const [Sopen, setSOpen] = React.useState(false);
   const [Hopen, setHOpen] = React.useState(false);
+  const [Copen, setCOpen] = React.useState(false);
+  const [Aopen, setAOpen] = React.useState(false);
   const [Dopen, setDOpen] = React.useState(false);
   const [SEopen, setSEOpen] = React.useState(false);
   const [Popen, setPOpen] = React.useState(false);//price Open
@@ -139,12 +147,17 @@ const FindForm = (props) => {
     setStateHospital(hospital);
     props.dispatch(setHospitalName(hospital))
   };
-  const DoctorhandleChange = (event) => {
-    setDoctor(event.target.value);
+  const CityhandleChange = (event) => {
+    const City = event.target.value;
+    setStateCity(City);
+    props.dispatch(setCityDR(City));
   };
-  const ServicehandleChange = (event) => {
-    setService(event.target.value);
+  const AreahandleChange = (event) => {
+    const Area = event.target.value;
+    setStateArea(Area);
+    props.dispatch(setRegionDR(Area));
   };
+
 
   const ShandleClose = () => {
     setSOpen(false);
@@ -159,6 +172,20 @@ const FindForm = (props) => {
 
   const HhandleOpen = () => {
     setHOpen(true);
+  };
+  const ChandleClose = () => {
+    setCOpen(false);
+  };
+
+  const ChandleOpen = () => {
+    setCOpen(true);
+  };
+  const AhandleClose = () => {
+    setAOpen(false);
+  };
+
+  const AhandleOpen = () => {
+    setAOpen(true);
   };
   const DhandleClose = () => {
     setDOpen(false);
@@ -214,9 +241,9 @@ const FindForm = (props) => {
               <MenuItem value="" data-id="1">
                 <em>{t('none')}</em>
               </MenuItem>
-              {props.entities.map((entity, index) => {
+              {props.entities.map((entity) => {
                 return (
-                  <MenuItem value={entity.name} data-id="1">
+                  <MenuItem key={entity.id} value={entity.name} data-id="1">
                     <em>{entity.name}</em>
                   </MenuItem>
                 );
@@ -239,15 +266,63 @@ const FindForm = (props) => {
               <MenuItem value="" data-id="2">
                 <em>{t('none')}</em>
               </MenuItem>
-              <MenuItem value="Nasr city Clincs" data-id="2">
-                <em>{"Nasr city Clincs"}</em>
+              {props.hospitals.map((hospital) => {
+                return (
+                  <MenuItem key={hospital.id} value={hospital.name} data-id="2">
+                    <em>{hospital.name}</em>
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label2">
+              {t('city')}
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label2"
+              id="demo-controlled-open-select2"
+              open={Copen}
+              onClose={ChandleClose}
+              onOpen={ChandleOpen}
+              value={City}
+              onChange={CityhandleChange}
+            >
+              <MenuItem value="" data-id="2">
+                <em>{t('none')}</em>
               </MenuItem>
-              <MenuItem value={'Daar El fouad'} data-id="2">
-                {t('daar')}
+              {props.cities.map((city) => {
+                return (
+                  <MenuItem key={city.id} value={city.name} data-id="2">
+                    <em>{city.name}</em>
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label2">
+              {t('area')}
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label2"
+              id="demo-controlled-open-select2"
+              open={Aopen}
+              value={Area}
+              onClose={AhandleClose}
+              onOpen={AhandleOpen}
+              onChange={AreahandleChange}
+            >
+              <MenuItem value="" data-id="2">
+                <em>{t('none')}</em>
               </MenuItem>
-              <MenuItem value={'elmidan'} data-id="2">
-                {t('midan')}
-              </MenuItem>
+              {props.regions.map((region) => {
+                return (
+                  <MenuItem key={region.id} value={region.name} data-id="2">
+                    <em>{region.name}</em>
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
           <div className={classes.root}>
@@ -285,6 +360,9 @@ const FindForm = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    hospitals: getVisibleHospitals(state.hospitals),
+    cities: getVisibleCities(state.cities),
+    regions: getVisibleRegions(state.regions),
     filters: state.filterClinics,
     entities: getVisibleEntities(state.entities)
   };

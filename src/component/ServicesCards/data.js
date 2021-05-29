@@ -85,7 +85,7 @@ const AddServicesToRedux = (props) => {
         if(props.filters.fetch === true){
           return
         }
-        const data = await axios.get(`api/services/${i}/details/`).then((response) => {
+        const data = await axios.get(`api/services/${i}/schedules/`).then((response) => {
           const serviceData = response.data.details.map((card) => ({
             ...card,
             api: i,
@@ -104,9 +104,9 @@ const AddServicesToRedux = (props) => {
           setService([]);
         })
       }
-      services2.map((service) => {
+      /*services2.map((service) => {
         props.dispatch(addService(service))
-      });
+      });*/
       props.dispatch(fetchServices(true));
     }
     fetchServicesData();

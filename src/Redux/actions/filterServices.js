@@ -1,5 +1,24 @@
 // servicesfilters actions
 //SE --> shortcut for service
+export const setCitySE = (city = '') => {
+    return {
+        type: 'SET_CITY_SERVICE',
+        city
+    }
+}
+
+export const setRegionSE = (region = '') => {
+    return {
+        type: 'SET_REGION_SERVICE',
+        region
+    }
+}
+
+export const resetServicesFilter = () => {
+    return {
+        type: 'RESET_FILTER_SERVICES'
+    };
+}
 export const fetchServices = (fetch = false) => {
     return{
         type: 'SET_FETCH_SERVICES',

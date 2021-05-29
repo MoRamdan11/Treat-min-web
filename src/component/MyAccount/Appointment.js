@@ -53,6 +53,13 @@ const useStyles = makeStyles({
     cursor: "pointer",
     color: "#c64756",
   },
+  ListAltOutlinedIcon :{
+    root: {
+      "body[dir=rtl] &": {
+        transform: "scaleX(-1)"
+      }
+    }
+  }
 });
 function Appointment({ service, time, date }) {
   const classes = useStyles();

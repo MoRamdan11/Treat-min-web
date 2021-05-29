@@ -8,11 +8,22 @@ const filterSReducerDefaultState = {
     price: 0,
     sortBy: '',
     fetchEntities: false,
+    city: '',
+    region: ''
     //sort by ==> 'A to Z' || 'Z to A' || 'Lowest Price' || 'Highest Price'
 };
 
 const filterServicesReducer = (state = filterSReducerDefaultState, action) => {
     switch (action.type) {
+        case 'SET_CITY_SERVICE': {
+            return {...state, city: action.city};
+        }
+        case 'SET_REGION_SERVICE': {
+            return {...state, region: action.region};
+        }
+        case 'RESET_FILTER_SERVICES': {
+            return { ...filterSReducerDefaultState };
+        }
         case 'SET_FETCH_SERVICES':{
             return{...state, fetch: action.fetch}
         }
