@@ -102,8 +102,6 @@ function Footer() {
             <H3>{t('service')}</H3>
             <FooterLink to="FindClinical">{t('clinic')}</FooterLink>
             <FooterLink to="FindServices">{t('service')}</FooterLink>
-            <FooterLink to="FindSpecialRooms">{t('special_room')}</FooterLink>
-            <EmergencyLink to="/Emergency">{t('emergency')}</EmergencyLink>
           </GridServices>
           <GridUsefulLinks xs={12} sm={12} md={2} lg={2}>
             <H3>{t('usefullink')}</H3>
