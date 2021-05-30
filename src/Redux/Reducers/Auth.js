@@ -13,7 +13,10 @@ const authReducer = ((state = authReducerDefault, action) => {
         case 'SET_AUTH':
             return {...state, isLogin: action.isLogin};
         case 'SET_USER_PROFILE':
-            return {...state, ...action.profile}
+            return {...state, ...action.profile};
+        case 'RESET_USER_PROFILE': {
+            return {...authReducerDefault};
+        }
         default: return state;
     }
 })

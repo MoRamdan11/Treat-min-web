@@ -12,6 +12,8 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
+import Input from '@material-ui/core/Input';
+
 import FormControl from "@material-ui/core/FormControl";
 import { NavBtn, NavBtnLink, NavBtnLink2 } from "./Buttons";
 import { useHistory, NavLink } from "react-router-dom";
@@ -28,11 +30,9 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import moment from "moment";
 import MomentLocaleUtils from 'react-day-picker/moment';
-import 'moment/locale/ja';
 import 'moment/locale/ar';
-import 'moment/locale/it';
-import 'moment/locale/de';
 import axios from "axios";
+import { Form } from "../../pages/elements";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
@@ -53,6 +53,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles({
   container: {
     backgroundColor: "#235274",
+    height: "auto"
   },
   wrapper: {
     margin: "0 auto",
@@ -66,9 +67,9 @@ const useStyles = makeStyles({
     "@media screen and (max-width: 1000px)": {
       fontSize: "12px",
     },
-    datePicker: {
-      zIndex: 99,
-    }
+  },
+  datePicker: {
+    zIndex: "99",
   },
   columnOne: {
     backgroundColor: "#235274",
@@ -104,6 +105,8 @@ const useStyles = makeStyles({
   form: {
     display: "flex",
     flexDirection: "column",
+    textAlign: "center",
+    padding: "5px"
   },
   label: {
     marginTop: "0",
@@ -159,6 +162,14 @@ function EditUserInfo(props) {
   const [errorName, setErrorName] = useState(false);
   const [failedName, setFailedName] = useState(false);
   const [errorBirth, setErrorBirth] = useState(false);
+  const [password, setPassword] = useState("");
+  const [errorPassword, setErrorPassword] = useState(true);
+  const [visibility, setVisibility] = useState(false);
+  const [failedPassword, setFailedPassword] = useState(false);
+  const [notAcceptPass, setNotAccPass] = useState(false);
+  function handleVisibility() {
+    setVisibility((prevValue) => !prevValue);
+  }
   function handleChange(e) {
     const { name, value } = e.target;
     if (name === "email") {
@@ -213,12 +224,22 @@ function EditUserInfo(props) {
       setErrorName(true);
     }
   }
-
+  function hnadlePasswordChange(event) {
+    const passwordVal = event.target.value;
+    if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {
+      setPassword(passwordVal);
+      setErrorPassword(false);
+      setFailedPassword(false);
+      setNotAccPass(false);
+    } else {
+      setErrorPassword(true);
+    }
+  }
   const handleBtnClick = (event) => {
     event.preventDefault();
-    if (!errorName && !errorPhone) {
+    if (!errorName && !errorPhone && !errorPassword) {
       axios.patch('/api/accounts/edit-account/', {
-        password: "mo01128611970",
+        password: password,
         name: name,
         phone: phone,
         birth: selectedDate,
@@ -241,6 +262,7 @@ function EditUserInfo(props) {
         props.history.push('/MyAccount');
       }).catch((error) => {
         console.log(error.response.data);
+        setNotAccPass(true);
       });
     } else {
       if (errorName) {
@@ -249,6 +271,9 @@ function EditUserInfo(props) {
       if (errorPhone) {
         setFailedPhone(true);
       }
+      if (errorPassword) {
+        setFailedPassword(true);
+      }
       props.history.push('/EditUserInfo');
     }
   }
@@ -256,9 +281,9 @@ function EditUserInfo(props) {
   const handleEnterClick = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      if (!errorName && !errorPhone) {
+      if (!errorName && !errorPhone && !errorPassword) {
         axios.patch('/api/accounts/edit-account/', {
-          password: "mo01128611970",
+          password: password,
           name: name,
           phone: phone,
           birth: selectedDate,
@@ -281,6 +306,7 @@ function EditUserInfo(props) {
           props.history.push('/MyAccount');
         }).catch((error) => {
           console.log(error.response.data);
+          setNotAccPass(true);
         });
       } else {
         if (errorName) {
@@ -288,6 +314,9 @@ function EditUserInfo(props) {
         }
         if (errorPhone) {
           setFailedPhone(true);
+        }
+        if (errorPassword) {
+          setFailedPassword(true);
         }
         props.history.push('/EditUserInfo');
       }
@@ -309,7 +338,49 @@ function EditUserInfo(props) {
                 autoComplete="off"
                 onSubmit={(e) => e.preventDefault()}
               >
-                <EditAvatar id={props.auth.id} name={props.auth.name} />
+                {/*<EditAvatar id={props.auth.id} name={props.auth.name} />*/}
+                <h1>{t('editinfo')}</h1>
+                <FormControl
+                  className={classes.input}
+                  required
+                  variant="standard"
+                >
+                  <InputLabel
+                    color={errorPassword ? "secondary" : "primary"}
+                    required htmlFor="standard-adornment-password"
+                  >
+                    {t('enterPass')}
+                  </InputLabel>
+                  <Input
+                    id="standard-adornment-password"
+                    type={visibility ? "text" : "password"}
+                    onChange={hnadlePasswordChange}
+                    onKeyPress={handleEnterClick}
+                    error={errorPassword}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          edge="end"
+                          onClick={handleVisibility}
+                        >
+                          {visibility ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    labelWidth={120}
+                  />
+                </FormControl>
+                {(failedPassword) && (
+                  <p style={{ color: "red", marginBottom: "5px" }}>
+                    {t('eightcharcter')}
+                  </p>
+                )}
+                {(notAcceptPass) && (
+                  <p style={{ color: "red", marginBottom: "5px" }}>
+                    {"Error pass"}
+                  </p>
+                )}
                 <TextField
                   name="name"
                   value={name}
@@ -339,7 +410,7 @@ function EditUserInfo(props) {
                   className={classes.input}
                 />
                 {failedPhone &&
-                  <p style={{ color: "red", marginBottom: "5px" , textAlign:"center"}}>
+                  <p style={{ color: "red", marginBottom: "5px", textAlign: "center" }}>
                     {t('phoneError')}
                   </p>
                 }

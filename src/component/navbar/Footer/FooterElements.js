@@ -13,7 +13,7 @@ export const GridContainer = styled(Grid)`
   margin: 0px;
   /*background-color: #222831;*/
   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
-  padding: 30px 30px 50px 30px;
+  padding: 10px 30px 50px 30px;
   color: white;
   @media screen and (max-width: 480px) {
     width: 480px;

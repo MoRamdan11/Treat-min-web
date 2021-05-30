@@ -59,10 +59,10 @@ function ResetPassword(props) {
     if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {
       if (confirmPassword === passwordVal) {
         setErrorConfirmPassword(false);
+        setInvalidPass(false);
       }
       setPassword(passwordVal);
       setErrorPassword(false);
-      setInvalidPass(false);
     } else {
       setErrorPassword(true);
     }
@@ -75,6 +75,7 @@ function ResetPassword(props) {
       setErrorConfirmPassword(false);
       setInvalidPass(false);
     } else {
+      setConfirmPassword(confirmNewPassword);
       setErrorConfirmPassword(true);
     }
   }

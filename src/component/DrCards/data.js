@@ -4,14 +4,14 @@ import { addClinic } from "../../Redux/actions/clinics";
 import axios from "axios";
 import { fetchClinic } from "../../Redux/actions/filterClinics";
 
-class AddDataToRedux extends React.Component{
-  state={
+class AddDataToRedux extends React.Component {
+  state = {
     doctors: [],
     fetched: true
   }
-  async componentDidMount(){
-    for(var i = 1; i <= 29; i++){
-      if(this.props.filters.fetch === true){
+  async componentDidMount() {
+    for (var i = 1; i <= 29; i++) {
+      if (this.props.filters.fetch === true) {
         break;
       }
       const data = await axios.get(`/api/clinics/${i}/schedules/`).then((response) => {
@@ -20,22 +20,20 @@ class AddDataToRedux extends React.Component{
           api: i,
           specalist: response.data.entity
         }))
-        this.setState({doctors: [...this.state.doctors, ...drData]});
+        //this.setState({ doctors: [...this.state.doctors, ...drData] });
+        drData.map((doctor) => {
+          this.props.addClinic(doctor);
+        })
       }).catch((error) => {
         console.log(error);
-      }).finally(() => {
-        this.state.doctors.map((doctor) => {
-          this.props.addClinic(doctor);
-        });
-        this.setState({doctors: []});
       })
     }
     this.props.fetchClinic(true);
   }
-  render(){
-    return(
-    <div style={{ height: "0px", width: "0px" }}>
-    </div>);
+  render() {
+    return (
+      <div style={{ height: "0px", width: "0px" }}>
+      </div>);
   }
 }
 
@@ -120,11 +118,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(AddDataToRedux);
 */
 /*function areEqual(props) {
   return props.filters.fetch;
-  
+
   return true if passing nextProps to render would return
   the same result as passing prevProps to render,
   otherwise return false
-  
+
 }
 const mapStateToProps2 = (state) => {
   return {

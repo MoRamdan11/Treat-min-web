@@ -72,7 +72,7 @@
     "searchservice":"Service or Hospital Name",
     "searchroom":"Room or Hospital Name",
     "usefullink":"Useful Links",
-    "account":"MY Account",
+    "account":"My Account",
     "help":"Help",
     "contactus":"Contact us",
     "right":"All Rights Reserved, Copyright ",
@@ -199,6 +199,9 @@
     "protect":"Protect the burned person from further harm",
     "burnedisbreathing":"Make certain that the person burned is breathing",
     "remove":"Remove jewelry, belts and other restrictive items,",
-    "watch":"Watch for signs of shock"
-
+    "watch":"Watch for signs of shock",
+    "editinfo": "Edit Your Profile",
+    "enterPass": "Enter your password",
+    "currentpass": "Current Password",
+    "errorcurrpass": "Wrong password please enter your correct password!"
 }

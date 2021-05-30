@@ -7,7 +7,7 @@ export const setAuth = (isLogin = false) => {
 }
 
 export const setUserProfile = ({
-    id="",
+    id = "",
     name = "",
     email = "",
     phone = "",
@@ -24,5 +24,11 @@ export const setUserProfile = ({
             gender,
             birth
         }
+    }
+}
+
+export const deleteProfile = () => {
+    return {
+        type: 'RESET_USER_PROFILE'
     }
 }

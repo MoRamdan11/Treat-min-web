@@ -11,25 +11,29 @@ export const matchClincsAr = {
 export const matchAreaEn = {
     'Nasr City': 'Nasr City',
     'Manial': 'El Manial',
-    'Helwan': 'Helwan'
-
+    'Helwan': 'Helwan',
+    'Abo Qeer': 'Abo Qeer',
+    'Faisal': 'Faisal',
+    'Haram': 'El Haram'
 }
 export const matchAreaAr = {
     'Nasr City': 'مدينة نصر',
     'Manial': 'المنيل',
-    'Helwan': 'حلوان'
-
+    'Helwan': 'حلوان',
+    'Abo Qeer': 'أبو قير',
+    'Faisal': 'فيصل',
+    'Haram': 'الهرم'
 }
 
 export const matchCityEn = {
     'Cairo': 'Cairo',
-    'Alexandria': 'Alexandria'
-
+    'Alexandria': 'Alexandria',
+    'Giza': 'Giza'
 }
 export const matchCityAr = {
     'Cairo': 'القاهرة',
-    'Alexandria': 'الاسكندرية'
-
+    'Alexandria': 'الاسكندرية',
+    'Giza': 'الجيزة'
 }
 export const matchAddressEn = {
     'Nasr city Clincs': '81 Nasr road beside Tyba mall ',

@@ -22,6 +22,7 @@ import {
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import { connect } from "react-redux";
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -63,7 +64,7 @@ const useStyles = makeStyles({
     marginTop: "20px"
   }
 });
-function Footer() {
+function Footer(props) {
   const { t } = useTranslation();
   var currentDate = new Date();
   var currentYear = currentDate.getFullYear();
@@ -106,7 +107,7 @@ function Footer() {
           <GridUsefulLinks xs={12} sm={12} md={2} lg={2}>
             <H3>{t('usefullink')}</H3>
             <FooterLink to="/">{t('home')}</FooterLink>
-            <FooterLink to="/MyAccount">{t('account')}</FooterLink>
+            {props.auth.isLogin && <FooterLink to="/MyAccount">{t('account')}</FooterLink>}
             <FooterLink to="#">{t('help')}</FooterLink>
           </GridUsefulLinks>
           <GridContactUs xs={12} sm={12} md={3} lg={2}>
@@ -150,5 +151,9 @@ function Footer() {
     </ThemeProvider>
   );
 }
-
-export default Footer;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
+}
+export default connect(mapStateToProps)(Footer);
