@@ -3,7 +3,7 @@
     text-decoration: none;
     color: #489061;
     font-weight: bold;
-    font-family: 'Amiri', monospace;
+    font-family: "Encode Sans Expanded", sans-serif;
 
 }
 .subheader{
@@ -11,7 +11,7 @@
     text-decoration: none;
     color: #489061;
     font-weight: 500;
-    font-family: 'Amiri', monospace;
+    font-family: "Encode Sans Expanded", sans-serif;
     text-overflow: inherit;
 }
 .image{

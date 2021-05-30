@@ -165,5 +165,9 @@
     "area":"Area",
     "cairo":"Cairo",
     "nasrcity":"Nasr City",
-    "pickerlanguage": "Language of the date picker"
+    "pickerlanguage": "Language of the date picker",
+    "helpyou":"We are here to help you",
+    "keepcalm":"keep calm , call 123 then choose first aid to save human life or nearest hospital",
+    "firstaid":"First Aid",
+    "nearesthospital":"Nearest Hospital"
 }
