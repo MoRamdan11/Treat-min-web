@@ -155,7 +155,7 @@ function SignUp1(props) {
                 className={styles.content}
                 onChange={handleEmailChange}
                 onKeyPress={handleEnterClick}
-                variant="outlined"
+                variant="standard"
                 label={t('email')}
                 required
                 error={errorEmail}

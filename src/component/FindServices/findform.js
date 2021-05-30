@@ -29,6 +29,8 @@ import getVisibleCities from "../../Redux/selectors/cities";
 import getVisibleRegions from "../../Redux/selectors/regions";
 import cookies from 'js-cookie';
 import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr,matchAreaEn,matchAreaAr,matchCityEn,matchCityAr} from "../DrCards/Cincs"
+import { ServicesEN, ServicesAR } from "../ServicesCards/service";
+
 const languages = [
   {
     code: 'en',
@@ -255,7 +257,7 @@ const FindForm = (props) => {
               {props.entities.map((entity) => {
                 return (
                   <MenuItem key={entity.id} value={entity.name} data-id="3">
-                    <em>{entity.name}</em>
+                    <em>{currentLanguage.dir ? `${ServicesAR[entity.name]} ` : `${ServicesEN[entity.name]}`}</em>
                   </MenuItem>
                 );
               })}

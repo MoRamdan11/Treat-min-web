@@ -21,4 +21,4 @@ const Emergncy = () => {
     )
 }
 
-export default Emergncy
+export default Emergncy;

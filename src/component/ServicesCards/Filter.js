@@ -31,23 +31,23 @@ import getVisibleHospitals from "../../Redux/selectors/hospitals";
 import getVisibleCities from "../../Redux/selectors/cities";
 import getVisibleRegions from "../../Redux/selectors/regions";
 import cookies from 'js-cookie';
-import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr,matchAreaEn,matchAreaAr,matchCityEn, matchCityAr} from "../DrCards/Cincs";
+import { matchClincsEn, matchClincsAr, matchAddressEn, matchAddressAr, matchAreaEn, matchAreaAr, matchCityEn, matchCityAr } from "../DrCards/Cincs";
 // Configure JSS
-import {ServicesEN,ServicesAR} from "./service"
-  const languages = [
-    {
-      code: 'en',
-      name: 'English',
-      country_code: 'gb',
-    },
-    {
-      code: 'ar',
-      name: 'العربية',
-      dir: 'rtl',
-      country_code: 'eg',
-    },
-  ]
-  const currentLanguageCode = cookies.get('i18next') || 'en'
+import { ServicesEN, ServicesAR } from "./service"
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'eg',
+  },
+]
+const currentLanguageCode = cookies.get('i18next') || 'en'
 const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -157,7 +157,9 @@ function Filter(props) {
               <option aria-label={t('none')} value="" />
               {props.entities.map((entity) => {
                 return (
-                  <option key={entity.id} value={entity.name}>{entity.name}</option>
+                  <option key={entity.id} value={entity.name}>
+                    {currentLanguage.dir ? `${ServicesAR[entity.name]} ` : `${ServicesEN[entity.name]}`}
+                  </option>
                 );
               })}
             </Select>
@@ -182,36 +184,36 @@ function Filter(props) {
               {props.hospitals.map((hospital) => {
                 return (
                   <option key={hospital.id} value={hospital.name}>
-                  {currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} 
+                    {currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`}
                   </option>
                 );
               })}
             </Select>
           </FormControl>
           <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel htmlFor="outlined-age-native-simple" variant="filled">{t('price')}</InputLabel>
-              <Select
-                native
-                value={props.filters.price}
-                onChange={handleChange}
-                inputProps={{
-                  name: "price",
-                  id: "outlined-age-native-simple"
-                }}
-              >
-                <option aria-label={t('none')} value="" />
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="200">200</option>
-                <option value="250">250</option>
-                <option value="300">300</option>
-                <option value="350">350</option>
-                <option value="400">400</option>
-                <option value="450">450</option>
-                <option value="500">500</option>
-              </Select>
-            </FormControl>
+            <InputLabel htmlFor="outlined-age-native-simple" variant="filled">{t('price')}</InputLabel>
+            <Select
+              native
+              value={props.filters.price}
+              onChange={handleChange}
+              inputProps={{
+                name: "price",
+                id: "outlined-age-native-simple"
+              }}
+            >
+              <option aria-label={t('none')} value="" />
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="150">150</option>
+              <option value="200">200</option>
+              <option value="250">250</option>
+              <option value="300">300</option>
+              <option value="350">350</option>
+              <option value="400">400</option>
+              <option value="450">450</option>
+              <option value="500">500</option>
+            </Select>
+          </FormControl>
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel htmlFor="outlined-age-native-simple" variant="filled">{t('city')}</InputLabel>
             <Select
@@ -228,7 +230,7 @@ function Filter(props) {
                 props.cities.map((city) => {
                   return (
                     <option key={city.id} value={city.name} data-id="2">
-                    {currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`} 
+                      {currentLanguage.dir ? `${matchCityAr[city.name]} ` : `${matchCityEn[city.name]}`}
                     </option>
                   );
                 })
@@ -250,7 +252,7 @@ function Filter(props) {
               {props.regions.map((region) => {
                 return (
                   <option key={region.id} value={region.name} data-id="2">
-                  {currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`} 
+                    {currentLanguage.dir ? `${matchAreaAr[region.name]} ` : `${matchAreaEn[region.name]}`}
                   </option>
                 );
               })}

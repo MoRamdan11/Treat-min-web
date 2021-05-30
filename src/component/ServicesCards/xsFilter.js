@@ -37,6 +37,7 @@ import getVisibleCities from "../../Redux/selectors/cities";
 import getVisibleRegions from "../../Redux/selectors/regions";
 import cookies from 'js-cookie';
 import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr,matchAreaEn,matchAreaAr,matchCityEn, matchCityAr} from "../DrCards/Cincs";
+import { ServicesEN, ServicesAR } from "./service"
 
 // Configure JSS
 const languages = [
@@ -172,7 +173,7 @@ function DialogSelect(props) {
                     {props.entities.map((entity) => {
                       return (
                         <option key={entity.id} value={entity.name}>
-                          {entity.name}
+                          {currentLanguage.dir ? `${ServicesAR[entity.name]} ` : `${ServicesEN[entity.name]}`}
                         </option>
                       );
                     })}

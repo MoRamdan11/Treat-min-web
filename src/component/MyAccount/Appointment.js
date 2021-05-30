@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles,createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import Button from "@material-ui/core/Button";
 import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
@@ -7,7 +7,7 @@ import { useTranslation, initReactI18next } from "react-i18next";
 import Globals from "../navbar/global";
 import { create } from 'jss';
 import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset,ThemeProvider } from '@material-ui/core/styles';
+import { StylesProvider, jssPreset, ThemeProvider } from '@material-ui/core/styles';
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     cursor: "pointer",
     color: "#c64756",
   },
-  ListAltOutlinedIcon :{
+  ListAltOutlinedIcon: {
     root: {
       "body[dir=rtl] &": {
         transform: "scaleX(-1)"
@@ -66,26 +66,26 @@ function Appointment({ service, time, date }) {
   const { t } = useTranslation();
   return (
     <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>
-    <div className={classes.card}>
-      <div className={classes.app}>
-        <h3 className={classes.service}>{service}</h3>
-        <p className={classes.time}>
-          {time} - {date}
-        </p>
-      </div>
-      <div className={classes.change}>
-        <Button title={t('change')} square className={classes.ChangeBtn}>
-          <ListAltOutlinedIcon />
-        </Button>
-      </div>
-      <div className={classes.cancel}>
-        <Button title={t('cancel')}square className={classes.CancelBtn}>
-          <CancelOutlinedIcon />
-        </Button>
-      </div>
-    </div>
-    </StylesProvider>
+      <StylesProvider jss={jss}>
+        <div className={classes.card}>
+          <div className={classes.app}>
+            <h3 className={classes.service}>{service}</h3>
+            <p className={classes.time}>
+              {time} - {date}
+            </p>
+          </div>
+          <div className={classes.change}>
+            <Button title={t('change')} square className={classes.ChangeBtn}>
+              <ListAltOutlinedIcon />
+            </Button>
+          </div>
+          <div className={classes.cancel}>
+            <Button title={t('cancel')} square className={classes.CancelBtn}>
+              <CancelOutlinedIcon />
+            </Button>
+          </div>
+        </div>
+      </StylesProvider>
     </ThemeProvider>
   );
 }

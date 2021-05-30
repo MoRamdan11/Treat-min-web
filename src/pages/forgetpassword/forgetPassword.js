@@ -113,7 +113,7 @@ function ForgetPassword(props) {
               <TextField
                 className={styles.content}
                 onChange={handleEmailChange}
-                variant="outlined"
+                variant="standard"
                 label={t('email')}
                 required
                 error={errorEmail}

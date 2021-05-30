@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Badge from "@material-ui/core/Badge";
 import Avatar from "@material-ui/core/Avatar";
-import { makeStyles, withStyles ,createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
+import { makeStyles, withStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import Globals from "../navbar/global";
 import { create } from 'jss';
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditAvatar() {
+export default function EditAvatar(props) {
   const classes = useStyles();
   const [photo, setPhoto] = useState({
     profileImg:
@@ -91,37 +91,37 @@ export default function EditAvatar() {
 
   return (
     <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>
-    <div className={classes.root}>
-      <Badge
-        overlap="circle"
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        badgeContent={
-          <div className={classes.addPhotoBtn}>
-            <input
-              type="file"
-              id="input"
-              accept="image/*"
-              hidden
-              onChange={imageHandler}
+      <StylesProvider jss={jss}>
+        <div className={classes.root}>
+          <Badge
+            overlap="circle"
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            badgeContent={
+              <div className={classes.addPhotoBtn}>
+                <input
+                  type="file"
+                  id="input"
+                  accept="image/*"
+                  hidden
+                  onChange={imageHandler}
+                />
+                <label htmlFor="input">
+                  <AddAPhotoIcon className={classes.addPhoto} />
+                </label>
+              </div>
+            }
+          >
+            <Avatar
+              className={classes.image}
+              alt={props.name}
+              src={`https://www.treat-min.com/media/photos/users/${props.id}.png`}
             />
-            <label htmlFor="input">
-              <AddAPhotoIcon className={classes.addPhoto} />
-            </label>
-          </div>
-        }
-      >
-        <Avatar
-          className={classes.image}
-          alt="Travis Howard"
-          src={photo.profileImg}
-        />
-      </Badge>
-    </div>
-    </StylesProvider>
+          </Badge>
+        </div>
+      </StylesProvider>
     </ThemeProvider>
   );
 }

@@ -67,6 +67,7 @@ export const Form = styled.form`
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
+  margin-top: 10px;
 `;
 
 export const Button = styled.button`
@@ -81,6 +82,7 @@ export const Button = styled.button`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+  margin-top: 10px;
   &:hover {
     transition: all 0.2sease-in-out;
     background: #f5f5f5;
@@ -115,6 +117,12 @@ export const ForgetPassword = styled(NavLink)`
   clear: both;
 `;
 
+export const ForgetPasswordAR = styled(NavLink)`
+  text-decoration: underLine;
+  color: blue;
+  float: left;
+  clear: both;
+`;
 export const FindAccount = styled(NavLink)`
   text-decoration: underLine;
   color: blue;

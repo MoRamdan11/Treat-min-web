@@ -7,6 +7,7 @@ export const setAuth = (isLogin = false) => {
 }
 
 export const setUserProfile = ({
+    id="",
     name = "",
     email = "",
     phone = "",
@@ -16,6 +17,7 @@ export const setUserProfile = ({
     return {
         type: 'SET_USER_PROFILE',
         profile: {
+            id,
             name,
             email,
             phone,

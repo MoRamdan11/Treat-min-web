@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { makeStyles,createMuiTheme } from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
+import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import { Typography } from "@material-ui/core";
@@ -19,7 +19,9 @@ import { useTranslation, initReactI18next } from "react-i18next";
 import Globals from "../navbar/global";
 import { create } from 'jss';
 import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset ,ThemeProvider} from '@material-ui/core/styles';
+import { StylesProvider, jssPreset, ThemeProvider } from '@material-ui/core/styles';
+import { connect } from "react-redux";
+import axios from "axios";
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -29,10 +31,11 @@ const theme = createMuiTheme({
 
 
 const useStyles = makeStyles({
-  root:{
+  root: {
     "body[dir=rtl] &": {
       transform: "scaleX(-1)"
-  }},
+    }
+  },
   container: {
     backgroundColor: "#235274",
   },
@@ -199,14 +202,14 @@ const useStyles = makeStyles({
     top: "30%",
     right: "30%",
   },
-  ArrowDropDownIcon :{
+  ArrowDropDownIcon: {
     root: {
       "body[dir=rtl] &": {
         transform: "scaleX(-1)"
       }
     }
   },
-  ArrowDropUpIcon:{
+  ArrowDropUpIcon: {
     root: {
       "body[dir=rtl] &": {
         transform: "scaleX(-1)"
@@ -215,12 +218,32 @@ const useStyles = makeStyles({
   }
 
 });
-function Account() {
+function Account(props) {
   const { t } = useTranslation();
   const classes = useStyles();
   const history = useHistory();
   const [appIsOpen, setAppIsOpen] = useState(false);
   const [historyIsOpen, setHistoryIsOpen] = useState(false);
+  const [clinicsAppointments, setClinicsAppointments] = useState([]);
+  const [servicesAppointments, setServicesAppointments] = useState([]);
+  const [historyClinics, setHistoryClinics] = useState([]);
+  const [historyServices, setHistoryServices] = useState([]);
+  useEffect(() => {
+    function getAppointments() {
+      const data = axios.get('/api/user/appointments/', {
+        headers:{
+            'Authorization': 'Token ' + localStorage.getItem('token')
+        }
+    }).then((response) => {
+      console.log(response.data);
+      setClinicsAppointments(response.data.current.clinics);
+      setServicesAppointments(response.data.current.services);
+      setHistoryClinics(response.data.past.clinics);
+      setHistoryServices(response.data.past.services);
+    })
+    }
+    getAppointments();
+  }, [])
   const handleHistory = () => {
     setHistoryIsOpen(!historyIsOpen);
   };
@@ -230,108 +253,116 @@ function Account() {
 
   return (
     <ThemeProvider theme={theme}>
-    <StylesProvider jss={jss}>
-    <div className={classes.container}>
-      <div className={classes.wrapper}>
-        <div className={classes.columnOne}>
-          <div className={classes.mainInfo}>
-            <IconButton
-              className={classes.editBtn}
-              aria-label="Edit"
-              title={t('edit')}
-              onClick={() => history.push("/EditUserInfo")}
-            >
-              <EditIcon />
-            </IconButton>
-            <Avatar />
+      <StylesProvider jss={jss}>
+        <div className={classes.container}>
+          <div className={classes.wrapper}>
+            <div className={classes.columnOne}>
+              <div className={classes.mainInfo}>
+                <IconButton
+                  className={classes.editBtn}
+                  aria-label="Edit"
+                  title={t('edit')}
+                  onClick={() => history.push("/EditUserInfo")}
+                >
+                  <EditIcon />
+                </IconButton>
+                <Avatar id={props.auth.id} name={props.auth.name}/>
 
-            <h1 className={classes.userName} color="textSecondary" gutterBottom>
-            {t('gerges')}
-            </h1>
-            <Typography className={classes.mail}>
-              <LocationOnIcon className={classes.icon} />
-              {t('asu')}
-            </Typography>
-          </div>
-          <div className={classes.addInfo}>
-            <p className={classes.info}>
-              <PhoneIcon className={classes.icon} /> +20 01286516312
-            </p>
-          </div>
-          <div className={classes.addInfo2}>
-            <p className={classes.info}>
-              <EmailIcon className={classes.icon} /> gergeswageh@gmail.com
-            </p>
+                <h1 className={classes.userName} color="textSecondary" gutterBottom>
+                  {props.auth.name}
+                </h1>
+                <Typography className={classes.mail}>
+                  <LocationOnIcon className={classes.icon} />
+                  {t('asu')}
+                </Typography>
+              </div>
+              <div className={classes.addInfo}>
+                <p className={classes.info}>
+                  <PhoneIcon className={classes.icon} />
+                  +20 {props.auth.phone}
+                  {/*http://www.treat-min.com/media/photos/users/27.png*/}
+                </p>
+              </div>
+              <div className={classes.addInfo2}>
+                <p className={classes.info}>
+                  <EmailIcon className={classes.icon} />
+                  {props.auth.email}
+                </p>
+              </div>
+            </div>
+            <div className={classes.columnTwo}>
+              <button className={classes.headerBtn} onClick={handleApp}>
+                <h3 className={classes.header}>
+                  <CalendarTodayIcon className={classes.headerIcon} /> {t('appoinment')}
+                  {appIsOpen ? (
+                    <ArrowDropUpIcon className={classes.notch} />
+                  ) : (
+                    <ArrowDropDownIcon className={classes.notch} />
+                  )}
+                </h3>
+              </button>
+              <div
+                className={
+                  appIsOpen ? classes.showAppSection : classes.hideAppSection
+                }
+              >
+                <Appointment
+                  service={t('ramdan')}
+                  time={t('tues')}
+                  date="1/1/2021"
+                />
+                <Appointment
+                  service={t('ramdan')}
+                  time={t('tues')}
+                  date="1/1/2021"
+                />
+                <Appointment
+                  service={t('ramdan')}
+                  time={t('tues')}
+                  date="1/1/2021"
+                />
+              </div>
+              <button className={classes.headerBtn} onClick={handleHistory}>
+                <h3 className={classes.header}>
+                  <HistoryIcon className={classes.headerIcon} /> {t('history')}
+                  {historyIsOpen ? (
+                    <ArrowDropUpIcon className={classes.notch} />
+                  ) : (
+                    <ArrowDropDownIcon className={classes.notch} />
+                  )}
+                </h3>
+              </button>
+              <div
+                className={
+                  historyIsOpen
+                    ? classes.showHistorySection
+                    : classes.hideHistorySection
+                }
+              >
+                <History
+                  service={t('ahmedhassan')}
+                  time={t('tues')}
+                  date="1/1/2021"
+                />
+              </div>
+              <div className={classes.imageWrapper}>
+                <img
+                  className={classes.image}
+                  src={require("./book.png").default}
+                  alt="img"
+                />
+              </div>
+            </div>
           </div>
         </div>
-        <div className={classes.columnTwo}>
-          <button className={classes.headerBtn} onClick={handleApp}>
-            <h3 className={classes.header}>
-              <CalendarTodayIcon className={classes.headerIcon} /> {t('appoinment')}
-              {appIsOpen ? (
-                <ArrowDropUpIcon className={classes.notch} />
-              ) : (
-                <ArrowDropDownIcon className={classes.notch} />
-              )}
-            </h3>
-          </button>
-          <div
-            className={
-              appIsOpen ? classes.showAppSection : classes.hideAppSection
-            }
-          >
-            <Appointment
-              service={t('ramdan')}
-              time={t('tues')}
-              date="1/1/2021"
-            />
-            <Appointment
-              sservice={t('ramdan')}
-              time={t('tues')}
-              date="1/1/2021"
-            />
-            <Appointment
-            service={t('ramdan')}
-            time={t('tues')}
-            date="1/1/2021"
-            />
-          </div>
-          <button className={classes.headerBtn} onClick={handleHistory}>
-            <h3 className={classes.header}>
-              <HistoryIcon className={classes.headerIcon} /> {t('history')}
-              {historyIsOpen ? (
-                <ArrowDropUpIcon className={classes.notch} />
-              ) : (
-                <ArrowDropDownIcon className={classes.notch} />
-              )}
-            </h3>
-          </button>
-          <div
-            className={
-              historyIsOpen
-                ? classes.showHistorySection
-                : classes.hideHistorySection
-            }
-          >
-            <History
-            service={t('ahmedhassan')}
-            time={t('tues')}
-            date="1/1/2021"
-            />
-          </div>
-          <div className={classes.imageWrapper}>
-            <img
-              className={classes.image}
-              src={require("./book.png").default}
-              alt="img"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    </StylesProvider>
+      </StylesProvider>
     </ThemeProvider>
   );
 }
 
-export default Account;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
+}
+export default connect(mapStateToProps)(Account);

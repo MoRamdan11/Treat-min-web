@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
+import Input from '@material-ui/core/Input';
 import FormControl from "@material-ui/core/FormControl";
 import { NavLink } from "react-router-dom";
 import { useTranslation, initReactI18next } from "react-i18next";
@@ -20,11 +21,28 @@ import {
   Button,
   NavBtnLink2,
   ForgetPassword,
-  FindAccount
+  FindAccount,
+  ForgetPasswordAR
 } from "../elements";
 import axios from "axios";
 import { connect } from "react-redux";
-import { setAuth } from "../../Redux/actions/Auth";
+import { setAuth, setUserProfile } from "../../Redux/actions/Auth";
+import cookies from 'js-cookie';
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'eg',
+  },
+]
+const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -51,7 +69,7 @@ const useStyles = makeStyles({
   },
   signUp: {
     color: "blue"
-  }
+  },
 });
 
 function Login(props) {
@@ -102,6 +120,7 @@ function Login(props) {
         localStorage.setItem('token', token);
         localStorage.setItem('isLogin', 'true');
         props.dispatch(setAuth(true));
+        props.dispatch(setUserProfile(response.data.user));
         props.history.push('/');
       }).catch((error) => {
         console.log('loginFilled');
@@ -169,7 +188,7 @@ function Login(props) {
                 className={styles.content}
                 onChange={handleEmailChange}
                 onKeyPress={handleEnterClick}
-                variant="outlined"
+                variant="standard"
                 label={t('email')}
                 type="text"
                 required
@@ -178,22 +197,28 @@ function Login(props) {
               {inValidEmail && <p style={{ color: "red", marginTop: "5px" }}>
                 {t('emailnotvalid')}
               </p>}
-              <ForgetPassword to="/forgetPassword">
-                {t('forgetpassword')}
-              </ForgetPassword>
+              {currentLanguage.dir ?
+                <ForgetPasswordAR to="/forgetPassword">
+                  {t('forgetpassword')}
+                </ForgetPasswordAR>
+                :
+                <ForgetPassword to="/forgetPassword">
+                  {t('forgetpassword')}
+                </ForgetPassword>
+              }
               <FormControl
                 className={styles.content}
                 required
-                variant="outlined"
+                variant="standard"
               >
                 <InputLabel
                   color={errorPassword ? "secondary" : "primary"}
-                  required htmlFor="outlined-adornment-password"
+                  required htmlFor="standard-adornment-password"
                 >
                   {t('password')}
                 </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
+                <Input
+                  id="standard-adornment-password"
                   type={visibility ? "text" : "password"}
                   onChange={hnadlePasswordChange}
                   onKeyPress={handleEnterClick}

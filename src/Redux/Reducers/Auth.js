@@ -4,7 +4,8 @@ const authReducerDefault = {
     email: "",
     phone: "",
     gender: "",
-    birth: ""
+    birth: "",
+    id: ""
 };
 
 const authReducer = ((state = authReducerDefault, action) => {

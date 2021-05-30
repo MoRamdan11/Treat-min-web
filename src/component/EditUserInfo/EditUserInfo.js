@@ -20,11 +20,23 @@ import Globals from "../navbar/global";
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
-
+import { connect } from "react-redux";
+import { Button } from "./Buttons";
+import { setUserProfile } from "../../Redux/actions/Auth";
+//Picker Imports
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
+import moment from "moment";
+import MomentLocaleUtils from 'react-day-picker/moment';
+import 'moment/locale/ja';
+import 'moment/locale/ar';
+import 'moment/locale/it';
+import 'moment/locale/de';
+import axios from "axios";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
-  
+
 
 const theme = createMuiTheme({
   direction: Globals.direction,
@@ -54,6 +66,9 @@ const useStyles = makeStyles({
     "@media screen and (max-width: 1000px)": {
       fontSize: "12px",
     },
+    datePicker: {
+      zIndex: 99,
+    }
   },
   columnOne: {
     backgroundColor: "#235274",
@@ -126,16 +141,24 @@ const name = "Gerges Wageh";
 const phone = "01286516312";
 const email = "GergesWageh2580@gmail.com";
 
-function EditUserInfo() {
+function EditUserInfo(props) {
   const history = useHistory();
   const classes = useStyles();
   const [errorEmail, setErrorEmail] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    name: name,
-    phone: phone,
-    email: email,
-  });
-
+    errorEmail: false,
+    email: props.auth.email,
+    birth: props.auth.birth
+  })
+  const [locale, setLocale] = React.useState('en');
+  const [selectedDate, setSelectedDate] = React.useState(userInfo.birth);
+  const [phone, setPhone] = useState(props.auth.phone);
+  const [errorPhone, setErrorPhone] = useState(false);
+  const [failedPhone, setFailedPhone] = useState(false);
+  const [name, setName] = useState(props.auth.name);
+  const [errorName, setErrorName] = useState(false);
+  const [failedName, setFailedName] = useState(false);
+  const [errorBirth, setErrorBirth] = useState(false);
   function handleChange(e) {
     const { name, value } = e.target;
     if (name === "email") {
@@ -155,71 +178,242 @@ function EditUserInfo() {
       setErrorEmail(false);
     }
   };
+  function handleSelectChange(e) {
+    const locale = e.target.value;
+    setLocale(locale);
+  }
+  function handlePickerChange(event) {
+    if (event === '') {
+      setErrorBirth(true);
+      console.log('nodate');
+    }
+    const value = moment(event).format('YYYY-MM-DD');
+    setSelectedDate(value);
+  }
+  function handlePhoneChange(event) {
+    const phoneValue = event.target.value;
+    console.log(phoneValue);
+    if (phoneValue.match(/^\d{11,11}$/)) {
+      setPhone(phoneValue);
+      setErrorPhone(false);
+      setFailedPhone(false);
+    } else {
+      setPhone(phoneValue);
+      setErrorPhone(true);
+    }
+  }
+  function handleNameChange(event) {
+    const nameVal = event.target.value;
+    if (nameVal.match(/^[a-z0-9 A-Z_-]{3,15}$/) && nameVal[0].match(/^[a-zA-Z_-]{1,1}$/)) {
+      setName(nameVal);
+      setErrorName(false);
+      setFailedName(false);
+    } else {
+      setName(nameVal);
+      setErrorName(true);
+    }
+  }
+
+  const handleBtnClick = (event) => {
+    event.preventDefault();
+    if (!errorName && !errorPhone) {
+      axios.patch('/api/accounts/edit-account/', {
+        password: "mo01128611970",
+        name: name,
+        phone: phone,
+        birth: selectedDate,
+        gender: props.auth.gender,
+      }, {
+        headers: {
+          'Authorization': 'Token ' + localStorage.getItem('token')
+        }
+      }
+      ).then((response) => {
+        console.log(response);
+        props.dispatch(setUserProfile({
+          name: name,
+          id: props.auth.id,
+          email: props.auth.email,
+          phone: phone,
+          gender: props.auth.gender,
+          birth: selectedDate
+        }));
+        props.history.push('/MyAccount');
+      }).catch((error) => {
+        console.log(error.response.data);
+      });
+    } else {
+      if (errorName) {
+        setFailedName(true);
+      }
+      if (errorPhone) {
+        setFailedPhone(true);
+      }
+      props.history.push('/EditUserInfo');
+    }
+  }
+
+  const handleEnterClick = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (!errorName && !errorPhone) {
+        axios.patch('/api/accounts/edit-account/', {
+          password: "mo01128611970",
+          name: name,
+          phone: phone,
+          birth: selectedDate,
+          gender: props.auth.gender,
+        }, {
+          headers: {
+            'Authorization': 'Token ' + localStorage.getItem('token')
+          }
+        }
+        ).then((response) => {
+          console.log(response);
+          props.dispatch(setUserProfile({
+            name: name,
+            id: props.auth.id,
+            email: props.auth.email,
+            phone: phone,
+            gender: props.auth.gender,
+            birth: selectedDate
+          }));
+          props.history.push('/MyAccount');
+        }).catch((error) => {
+          console.log(error.response.data);
+        });
+      } else {
+        if (errorName) {
+          setFailedName(true);
+        }
+        if (errorPhone) {
+          setFailedPhone(true);
+        }
+        props.history.push('/EditUserInfo');
+      }
+    }
+  }
   const { t } = useTranslation();
   return (
     <StylesProvider jss={jss}>
-    <div className={classes.container}>
-      <ThemeProvider theme={theme}>
-        <div className={classes.wrapper}>
-          <div className={classes.columnOne}>
-            <img src={require("../../images/EditInfo.png").default} alt="img" />
-          </div>
-          <div className={classes.columnTwo}>
-            <EditAvatar />
-            <form
-              className={classes.form}
-              noValidate
-              autoComplete="off"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <TextField
-                name="name"
-                onChange={handleChange}
-                value={userInfo.name}
-                label={t('username')}
-                variant="outlined"
-                color="green"
-                className={classes.input}
-              />
-              <TextField
-                onChange={handleChange}
-                value={userInfo.phone}
-                name="phone"
-                label={t('number')}
-                variant="outlined"
-                color="green"
-                className={classes.input}
-              />
+      <div className={classes.container}>
+        <ThemeProvider theme={theme}>
+          <div className={classes.wrapper}>
+            <div className={classes.columnOne}>
+              <img src={require("../../images/EditInfo.png").default} alt="img" />
+            </div>
+            <div className={classes.columnTwo}>
+              <form
+                className={classes.form}
+                noValidate
+                autoComplete="off"
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <EditAvatar id={props.auth.id} name={props.auth.name} />
+                <TextField
+                  name="name"
+                  value={name}
+                  onChange={handleNameChange}
+                  error={errorName}
+                  label={t('username')}
+                  variant="standard"
+                  color="green"
+                  onKeyPress={handleEnterClick}
+                  className={classes.input}
+                />
+                {failedName &&
+                  <p style={{ color: "red", marginBottom: "5px", textAlign: "center" }}>
+                    {t('userNameError')}
+                  </p>
+                }
+                <TextField
+                  onChange={handlePhoneChange}
+                  value={phone}
+                  error={errorPhone}
+                  type="tel"
+                  name="phone"
+                  label={t('number')}
+                  variant="standard"
+                  color="green"
+                  onKeyPress={handleEnterClick}
+                  className={classes.input}
+                />
+                {failedPhone &&
+                  <p style={{ color: "red", marginBottom: "5px" , textAlign:"center"}}>
+                    {t('phoneError')}
+                  </p>
+                }
+                {/*<TextField
+                  onChange={handleChange}
+                  value={userInfo.email}
+                  helperText={errorEmail ? "Invalid email!" : ""}
+                  name="email"
+                  label={t('email')}
+                  variant="outlined"
+                  color="green"
+                  className={classes.input}
+                  error={errorEmail}
+                />*/}
 
-              <TextField
-                onChange={handleChange}
-                value={userInfo.email}
-                helperText={errorEmail ? "Invalid email!" : ""}
-                name="email"
-                label={t('email')}
-                variant="outlined"
-                color="green"
-                className={classes.input}
-                error={errorEmail}
-              />
-              <NavLink className={classes.signUp} to="/ChangePassword">
-              {t('changepassword')}
-              </NavLink>
-              <div className={classes.btnStyleOuter}>
-                <NavBtn className={classes.btnStyle}>
-                  <NavBtnLink2 to="/MyAccount">{t('cancel')}</NavBtnLink2>
-                </NavBtn>
-                <NavBtn className={classes.btnStyle}>
-                  <NavBtnLink to={!errorEmail && "/"}>{t('ok')}</NavBtnLink>
-                </NavBtn>
-              </div>
-            </form>
+                <div style={{ backgroundColor: "#caf7e3", borderRadius: "20px", textAlign: "center" }}>
+                  {/*edffec*/}
+                  <h3>{t('birthChange')}</h3>
+                  <div style={{ backgroundColor: "#93329e", height: "50px", padding: "10px" }}>
+                    <h4 style={{ display: "inline", color: "white" }}>{t('pickerlanguage')}: </h4>
+                    <select style={{ display: "inline" }} onChange={handleSelectChange}>
+                      <option value="en">English</option>
+                      <option value="ar">Arabic</option>
+                    </select>
+                  </div>
+                  <DayPickerInput
+                    classNames={{
+                      overlay: classes.datePicker,
+                    }}
+                    format="YYYY-MM-DD"
+
+                    value={selectedDate}
+                    onDayChange={handlePickerChange}
+                    dayPickerProps={{
+                      localeUtils: MomentLocaleUtils,
+                      locale: locale,
+                      selectedDays: selectedDate,
+                      modifiers: {
+                        disabled: [
+                          {
+                            after: new Date(moment())
+                            //after: new Date(moment('2021-05-30', 'YYYY-MM-DD'))
+                          }
+                        ]
+                      }
+                    }}
+                  />
+                </div>
+                <NavLink className={classes.signUp} to="/ChangePassword">
+                  {t('changepassword')}
+                </NavLink>
+                <div className={classes.btnStyleOuter}>
+                  <NavBtn className={classes.btnStyle}>
+                    <NavBtnLink2 to="/MyAccount">{t('cancel')}</NavBtnLink2>
+                  </NavBtn>
+                  <Button
+                    onClick={handleBtnClick}
+                  >
+                    {t('ok')}
+                  </Button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      </ThemeProvider>
-    </div>
+        </ThemeProvider>
+      </div>
     </StylesProvider>
   );
 }
 
-export default EditUserInfo;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps)(EditUserInfo);

@@ -8,6 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
+import Input from '@material-ui/core/Input';
 import { useTranslation, initReactI18next } from "react-i18next";
 import {
   GridContainer,
@@ -137,16 +138,16 @@ function ResetPassword(props) {
               <FormControl
                 className={styles.content}
                 required
-                variant="outlined"
+                variant="standard"
               >
                 <InputLabel
                   color={errorPassword ? "secondary" : "primary"}
-                  required htmlFor="outlined-adornment-password"
+                  required htmlFor="standard-adornment-password"
                 >
                   {t('new_password')}
                 </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
+                <Input
+                  id="standard-adornment-password"
                   type={visibility ? "text" : "password"}
                   onChange={hnadlePasswordChange}
                   onKeyPress={handleEnterClick}
@@ -168,16 +169,16 @@ function ResetPassword(props) {
               <FormControl
                 className={styles.content}
                 required
-                variant="outlined"
+                variant="standard"
               >
                 <InputLabel
                   color={errorConfirmPassword ? "secondary" : "primary"}
-                  required htmlFor="outlined-adornment-password"
+                  required htmlFor="standard-adornment-password"
                 >
                   {t('confirm_Password')}
                 </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
+                <Input
+                  id="standard-adornment-password"
                   type={visibility ? "text" : "password"}
                   onChange={hnadleConfirmPasswordChange}
                   error={errorConfirmPassword}

@@ -13,6 +13,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
+import Input from '@material-ui/core/Input';
 import { useTranslation, initReactI18next } from "react-i18next";
 import {
   GridContainer,
@@ -259,7 +260,7 @@ function SetupAccount(props) {
               <h2 style={{ marginTop: "10px" }}>{t('setupaccount')}</h2>
               <TextField
                 className={styles.content}
-                variant="outlined"
+                variant="standard"
                 label={t('userName')}
                 required
                 onChange={handleNameChange}
@@ -274,16 +275,16 @@ function SetupAccount(props) {
               <FormControl
                 className={styles.content}
                 required
-                variant="outlined"
+                variant="standard"
               >
                 <InputLabel
                   color={errorPassword ? "secondary" : "primary"}
-                  required htmlFor="outlined-adornment-password"
+                  required htmlFor="standard-adornment-password"
                 >
                   {t('password')}
                 </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
+                <Input
+                  id="standard-adornment-password"
                   type={visibility ? "text" : "password"}
                   onChange={hnadlePasswordChange}
                   error={errorPassword}
@@ -305,16 +306,16 @@ function SetupAccount(props) {
               <FormControl
                 className={styles.content}
                 required
-                variant="outlined"
+                variant="standard"
               >
                 <InputLabel
-                  required htmlFor="outlined-adornment-password"
+                  htmlFor="standard-adornment-password"
                   color={errorConfirmPassword ? "secondary" : "primary"}
                 >
                   {t('confirm_Password')}
                 </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
+                <Input
+                  id="standard-adornment-password"
                   type={visibility ? "text" : "password"}
                   onChange={hnadleConfirmPasswordChange}
                   onKeyPress={handleEnterClick}
@@ -342,7 +343,7 @@ function SetupAccount(props) {
                 className={styles.content}
                 onChange={handlePhoneChange}
                 onKeyPress={handleEnterClick}
-                variant="outlined"
+                variant="standard"
                 required
                 label={t('number')}
                 type="tel"

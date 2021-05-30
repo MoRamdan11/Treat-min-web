@@ -48,9 +48,9 @@ import 'moment/locale/ja';
 import 'moment/locale/ar';
 import 'moment/locale/it';
 import 'moment/locale/de';
-import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr} from "./Cincs"
+import { matchClincsEn, matchClincsAr, matchAddressEn, matchAddressAr } from "./Cincs"
 import { matchDays, matchDaysAr, dayIndex } from "./days";
-import {clinicsEN,clinicsAR} from "./clinicsnames"
+import { clinicsEN, clinicsAR } from "./clinicsnames";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -330,13 +330,13 @@ const OutlinedCard = ({
         <h1 className={classes.title} color="textSecondary" gutterBottom>
           {t('dr')}. {doctor.name}
         </h1>
-        <Typography> {currentLanguage.dir?`${clinicsAR[specalist]} ` :`${clinicsEN[specalist]}`} </Typography>
+        <Typography> {currentLanguage.dir ? `${clinicsAR[specalist]} ` : `${clinicsEN[specalist]}`} </Typography>
         {rating_total}
         <IconButton className={classes.GradeIcon} aria-label="settings">
           <GradeIcon />
         </IconButton>
         <Typography className={classes.pos} color="textSecondary">
-          {t('workat')} {currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} 
+          {t('workat')} {currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`}
         </Typography>
         <Paper square className={classes.Tab}>
           <Tabs
@@ -348,14 +348,14 @@ const OutlinedCard = ({
             aria-label="icon label tabs example"
           >
             <Tab className={classes.Tab} icon={<LocalAtmIcon />} label={t('fees')} />
-            <Tab className={classes.Tab} icon={<HomeIcon/>} label={t('address')} />
+            <Tab className={classes.Tab} icon={<HomeIcon />} label={t('address')} />
             <Tab className={classes.Tab} icon={<CallIcon />} label={t('calus')} />
           </Tabs>
           <TabPanel value={value} index={0}>
             {price} {t('le')}
           </TabPanel>
           <TabPanel value={value} index={1}>
-          {currentLanguage.dir?`${ matchAddressAr[hospital.name]} ` :`${ matchAddressEn[hospital.name]}`} 
+            {currentLanguage.dir ? `${matchAddressAr[hospital.name]} ` : `${matchAddressEn[hospital.name]}`}
           </TabPanel>
           <TabPanel value={value} index={2}>
             {hospital.phone}
@@ -382,10 +382,10 @@ const OutlinedCard = ({
                     <option
                       onClick={handleOptionClick}
                       key={schedule.id}
-                      value={currentLanguage.dir? `${matchDaysAr[schedule.day]}`:`${matchDays[schedule.day]}`}
+                      value={currentLanguage.dir ? `${matchDaysAr[schedule.day]}` : `${matchDays[schedule.day]}`}
                       id={schedule.id}
                     >
-                    {currentLanguage.dir?`${matchDaysAr[schedule.day]} ${schedule.start} - ${schedule.end}` :`${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
+                      {currentLanguage.dir ? `${matchDaysAr[schedule.day]} ${schedule.start} - ${schedule.end}` : `${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
                     </option>
                   );
                 })}
@@ -405,7 +405,6 @@ const OutlinedCard = ({
                     <option value="de">German</option>
                   </select>
                 </div>
-
                 <DayPickerInput
                   classNames={{
                     overlay: classes.datePicker,

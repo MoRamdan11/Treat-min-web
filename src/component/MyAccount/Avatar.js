@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   image: { width: 140, height: 140 },
 }));
 
-export default function BadgeAvatar() {
+export default function BadgeAvatar(props) {
   const classes = useStyles();
 
   return (
@@ -72,8 +72,8 @@ export default function BadgeAvatar() {
       >
         <Avatar
           className={classes.image}
-          alt="Remy Sharp"
-          src={require("../../images/gerges.jpg").default}
+          alt={props.name}
+          src= {`https://www.treat-min.com/media/photos/users/${props.id}.png`}
         />
       </StyledBadge>
     </div>
