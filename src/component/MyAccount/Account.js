@@ -271,10 +271,7 @@ function Account(props) {
                 <h1 className={classes.userName} color="textSecondary" gutterBottom>
                   {props.auth.name}
                 </h1>
-                <Typography className={classes.mail}>
-                  <LocationOnIcon className={classes.icon} />
-                  {t('asu')}
-                </Typography>
+                
               </div>
               <div className={classes.addInfo}>
                 <p className={classes.info}>
