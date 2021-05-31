@@ -1,44 +1,51 @@
 export const matchClincsEn = {
-    'Nasr city Clincs': 'tecnho Clincs Nasr City',
-    'zohairy Hospital': 'Zohairy Hospital',
-    'elamal': 'EL Amal Hospiital'
+    'Nasr City Clinics': 'tecnho Clincs Nasr City',
+    'Zohairy Hospital': 'Zohairy Hospital',
+    'elamal': 'EL Amal Hospiital',
+    'test': 'Test-Hospital'
 }
 export const matchClincsAr = {
-    'Nasr city Clincs': 'عيادات تكنو كلينك مدينة نصر',
-    'zohairy Hospital': 'مستشفى الزهيري',
+    'Nasr City Clinics': 'عيادات تكنو كلينك مدينة نصر',
+    'Zohairy Hospital': 'مستشفى الزهيري',
     'elamal': 'مستشفى الامل',
+    'test': 'Test-Hospital'
 }
 export const matchAreaEn = {
-    'Nasr City': 'Nasr City',
-    'Manial': 'El Manial',
-    'Helwan': 'Helwan'
-
+    "Nasr City - مدينة نصر": 'Nasr City',
+    "Manial - المنيل": 'El Manial',
+    'Helwan - حلوان': 'Helwan',
+    "Abo Qeer - أبو قير": 'Abo Qeer',
+    "Faisal - فيصل": 'Faisal',
+    "Haram - الهرم": 'El Haram'
 }
 export const matchAreaAr = {
-    'Nasr City': 'مدينة نصر',
-    'Manial': 'المنيل',
-    'Helwan': 'حلوان'
-
+    "Nasr City - مدينة نصر": 'مدينة نصر',
+    "Manial - المنيل": 'المنيل',
+    'Helwan - حلوان':   'حلوان',
+    "Abo Qeer - أبو قير" :'أبو قير',
+    "Faisal - فيصل" :'فيصل',
+    "Haram - الهرم": 'الهرم'
 }
 
 export const matchCityEn = {
-    'Cairo': 'Cairo',
-    'Alexandria': 'Alexandria'
-
+    "Cairo - القاهرة": 'Cairo',
+    "Alexandria - الاسكندرية": 'Alexandria',
+    "Giza - الجيزة": 'Giza'
 }
 export const matchCityAr = {
-    'Cairo': 'القاهرة',
-    'Alexandria': 'الاسكندرية'
-
+    "Cairo - القاهرة": 'القاهرة',
+    "Alexandria - الاسكندرية": 'الاسكندرية',
+    "Giza - الجيزة": 'الجيزة'
 }
 export const matchAddressEn = {
-    'Nasr city Clincs': '81 Nasr road beside Tyba mall ',
-    'zohairy Hospital': '33 EL Ekhsheed streey,El Manial El Roda'
-
+    'Nasr City Clinics': '81 Nasr road beside Tyba mall ',
+    'zohairy Hospital': '33 EL Ekhsheed streey,El Manial El Roda',
+    'test': 'Test-Hospital'
 }
 export const matchAddressAr = {
-    'Nasr city Clincs': '81 طريق النصر بجوار طيبة مول',
-    'zohairy Hospital': '33 شارع الاخشيد - المنيل الروضة'
+    'Nasr City Clinics': '81 طريق النصر بجوار طيبة مول',
+    'zohairy Hospital': '33 شارع الاخشيد - المنيل الروضة',
+    'test': 'Test-Hospital'
 
 }
 

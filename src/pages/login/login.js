@@ -115,7 +115,6 @@ function Login(props) {
         email: email,
         password: password
       }).then((response) => {
-        console.log(response.data.token);
         const token = response.data.token;
         localStorage.setItem('token', token);
         localStorage.setItem('isLogin', 'true');
@@ -123,9 +122,7 @@ function Login(props) {
         props.dispatch(setUserProfile(response.data.user));
         props.history.push('/');
       }).catch((error) => {
-        console.log('loginFilled');
         setLoginFailed(true);
-        console.log(error);
       })
 
     } else {
@@ -142,32 +139,30 @@ function Login(props) {
   const handleEnterClick = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      if (!errorPassword && !errorEmail) {
-        axios.post('/api/accounts/login/', {
-          email: email,
-          password: password
-        }).then((response) => {
-          console.log(response.data.token);
-          const token = response.data.token;
-          localStorage.setItem('token', token);
-          localStorage.setItem('isLogin', 'true');
-          props.dispatch(setAuth(true));
-          props.history.push('/');
-        }).catch((error) => {
-          console.log('loginFilled');
-          setLoginFailed(true);
-          console.log(error);
-        })
+    if (!errorPassword && !errorEmail) {
+      axios.post('/api/accounts/login/', {
+        email: email,
+        password: password
+      }).then((response) => {
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        localStorage.setItem('isLogin', 'true');
+        props.dispatch(setAuth(true));
+        props.dispatch(setUserProfile(response.data.user));
+        props.history.push('/');
+      }).catch((error) => {
+        setLoginFailed(true);
+      })
 
-      } else {
-        props.history.push('/login');
-        if (errorEmail) {
-          setInValidEmail(true);
-        }
-        if (errorPassword) {
-          setInValidPass(true);
-        }
+    } else {
+      props.history.push('/login');
+      if (errorEmail) {
+        setInValidEmail(true);
       }
+      if (errorPassword) {
+        setInValidPass(true);
+      }
+    }
     }
   }
   const { t } = useTranslation();

@@ -59,10 +59,11 @@ function ResetPassword(props) {
     if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {
       if (confirmPassword === passwordVal) {
         setErrorConfirmPassword(false);
+        setInvalidPass(false);
       }
       setPassword(passwordVal);
+      setErrorConfirmPassword(true);
       setErrorPassword(false);
-      setInvalidPass(false);
     } else {
       setErrorPassword(true);
     }
@@ -75,6 +76,7 @@ function ResetPassword(props) {
       setErrorConfirmPassword(false);
       setInvalidPass(false);
     } else {
+      setConfirmPassword(confirmNewPassword);
       setErrorConfirmPassword(true);
     }
   }
@@ -92,6 +94,7 @@ function ResetPassword(props) {
         password: password
       }).then((response) => {
         console.log(response);
+        localStorage.removeItem('email');
         props.history.push('/login');
       }).catch((error) => {
         console.log(error.response.data);
@@ -111,6 +114,7 @@ function ResetPassword(props) {
           password: password
         }).then((response) => {
           console.log(response);
+          localStorage.removeItem('email');
           props.history.push('/login');
         }).catch((error) => {
           console.log(error.response.data);

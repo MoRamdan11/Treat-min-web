@@ -116,6 +116,7 @@ function SetupAccount(props) {
       setConfirmPassword(confirmPasswordVal);
       setErrorConfirmPassword(false);
     } else {
+      setConfirmPassword(confirmPasswordVal);
       setErrorConfirmPassword(true);
     }
   }

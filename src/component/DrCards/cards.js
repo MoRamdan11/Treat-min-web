@@ -173,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
     hight: 50
   },
   datePicker: {
-    zIndex: 99,
+    zIndex: "99"
   },
   datePicker2: {
     cursor: "notAllowed",

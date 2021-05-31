@@ -37,6 +37,8 @@ import Auth from "./Auth/auth";
 import AddEntitiesToRedux from "./component/DrCards/entitiesData";
 import AddServicesEntitiesToRedux from "./component/ServicesCards/serrvicesEntities";
 import Hospital from "./component/hospital and Cities/hospital";
+import Map from "./component/GoogleMaps/Map";
+ 
 function App() {
   const [isOpen, serIsOpen] = useState(false);
   const toggle = () => {
@@ -56,6 +58,7 @@ function App() {
         <Switch>
           <Route path="/" component={Home} exact={true} />
           <Route path="/FindClinical" component={FindClincal} />
+          <Route path="/Maps" component={Map} />
           <Route path="/SignUp" component={SignUp1} />
           <Route path="/SetupAccount" component={SetupAccount} />
           <Route path="/login" component={Login} />

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Nav,
   NavbarContainer,
@@ -22,7 +23,7 @@ import cookies from 'js-cookie'
 import classNames from 'classnames';
 import axios from "axios";
 import { connect } from "react-redux";
-import {setAuth} from "../../Redux/actions/Auth";
+import { setAuth, deleteProfile } from "../../Redux/actions/Auth";
 const languages = [
   {
     code: 'en',
@@ -53,7 +54,7 @@ const GlobeIcon = ({ width = 24, height = 24 }) => (
 const Navbar = ({ toggle, auth, name, dispatch }) => {
   const [isLogin, setIsLogin] = useState(false);
   const local = localStorage.getItem('isLogin');
-
+  let history = useHistory();
   const currentLanguageCode = cookies.get('i18next') || 'en'
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
   const { t } = useTranslation();
@@ -65,11 +66,13 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
         'Authorization': 'Token ' + localStorage.getItem('token')
       }
     }).then((response) => {
-      console.log('leo');
+      setIsLogin(false);
       localStorage.setItem('isLogin', 'false');
       localStorage.removeItem('token');
+      localStorage.removeItem('email');
       dispatch(setAuth(false));
-      setIsLogin(false);
+      dispatch(deleteProfile());
+      history.push('/');
     }).catch((error) => { console.log(error); })
   }
 
