@@ -40,9 +40,7 @@ export const Img = styled.img`
 export const GridForm = styled(Grid)`
   text-align: center;
   margin-bottom: 30px;
-  @media screen and (min-width: 1000px) {
-    margin-top: 100px;
-  }
+  
 `;
 
 export const Form = styled.form`

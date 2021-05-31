@@ -13,9 +13,9 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Input from '@material-ui/core/Input';
-
+import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
-import { NavBtn, NavBtnLink, NavBtnLink2 } from "./Buttons";
+//import { NavBtn, NavBtnLink, NavBtnLink2 } from "./Buttons";
 import { useHistory, NavLink } from "react-router-dom";
 import { useTranslation, initReactI18next } from "react-i18next";
 import Globals from "../navbar/global";
@@ -23,7 +23,6 @@ import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 import { connect } from "react-redux";
-import { Button } from "./Buttons";
 import { setUserProfile } from "../../Redux/actions/Auth";
 //Picker Imports
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -32,7 +31,18 @@ import moment from "moment";
 import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/ar';
 import axios from "axios";
-import { Form } from "../../pages/elements";
+import {
+  GridContainer,
+  Img,
+  GridForm,
+  Form,
+  NavBtn,
+  Button,
+  NavBtnLink2,
+  ForgetPassword,
+  FindAccount,
+  ForgetPasswordAR
+} from "./elements";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
@@ -325,21 +335,18 @@ function EditUserInfo(props) {
   const { t } = useTranslation();
   return (
     <StylesProvider jss={jss}>
-      <div className={classes.container}>
+      <div>
         <ThemeProvider theme={theme}>
-          <div className={classes.wrapper}>
-            <div className={classes.columnOne}>
-              <img src={require("../../images/EditInfo.png").default} alt="img" />
-            </div>
-            <div className={classes.columnTwo}>
-              <form
-                className={classes.form}
-                noValidate
-                autoComplete="off"
+          <GridContainer container>
+            <Grid xs={12} sm={12} md={6} lg={6}>
+              <Img src={require("../../images/EditInfo.png").default} alt="img" />
+            </Grid>
+            <GridForm xs={12} sm={12} md={6} lg={6}>
+              <Form
                 onSubmit={(e) => e.preventDefault()}
               >
                 {/*<EditAvatar id={props.auth.id} name={props.auth.name} />*/}
-                <h1>{t('editinfo')}</h1>
+                <h2>{t('editinfo')}</h2>
                 <FormControl
                   className={classes.input}
                   required
@@ -414,22 +421,10 @@ function EditUserInfo(props) {
                     {t('phoneError')}
                   </p>
                 }
-                {/*<TextField
-                  onChange={handleChange}
-                  value={userInfo.email}
-                  helperText={errorEmail ? "Invalid email!" : ""}
-                  name="email"
-                  label={t('email')}
-                  variant="outlined"
-                  color="green"
-                  className={classes.input}
-                  error={errorEmail}
-                />*/}
-
                 <div style={{ backgroundColor: "#caf7e3", borderRadius: "20px", textAlign: "center" }}>
                   {/*edffec*/}
                   <h3>{t('birthChange')}</h3>
-                  <div style={{ backgroundColor: "#93329e", height: "50px", padding: "10px" }}>
+                  <div style={{ backgroundColor: "#93329e", padding: "10px" }}>
                     <h4 style={{ display: "inline", color: "white" }}>{t('pickerlanguage')}: </h4>
                     <select style={{ display: "inline" }} onChange={handleSelectChange}>
                       <option value="en">English</option>
@@ -463,7 +458,7 @@ function EditUserInfo(props) {
                   {t('changepassword')}
                 </NavLink>
                 <div className={classes.btnStyleOuter}>
-                  <NavBtn className={classes.btnStyle}>
+                  <NavBtn>
                     <NavBtnLink2 to="/MyAccount">{t('cancel')}</NavBtnLink2>
                   </NavBtn>
                   <Button
@@ -472,9 +467,9 @@ function EditUserInfo(props) {
                     {t('ok')}
                   </Button>
                 </div>
-              </form>
-            </div>
-          </div>
+              </Form>
+            </GridForm>
+          </GridContainer>
         </ThemeProvider>
       </div>
     </StylesProvider>

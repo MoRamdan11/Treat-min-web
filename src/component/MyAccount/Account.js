@@ -22,14 +22,31 @@ import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset, ThemeProvider } from '@material-ui/core/styles';
 import { connect } from "react-redux";
 import axios from "axios";
-
+import { matchClincsEn, matchClincsAr } from "../DrCards/Cincs";
+import { clinicsEN, clinicsAR } from "../DrCards/clinicsnames";
+import cookies from 'js-cookie';
+import { ServicesEN, ServicesAR } from "../ServicesCards/service";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const theme = createMuiTheme({
   direction: Globals.direction,
 });
 
-
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'eg',
+  },
+]
+const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
 const useStyles = makeStyles({
   root: {
     "body[dir=rtl] &": {
@@ -94,6 +111,7 @@ const useStyles = makeStyles({
     textAlign: "center",
     fontSize: "16px",
     color: "#19A25D",
+    marginBottom: "10px"
   },
   mail: {
     color: "#91c788",
@@ -231,16 +249,16 @@ function Account(props) {
   useEffect(() => {
     function getAppointments() {
       const data = axios.get('/api/user/appointments/', {
-        headers:{
-            'Authorization': 'Token ' + localStorage.getItem('token')
+        headers: {
+          'Authorization': 'Token ' + localStorage.getItem('token')
         }
-    }).then((response) => {
-      console.log(response.data);
-      setClinicsAppointments(response.data.current.clinics);
-      setServicesAppointments(response.data.current.services);
-      setHistoryClinics(response.data.past.clinics);
-      setHistoryServices(response.data.past.services);
-    })
+      }).then((response) => {
+        console.log(response.data);
+        setClinicsAppointments(response.data.current.clinics);
+        setServicesAppointments(response.data.current.services);
+        setHistoryClinics(response.data.past.clinics);
+        setHistoryServices(response.data.past.services);
+      })
     }
     getAppointments();
   }, [])
@@ -252,8 +270,8 @@ function Account(props) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <StylesProvider jss={jss}>
+    <StylesProvider jss={jss}>
+      <ThemeProvider theme={theme}>
         <div className={classes.container}>
           <div className={classes.wrapper}>
             <div className={classes.columnOne}>
@@ -266,15 +284,15 @@ function Account(props) {
                 >
                   <EditIcon />
                 </IconButton>
-                <Avatar id={props.auth.id} name={props.auth.name}/>
+                <Avatar id={props.auth.id} name={props.auth.name} />
 
                 <h1 className={classes.userName} color="textSecondary" gutterBottom>
                   {props.auth.name}
                 </h1>
-                <Typography className={classes.mail}>
+                {/*<Typography className={classes.mail}>
                   <LocationOnIcon className={classes.icon} />
                   {t('asu')}
-                </Typography>
+                </Typography>*/}
               </div>
               <div className={classes.addInfo}>
                 <p className={classes.info}>
@@ -306,21 +324,32 @@ function Account(props) {
                   appIsOpen ? classes.showAppSection : classes.hideAppSection
                 }
               >
-                <Appointment
-                  service={t('ramdan')}
-                  time={t('tues')}
-                  date="1/1/2021"
-                />
-                <Appointment
-                  service={t('ramdan')}
-                  time={t('tues')}
-                  date="1/1/2021"
-                />
-                <Appointment
-                  service={t('ramdan')}
-                  time={t('tues')}
-                  date="1/1/2021"
-                />
+                {clinicsAppointments.map((appointment) => {
+                  return (
+                    <Appointment
+                      key={appointment.id}
+                      drName={appointment.doctor}
+                      service={currentLanguage.dir ? `${clinicsAR[appointment.clinic]} - ${matchClincsAr[appointment.hospital]}` : `${clinicsEN[appointment.clinic]} - ${matchClincsEn[appointment.hospital]}`}
+                      date={appointment.appointment_date}
+                      time={`${appointment.schedule.start} - ${appointment.schedule.end}`}
+                      state={appointment.status}
+                      appointmentId={appointment.id}
+                      type="clinics"
+                    />);
+                })}
+                {servicesAppointments.map((service) => {
+                  return (
+                    <Appointment
+                      key={service.id}
+                      //drName={appointment.doctor}
+                      service={currentLanguage.dir ? `${ServicesAR[service.service]} - ${matchClincsAr[service.hospital]}` : `${ServicesEN[service.service]} - ${matchClincsEn[service.hospital]}`}
+                      date={service.appointment_date}
+                      time={`${service.schedule.start} - ${service.schedule.end}`}
+                      type="services"
+                      appointmentId={service.id}
+                    />);
+                })
+                }
               </div>
               <button className={classes.headerBtn} onClick={handleHistory}>
                 <h3 className={classes.header}>
@@ -339,11 +368,34 @@ function Account(props) {
                     : classes.hideHistorySection
                 }
               >
-                <History
-                  service={t('ahmedhassan')}
-                  time={t('tues')}
-                  date="1/1/2021"
-                />
+                {historyClinics.map((appointment) => {
+                  return (
+                    <History
+                      key={appointment.id}
+                      drName={appointment.doctor}
+                      service={currentLanguage.dir ? `${clinicsAR[appointment.clinic]} - ${matchClincsAr[appointment.hospital]}` : `${clinicsEN[appointment.clinic]} - ${matchClincsEn[appointment.hospital]}`}
+                      date={appointment.appointment_date}
+                      time={`${appointment.schedule.start} - ${appointment.schedule.end}`}
+                      state={appointment.status}
+                      entityId={appointment.clinic_id}
+                      detailId = {appointment.clinic_detail_id}
+                      type="clinics"
+                    />);
+                })}
+                {historyServices.map((service) => {
+                  return (
+                    <History
+                      key={service.id}
+                      //drName={appointment.doctor}
+                      service={currentLanguage.dir ? `${ServicesAR[service.service]} - ${matchClincsAr[service.hospital]}` : `${ServicesEN[service.service]} - ${matchClincsEn[service.hospital]}`}
+                      date={service.appointment_date}
+                      time={`${service.schedule.start} - ${service.schedule.end}`}
+                      type="services"
+                      entityId={service.id}
+                      detailId = {service.service_detail_id}
+                    />);
+                })
+                }
               </div>
               <div className={classes.imageWrapper}>
                 <img
@@ -355,8 +407,9 @@ function Account(props) {
             </div>
           </div>
         </div>
-      </StylesProvider>
-    </ThemeProvider>
+
+      </ThemeProvider>
+    </StylesProvider>
   );
 }
 

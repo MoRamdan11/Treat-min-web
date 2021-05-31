@@ -1,0 +1,106 @@
+#map {
+  height: 100%;
+  width: 100%;
+  margin: 30px auto;
+  background-color: grey;
+}
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+#panel {
+  height: 600px;
+  width: null;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  overflow-x: hidden;
+  transition: all 0.2s ease-out;
+}
+
+.open {
+  width: 250px;
+}
+
+/* Styling for place details */
+.hero {
+  width: 100%;
+  height: auto;
+  max-height: 166px;
+  display: block;
+}
+
+.place,
+p {
+  font-family: "open sans", arial, sans-serif;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.details {
+  color: darkslategrey;
+}
+
+a {
+  text-decoration: none;
+  color: cadetblue;
+}
+
+#description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content-start,
+#infowindow-content-end {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-family: Roboto;
+  width: 350px;
+}
+
+#pac-container {
+  display: flex;
+  margin-right: 12px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 10px 11px 10px 13px;
+  text-overflow: ellipsis;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+@media screen and (max-width: 768px) {
+  .pac-card {
+    margin: 0;
+    width: 100%;
+  }
+}

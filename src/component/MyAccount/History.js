@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
@@ -15,6 +15,7 @@ import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltO
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import axios from "axios";
 
 const StyledRating = withStyles({
   iconFilled: {
@@ -80,34 +81,58 @@ const useStyles = makeStyles({
     cursor: "pointer",
     color: "#c64756",
   },
-  rating:{
-    textAlign:"center",
-    paddingTop:"10px",
-    color:"#19A25D"
+  rating: {
+    textAlign: "center",
+    paddingTop: "10px",
+    color: "#19A25D"
   }
 });
 
-function History({ service, time, date }) {
+function History({ service, time, date, drName, type, entityId, detailId }) {
   const classes = useStyles();
   const { t } = useTranslation();
+  const [accRate, setAccRate] = useState(false);
+  const handleRating = (e, newValue) => {
+    e.preventDefault();
+    axios.post(`/api/clinics/${entityId}/details/${detailId}/rate/`, {
+      rating: `${newValue}`,
+      review: ""
+    }, {
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then((respones) => {
+      setAccRate(true);
+    })
+  }
   return (
     <div className={classes.card}>
       <div className={classes.history}>
-        <h3 className={classes.service}>{service}</h3>
+        {!drName && <h3 className={classes.service}>{service}</h3>}
+        {drName && <h3 className={classes.service}>{t('dr')}: {drName}</h3>}
+        {drName && <p className={classes.time}>{service}</p>}
         <p className={classes.time}>
-          {time} - {date}
-        </p>
+          {time}  ({date})
+            </p>
       </div>
       <div className={classes.delete}>
-      <Box component="fieldset" mb={3} borderColor="transparent">
-      <Typography  className={classes.rating} component="legend">Rating</Typography>
-      <Rating
-        name="customized-empty"
-        defaultValue={2}
-        precision={0.5}
-        emptyIcon={<StarBorderIcon fontSize="inherit" />}
-      />
-      </Box>
+        {accRate ?
+          <div style={{ height: "100%", padding: "18%", textAlign: "center", backgroundColor: "#3CB371" }} >
+            Rate Sent
+          </div>
+          :
+          <Box component="fieldset" mb={3} borderColor="transparent">
+            <Typography className={classes.rating} component="legend">Rating</Typography>
+            <Rating
+              disabled={accRate}
+              onChange={handleRating}
+              name="customized-empty"
+              defaultValue={2}
+              precision={0.5}
+              emptyIcon={<StarBorderIcon fontSize="inherit" />}
+            />
+          </Box>
+        }
       </div>
     </div>
   );
