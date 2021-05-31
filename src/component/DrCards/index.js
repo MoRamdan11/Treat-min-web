@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     MozBorderRadius: 500,
     padding: theme.spacing(1),
     textAlign: "center",
-    borderRadius:"20px"
+    borderRadius:"50px"
   },
   imgStyle: {
     "@media screen and (min-width: 1100px)": {

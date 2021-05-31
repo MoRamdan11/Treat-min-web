@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
   Card: {
     minWidth: "200",
     hight: "100",
-    borderRadius:"20px"
+    borderRadius:"50px"
   },
   
   root: {
