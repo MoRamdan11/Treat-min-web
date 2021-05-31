@@ -42,7 +42,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4),
     minWidth: 120,
     display: "25%",
-    alignContent: "center"
+    alignContent: "center",
+    borderRadius: "10px",
+    backgroundColor:"white",
   },
   selectEmpty: {
     marginTop: theme.spacing(2)

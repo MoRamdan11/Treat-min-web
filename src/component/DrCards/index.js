@@ -13,12 +13,15 @@ import SearchNotFound from "../SearchNotFound";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    backgroundColor:"#235274",
+    
   },
   paper: {
     MozBorderRadius: 500,
     padding: theme.spacing(1),
-    textAlign: "center"
+    textAlign: "center",
+    borderRadius:"20px"
   },
   imgStyle: {
     "@media screen and (min-width: 1100px)": {
@@ -51,7 +54,7 @@ const DrCard = (props) => {
   }
 
   return IsMobile ? (
-    <div>
+    <div className="cardcontiner">
       <DialogSelect />
       {props.clinics.length === 0 && <SearchNotFound/>}
       {props.clinics.map((doc, index) => {

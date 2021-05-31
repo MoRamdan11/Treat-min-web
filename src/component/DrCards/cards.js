@@ -87,12 +87,16 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   Card: {
     minWidth: "200",
-    hight: "100"
+    hight: "100",
+    borderRadius:"20px"
   },
+  
   root: {
     minWidth: "20%",
     hight: "5%",
-    textAlign: "center"
+    textAlign: "center",
+    borderRadius:"20px",
+    boxShadow: "none"
   },
   bullet: {
     display: "inline-block",
@@ -489,6 +493,7 @@ const OutlinedCard = ({
         {t('book')}
       </BookingButton>
     </Card>
+    
   );
 };
 const mapStateToProps = (state) => {
