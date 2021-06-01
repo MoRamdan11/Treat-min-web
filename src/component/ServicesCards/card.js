@@ -43,10 +43,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import moment from "moment";
 import MomentLocaleUtils from 'react-day-picker/moment';
-import 'moment/locale/ja';
 import 'moment/locale/ar';
-import 'moment/locale/it';
-import 'moment/locale/de';
 import { matchDays, matchDaysAr, dayIndex } from "../DrCards/days";
 import axios from "axios";
 import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr} from "../DrCards/Cincs"
@@ -215,7 +212,7 @@ const OutlinedCard = ({
   const [errorSelector, setErrorSelector] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState("");
   const [errorPicker, setErrorPicker] = React.useState(false);
-  const [locale, setLocale] = React.useState('en');
+  const [locale, setLocale] = React.useState(currentLanguage.dir ? 'ar' : 'en');
   const [daysOfWeek, setDaysOfWeek] = React.useState([]);
   const [appointmentId, setAppointmentId] = React.useState(0);
   const [failedReserve, setFailedReserve] = React.useState(false);
@@ -396,12 +393,9 @@ const OutlinedCard = ({
                     <h3>{t('pickappointment')}</h3>
                     <div style={{ backgroundColor: "#93329e", height: "50px", padding: "10px" }}>
                       <h4 style={{ display: "inline", color: "white" }}>{t('pickerlanguage')}: </h4>
-                      <select style={{ display: "inline" }} onChange={handleSelectChange}>
+                      <select style={{ display: "inline" }} onChange={handleSelectChange} value={locale}>
                         <option value="en">English</option>
-                        <option value="ja">Japanese</option>
                         <option value="ar">Arabic</option>
-                        <option value="it">Italian</option>
-                        <option value="de">German</option>
                       </select>
                     </div>
 

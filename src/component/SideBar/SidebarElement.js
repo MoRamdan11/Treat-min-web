@@ -129,3 +129,16 @@ export const Button = styled.button`
     color: #205072;
   }
 `;
+
+export const Button2 = styled.button`
+  border-radius: 50px;
+  background: #c64756;
+  white-space: nowrap;
+  padding: 16px 64px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+`;

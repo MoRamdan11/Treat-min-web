@@ -30,6 +30,8 @@ import 'react-day-picker/lib/style.css';
 import moment from "moment";
 import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/ar';
+import cookies from 'js-cookie';
+
 import axios from "axios";
 import {
   GridContainer,
@@ -46,7 +48,21 @@ import {
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
-
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'gb',
+  },
+  {
+    code: 'ar',
+    name: 'العربية',
+    dir: 'rtl',
+    country_code: 'eg',
+  },
+]
+const currentLanguageCode = cookies.get('i18next') || 'en'
+const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
 
 const theme = createMuiTheme({
   direction: Globals.direction,
@@ -163,7 +179,7 @@ function EditUserInfo(props) {
     email: props.auth.email,
     birth: props.auth.birth
   })
-  const [locale, setLocale] = React.useState('en');
+  const [locale, setLocale] = React.useState(currentLanguage.dir ? 'ar' : 'en');
   const [selectedDate, setSelectedDate] = React.useState(userInfo.birth);
   const [phone, setPhone] = useState(props.auth.phone);
   const [errorPhone, setErrorPhone] = useState(false);
@@ -426,7 +442,7 @@ function EditUserInfo(props) {
                   <h3>{t('birthChange')}</h3>
                   <div style={{ backgroundColor: "#93329e", padding: "10px" }}>
                     <h4 style={{ display: "inline", color: "white" }}>{t('pickerlanguage')}: </h4>
-                    <select style={{ display: "inline" }} onChange={handleSelectChange}>
+                    <select style={{ display: "inline" }} onChange={handleSelectChange} value={locale}>
                       <option value="en">English</option>
                       <option value="ar">Arabic</option>
                     </select>

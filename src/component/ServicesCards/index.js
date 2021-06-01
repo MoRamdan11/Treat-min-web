@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import OutlinedCard from "./card";
 import { makeStyles,createMuiTheme } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 const ServicesCard = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const IsMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();
   function FormRow() {

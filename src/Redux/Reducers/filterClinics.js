@@ -2,6 +2,10 @@
 
 const filterReducerDefaultState = {
     fetch: false,
+    fetchHospital: false,
+    fetchCity: false,
+    fetchRegion: false,
+    fetchEntities: false,
     text: '',
     speciality: '',
     drName: '',
@@ -16,6 +20,12 @@ const filterReducerDefaultState = {
 
 const filterClinicsReducer = ((state = filterReducerDefaultState, action) => {
     switch (action.type) {
+        case 'SET_FETCH_REGION': 
+            return {...state, fetchRegion: action.fetchRegion};
+        case 'SET_FETCH_HOSPITALS':
+            return {...state, fetchHospital: action.fetchHospital};
+        case 'SET_FETCH_CITY': 
+            return {...state, fetchCity: action.fetchCity};
         case 'SET_CITY_CLINIC':
             return {...state, city: action.city};
         case 'SET_REGION_CLINIC':

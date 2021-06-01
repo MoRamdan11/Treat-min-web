@@ -5,20 +5,21 @@ import { addEntity } from "../../Redux/actions/entities";
 import { fetchEntities } from "../../Redux/actions/filterClinics";
 const AddEntitiesToRedux = (props) => {
     useEffect(() => {
-        if (props.filters.fetchEntities === true) {
-            return;
+        async function getEntities() {
+            if (props.filters.fetchEntities === true) {
+                return;
+            }
+            const data = await axios.get('/api/clinics/').then((response) => {
+                const entities = response.data.clinics;
+                entities.map((entity) => {
+                    props.dispatch(addEntity(entity));
+                });
+                props.dispatch(fetchEntities(true));
+            }).catch((error) => {
+                console.log('error', error);
+            })
         }
-        axios.get('/api/clinics/').then((response) => {
-            const entities = response.data.clinics;
-            console.log('DrEntities', entities);
-            entities.map((entity) => {
-                props.dispatch(addEntity(entity));
-            });
-        }).catch((error) => {
-            console.log('error', error);
-        }).finally(() => {
-            props.dispatch(fetchEntities(true));
-        })
+        getEntities();
     }, []);
     return (
         <div style={{ height: "0px", width: "0px" }}>

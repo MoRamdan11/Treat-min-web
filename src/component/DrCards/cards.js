@@ -44,10 +44,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import moment from "moment";
 import MomentLocaleUtils from 'react-day-picker/moment';
-import 'moment/locale/ja';
 import 'moment/locale/ar';
-import 'moment/locale/it';
-import 'moment/locale/de';
 import { matchClincsEn, matchClincsAr, matchAddressEn, matchAddressAr } from "./Cincs"
 import { matchDays, matchDaysAr, dayIndex } from "./days";
 import { clinicsEN, clinicsAR } from "./clinicsnames";
@@ -88,14 +85,14 @@ const useStyles = makeStyles((theme) => ({
   Card: {
     minWidth: "200",
     hight: "100",
-    borderRadius:"50px"
+    borderRadius: "50px"
   },
-  
+
   root: {
     minWidth: "20%",
     hight: "5%",
     textAlign: "center",
-    borderRadius:"50px",
+    borderRadius: "50px",
     boxShadow: "none"
   },
   bullet: {
@@ -104,9 +101,9 @@ const useStyles = makeStyles((theme) => ({
     transform: "scale(0.8)"
   },
   avatar: {
-    backgroundColor: "#19A25D",
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    backgroundColor: "#e1e5ea",
+    width: theme.spacing(8),
+    height: theme.spacing(8),
     alignmentBaseline: "center"
   },
   title: {
@@ -221,7 +218,7 @@ const OutlinedCard = ({
   const [APopen, setAPOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState("");
   const [errorPicker, setErrorPicker] = React.useState(false);
-  const [locale, setLocale] = React.useState('en');
+  const [locale, setLocale] = React.useState(currentLanguage.dir ? 'ar' : 'en');
   const [daysOfWeek, setDaysOfWeek] = React.useState([]);
   const [appointmentId, setAppointmentId] = React.useState(0);
   const [failedReserve, setFailedReserve] = React.useState(false);
@@ -325,9 +322,7 @@ const OutlinedCard = ({
     <Card className={classes.root} variant="outlined">
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {avatar}
-          </Avatar>
+          <Avatar alt={avatar} src={require(`./clinics/${api}.png`).default} aria-label="recipe" className={classes.avatar} />
         }
       />
       <CardContent>
@@ -399,14 +394,12 @@ const OutlinedCard = ({
               <div style={{ backgroundColor: "#caf7e3", borderRadius: "20px", textAlign: "center" }}>
                 {/*edffec*/}
                 <h3>{t('pickappointment')}</h3>
-                <div style={{ backgroundColor: "#93329e", height: "50px", padding: "10px" }}>
+                <div style={{ backgroundColor: "#93329e", padding: "10px" }}>
                   <h4 style={{ display: "inline", color: "white" }}>{t('pickerlanguage')}: </h4>
-                  <select style={{ display: "inline" }} onChange={handleSelectChange}>
+                  <select style={{ display: "inline" }} onChange={handleSelectChange} value={locale}>
+                    
                     <option value="en">English</option>
-                    <option value="ja">Japanese</option>
                     <option value="ar">Arabic</option>
-                    <option value="it">Italian</option>
-                    <option value="de">German</option>
                   </select>
                 </div>
                 <DayPickerInput
@@ -493,7 +486,7 @@ const OutlinedCard = ({
         {t('book')}
       </BookingButton>
     </Card>
-    
+
   );
 };
 const mapStateToProps = (state) => {

@@ -4,14 +4,19 @@ import { connect } from "react-redux";
 import { addHospital } from "../../Redux/actions/hospitals";
 import { addCity } from "../../Redux/actions/cities";
 import { addRegion } from "../../Redux/actions/regions";
+import { setFetchHospitals, setFetchCities, setFetchRegions } from "../../Redux/actions/filterClinics";
 const Hospital = (props) => {
     useEffect(() => {
         async function getHopitals() {
+            if (props.filters.fetchHospital) {
+                return;
+            }
             const data = await axios.get('/api/hospitals/').then((response) => {
                 const hospitals = response.data.hospitals;
                 hospitals.map((hospital) => {
                     props.dispatch(addHospital(hospital));
                 })
+                props.dispatch(setFetchHospitals(true));
             }).catch((error) => {
                 console.log(error);
             })
@@ -20,22 +25,30 @@ const Hospital = (props) => {
     }, [])
     useEffect(() => {
         async function getCities() {
+            if (props.filters.fetchCity) {
+                return;
+            }
             const data = await axios.get('/api/cities/').then((response) => {
                 const cities = response.data.cities;
                 cities.map((city) => {
                     props.dispatch(addCity(city));
                 })
+                props.dispatch(setFetchCities(true));
             })
         }
         getCities();
     }, [])
     useEffect(() => {
         async function getRegions() {
+            if (props.filters.fetchRegion) {
+                return;
+            }
             const data = await axios.get('/api/areas/').then((response) => {
                 const regions = response.data.areas;
                 regions.map((region) => {
                     props.dispatch(addRegion(region));
                 })
+                props.dispatch(setFetchRegions(true));
             })
         }
         getRegions();
@@ -45,5 +58,9 @@ const Hospital = (props) => {
         </div>
     );
 }
-
-export default connect()(Hospital);
+const mapStateToProps = (state) => {
+    return {
+        filters: state.filterClinics
+    };
+}
+export default connect(mapStateToProps)(Hospital);

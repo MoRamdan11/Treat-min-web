@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles,createMuiTheme ,ThemeProvider} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { useTranslation, initReactI18next } from "react-i18next";
@@ -78,6 +78,9 @@ const useStyles = makeStyles({
 const Team = () => {
   const styles = useStyles();
   const { t } = useTranslation();
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <div>
     <ThemeProvider theme={theme}>

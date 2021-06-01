@@ -59,6 +59,28 @@ const useStyles = makeStyles({
         transform: "scaleX(-1)"
       }
     }
+  },
+  city: {
+    display: "flex",
+    fontSize: "1em",
+    color: "#3a6351",
+    padding: "1em",
+    width: "20%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  cityWrapper: {
+    padding: "0.1em 0.6em",
+    backgroundColor: "#caf7e3",
+    borderRadius: "15%",
+    display: "inline-block",
+    margin: "0px",
+  },
+  email: {
+    color: "#6e7582",
+    fontWeight: "bold",
+    wordWrap: "break-word",
+    marginBottom: "0px"
   }
 });
 
@@ -89,15 +111,20 @@ function Appointment({ service, time, date, drName, state, type, appointmentId }
               {time}  ({date})
             </p>
           </div>
-          {cancel ?
-            <div style={{ width: "20%", paddingTop: state == "W" ? "5%" : "3%", textAlign: "center", backgroundColor:"#f54748" }} >
+          {/*cancel ?
+            <div style={{ width: "20%", paddingTop: state == "W" ? "5%" : "3%", textAlign: "center", backgroundColor: "#f54748" }} >
               Canceled
             </div>
             :
             <div style={{ width: "20%", paddingTop: state == "W" ? "5%" : "3%", textAlign: "center", backgroundColor: state == "W" ? "#ffefa0" : " #3CB371" }} >
               {state == "W" ? "Waiting" : "Accepted"}
             </div>
-          }
+          */}
+          <div className= {classes.city}>
+            <div className={classes.cityWrapper}>
+              <p className={classes.email}>accepted</p>
+            </div>
+          </div>
           <div className={classes.cancel}>
             <Button disabled={cancel} onClick={handleCancel} title={t('cancel')} square className={classes.CancelBtn}>
               <CancelOutlinedIcon />

@@ -5,17 +5,19 @@ import { addServiceEntity } from "../../Redux/actions/servicesEntities";
 import { fetchServicesEntities } from "../../Redux/actions/filterServices";
 const AddServicesEntitiesToRedux = (props) => {
     useEffect(() => {
-        if (props.filters.fetchEntities === true) {
-            return;
+        async function getServices() {
+            if (props.filters.fetchEntities === true) {
+                return;
+            }
+            const data = await axios.get('/api/services/').then((response) => {
+                const entities = response.data.services;
+                entities.map((entity) => {
+                    props.dispatch(addServiceEntity(entity));
+                });
+                props.dispatch(fetchServicesEntities(true));
+            })
         }
-        axios.get('/api/services/').then((response) => {
-            const entities = response.data.services;
-            entities.map((entity) => {
-                props.dispatch(addServiceEntity(entity));
-            });
-        }).finally(() => {
-            props.dispatch(fetchServicesEntities(true));
-        })
+        getServices();
     }, []);
     return (
         <div style={{ height: "0px", width: "0px" }}>

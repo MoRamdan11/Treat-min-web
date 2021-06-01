@@ -1,4 +1,24 @@
 //Clinics Actions
+export const setFetchHospitals = (fetchHospital = false) => {
+    return {
+        type: 'SET_FETCH_HOSPITALS',
+        fetchHospital
+    }
+}
+
+export const setFetchCities = (fetchCity = false) => {
+    return {
+        type: 'SET_FETCH_CITY',
+        fetchCity
+    }
+}
+
+export const setFetchRegions = (fetchRegion = false) => {
+    return {
+        type: 'SET_FETCH_REGION',
+        fetchRegion
+    }
+}
 export const setRegionDR = (region = '') => {
     return {
         type: 'SET_REGION_CLINIC',

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import OutlinedCard from "./cards";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DrCard = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
   const theme = useTheme();
   const IsMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();
