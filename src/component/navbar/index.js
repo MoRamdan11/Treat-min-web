@@ -75,7 +75,6 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
       history.push('/');
     }).catch((error) => { console.log(error); })
   }
-
   useEffect(() => {
     if (localStorage.getItem('isLogin') === "true") {
       console.log("login");
@@ -85,11 +84,6 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
       setIsLogin(false);
     }
   }, [auth.isLogin])
-  useEffect(() => {
-    console.log('Setting page stuff')
-    document.body.dir = currentLanguage.dir || 'ltr'
-    document.title = t('app_title')
-  }, [currentLanguage, t])
   return (
     <>
       <Nav>
@@ -114,9 +108,6 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
             </NavItems>
             <NavItems>
               <NavLinks to="book">{t('book')}</NavLinks>
-            </NavItems>
-            <NavItems>
-              <NavLinks to="covid">{t('covid')}</NavLinks>
             </NavItems>
             <NavItems2>
               <div className="language-select">

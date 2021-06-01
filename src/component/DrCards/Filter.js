@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2)
   },
   searchStyle: {
-    borderRadius: "20px",
+    borderRadius: "50px",
     width: "500px"
   }
 }));

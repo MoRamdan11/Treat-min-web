@@ -96,7 +96,10 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: "20%",
-    textAlign: "center"
+    textAlign: "center",
+    borderRadius:"50px",
+    boxShadow: "none"
+    
   },
   bullet: {
     display: "inline-block",

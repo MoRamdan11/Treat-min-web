@@ -13,7 +13,8 @@ export const GridContainer = styled(Grid)`
 export const GridSupervisor = styled(Grid)`
     text-align: center;
     padding: 0 20px 20px 20px;
-    margin-bottom: 20px;
+  
+    background-color:white;
 
 `;
 
@@ -41,8 +42,8 @@ export const GridWeb = styled(Grid)`
 export const GridBackEnd = styled(Grid)`
     text-align: center;
     padding: 0 20px 20px 20px;
-    margin-bottom: 20px;
-
+   
+    background-color:white;
 `;
 
 export const GridMobile = styled(Grid)`

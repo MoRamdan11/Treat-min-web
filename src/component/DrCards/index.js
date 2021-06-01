@@ -23,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     borderRadius:"50px"
   },
+  filterContainer:{
+    backgroundColor:"white" ,
+    textAlign:"center"
+  },
+  grid:{
+    paddingBottom:"20px",
+  },
   imgStyle: {
     "@media screen and (min-width: 1100px)": {
       width: "500px",
@@ -42,7 +49,7 @@ const DrCard = (props) => {
         {props.clinics.length === 0 && <SearchNotFound/>}
         {props.clinics.map((doc, index) => {
           return (
-            <Grid item xs={4} key={index}>
+            <Grid className={classes.root} item xs={4} key={index}>
               <Paper className={classes.paper}>
                 <OutlinedCard {...doc} />
               </Paper>
@@ -54,8 +61,10 @@ const DrCard = (props) => {
   }
 
   return IsMobile ? (
-    <div className="cardcontiner">
+    <div className={classes.root}>
+      <div className={classes.filterContainer}>
       <DialogSelect />
+      </div>
       {props.clinics.length === 0 && <SearchNotFound/>}
       {props.clinics.map((doc, index) => {
         return (

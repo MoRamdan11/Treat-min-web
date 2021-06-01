@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "20%",
     hight: "5%",
     textAlign: "center",
-    borderRadius:"20px",
+    borderRadius:"50px",
     boxShadow: "none"
   },
   bullet: {

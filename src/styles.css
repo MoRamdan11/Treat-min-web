@@ -6,6 +6,7 @@ body {
    /*border: 1px solid transparent;*/
    margin: 0;
    height: 100vh;
+   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
 }
 #root{
   margin-bottom: 0;

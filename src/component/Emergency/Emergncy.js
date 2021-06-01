@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 const Emergncy = () => {
     const { t } = useTranslation();
     return (
-        <div>
+        <div className="container">
         <h1 className="header"> {t('helpyou')} </h1>
         <h2 className="subheader">{t('keepcalm')}</h2>
         <img src={require("./Nursing home.gif").default} alt="loading..."  className="image"/>

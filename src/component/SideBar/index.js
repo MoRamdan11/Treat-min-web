@@ -90,9 +90,6 @@ const SideBar = ({ isOpen, toggle, auth }) => {
           <SidebarLink to="book" onClick={toggle}>
           {t('book')}
           </SidebarLink>
-          <SidebarLink to="covid" onClick={toggle}>
-          {t('covid')}
-          </SidebarLink>
           <SidebarLink to="signup" onClick={toggle}>
           {t('signup')}
           </SidebarLink>

@@ -54,20 +54,20 @@ const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    backgroundColor: "primary",
     margin: theme.spacing(4),
     minWidth: 120,
     display: "25%",
     alignContent: "center",
+    borderRadius: "10px",
+    backgroundColor:"white",
+    borderRadius: "10px",
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-  inputLabel: {
-    color: "#235274",
-  },
+ 
   searchStyle: {
-    borderRadius: "20px",
+    borderRadius: "50px",
     marginTop: "20px",
     width: "500px"
   }

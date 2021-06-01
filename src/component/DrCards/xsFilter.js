@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120
   },
+  button:{
+   color :"#19a25d",
+   fontWeight:"bold",
+   cursor:"pointer"
+  },
   searchStyle: {
     borderRadius: "20px",
     marginTop: "20px",
@@ -154,7 +159,7 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
         <div>
-          <Button onClick={handleClickOpen}>{t('filter')}</Button>
+          <Button  className={classes.button} onClick={handleClickOpen}>{t('filter')}</Button>
           <Dialog
             disableBackdropClick
             disableEscapeKeyDown

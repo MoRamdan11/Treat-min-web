@@ -32,7 +32,8 @@ i18next
   })
 const loadingMarkup = (
   <div className="py-4 text-center">
-    <h3>Loading..</h3>
+  <h1 style={{color:"white"}}> Loading...</h1>
+    <img  style={{width:"360px"}} src={require("../src/images/Loading-pana.png").default} alt="loading..."/>
   </div>
 )
 ReactDOM.render(

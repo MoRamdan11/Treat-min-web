@@ -22,12 +22,18 @@ const theme = createMuiTheme({
 });
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    backgroundColor:"#235274",
   },
   paper: {
     MozBorderRadius: 500,
     padding: theme.spacing(1),
-    textAlign: "center"
+    textAlign: "center",
+    borderRadius:"50px",
+  },
+  filterContainer:{
+    backgroundColor:"white" ,
+    textAlign:"center"
   },
   imgStyle: {
     "@media screen and (min-width: 1100px)": {
@@ -60,8 +66,10 @@ const ServicesCard = (props) => {
   return IsMobile ? (
     <ThemeProvider theme={theme}>
     <StylesProvider jss={jss}>
-    <div>
+    <div className={classes.root}>
+    <div className={classes.filterContainer}>
       <DialogSelect />
+      </div>
       {props.services.length === 0 && <SearchNotFound />}
       {props.services.map((service, index) => {
         return (
