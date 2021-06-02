@@ -39,12 +39,12 @@ export const matchCityAr = {
 }
 export const matchAddressEn = {
     'Nasr City Clinics': '81 Nasr road beside Tyba mall ',
-    'zohairy Hospital': '33 EL Ekhsheed streey,El Manial El Roda',
+    'Zohairy Hospital': '33 EL Ekhsheed streey,El Manial El Roda',
     'test': 'Test-Hospital'
 }
 export const matchAddressAr = {
     'Nasr City Clinics': '81 طريق النصر بجوار طيبة مول',
-    'zohairy Hospital': '33 شارع الاخشيد - المنيل الروضة',
+    'Zohairy Hospital': '33 شارع الاخشيد - المنيل الروضة',
     'test': 'Test-Hospital'
 
 }
