@@ -84,6 +84,9 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
       setIsLogin(false);
     }
   }, [auth.isLogin])
+  function handleClick() {
+    history.push("/");
+  }
   return (
     <>
       <Nav>
@@ -101,13 +104,13 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
           </MobileIcon>
           <NavMenu>
             <NavItems>
-              <NavLinks to="home">{t('home')}</NavLinks>
+              <NavLinks onClick={handleClick}  to="home">{t('home')}</NavLinks>
             </NavItems>
             <NavItems>
-              <NavLinks to="about">{t('aboutus')}</NavLinks>
+              <NavLinks  onClick={handleClick} to="about">{t('aboutus')}</NavLinks>
             </NavItems>
             <NavItems>
-              <NavLinks to="book">{t('book')}</NavLinks>
+              <NavLinks onClick={handleClick} to="book">{t('book')}</NavLinks>
             </NavItems>
             <NavItems2>
               <div className="language-select">

@@ -102,6 +102,9 @@ const SideBar = ({ isOpen, toggle, auth, dispatch }) => {
     document.body.dir = currentLanguage.dir || 'ltr'
     document.title = t('app_title')
   }, [currentLanguage, t])
+  function handleClick() {
+    history.push("/");
+  }
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
@@ -111,13 +114,13 @@ const SideBar = ({ isOpen, toggle, auth, dispatch }) => {
           </Icon>
           <SidebarWrapper>
             <SidebarMenu>
-              <SidebarLink to="home" onClick={toggle}>
+              <SidebarLink to="home" onClick={toggle} onClick={handleClick}>
                 {t('home')}
               </SidebarLink>
-              <SidebarLink to="about" onClick={toggle}>
+              <SidebarLink to="about" onClick={toggle} onClick={handleClick}>
                 {t('aboutus')}
               </SidebarLink>
-              <SidebarLink to="book" onClick={toggle}>
+              <SidebarLink to="book" onClick={toggle} onClick={handleClick}>
                 {t('book')}
               </SidebarLink>
               {!isLogin && <SidebarLink to="signup" onClick={toggle}>
