@@ -73,12 +73,12 @@ function FirstAid() {
           <Card
             num="1"
             src={require("../images/FirstAid1_1.jpeg").default}
-            description="CALL EMERGENCY NUMBER"
+            description={t('call')}
           />
           <Card
             num="2"
             src={require("../images/FirstAid1_2.jpg").default}
-            description="CHECK VITAL SIGNS"
+            description={t('checkvital')}
             direction="right"
             color="light"
             desc="right"
@@ -88,12 +88,12 @@ function FirstAid() {
           <Card
             num="3"
             src={require("../images/FirstAid1_3.jpg").default}
-            description="CHECK BREATHING"
+            description={t('liftchin')}
           />
           <Card
             num="4"
             src={require("../images/FirstAid1_4.jpg").default}
-            description="GIVE RESCUE BREATHS"
+            description={t('rescuebreath')}
             direction="right"
             color="light"
             desc="right"
@@ -103,15 +103,15 @@ function FirstAid() {
           <Card
             num="5"
             src={require("../images/FirstAid1_5.jpg").default}
-            description="PERFORM CPR"
+            description={t('cpr')}
           />
           <Card
             num="6"
             src={require("../images/FirstAid1_6.jpg").default}
-            description="TURN ON SIDE"
-            direction="right"
+            description={t('turnonside')}
+            direction="left"
             color="light"
-            desc="right"
+            desc="left"
           />
         </div>
       </div>
