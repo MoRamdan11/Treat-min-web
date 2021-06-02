@@ -52,7 +52,7 @@ const Prices = [
   },
   {
     value: 200,
-    label: '200L.E',
+    
   },
   {
     value: 300,
@@ -60,7 +60,6 @@ const Prices = [
   },
   {
     value: 400,
-    label: '400L.E',
   },
   {
     value: 500,
