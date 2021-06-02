@@ -212,7 +212,7 @@ const OutlinedCard = ({
   const [errorSelector, setErrorSelector] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState("");
   const [errorPicker, setErrorPicker] = React.useState(false);
-  const [locale, setLocale] = React.useState(currentLanguage.dir ? 'ar' : 'en');
+  const [locale, setLocale] = React.useState('en');
   const [daysOfWeek, setDaysOfWeek] = React.useState([]);
   const [appointmentId, setAppointmentId] = React.useState(0);
   const [failedReserve, setFailedReserve] = React.useState(false);
@@ -391,7 +391,7 @@ const OutlinedCard = ({
                     <h3>{t('pickappointment')}</h3>
                     <div style={{ backgroundColor: "#93329e", height: "50px", padding: "10px" }}>
                       <h4 style={{ display: "inline", color: "white" }}>{t('pickerlanguage')}: </h4>
-                      <select style={{ display: "inline" }} onChange={handleSelectChange} value={locale}>
+                      <select style={{ display: "inline" }} onChange={handleSelectChange}>
                         <option value="en">English</option>
                         <option value="ar">Arabic</option>
                       </select>

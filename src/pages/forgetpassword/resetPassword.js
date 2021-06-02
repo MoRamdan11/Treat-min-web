@@ -57,15 +57,19 @@ function ResetPassword(props) {
   function hnadlePasswordChange(event) {
     const passwordVal = event.target.value;
     if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {
-      if (confirmPassword === passwordVal) {
-        setErrorConfirmPassword(false);
+      if (passwordVal === confirmPassword && passwordVal !== "") {
         setInvalidPass(false);
+        setErrorConfirmPassword(false);
+      }
+      else {
+        setErrorConfirmPassword(true);
       }
       setPassword(passwordVal);
-      setErrorConfirmPassword(true);
       setErrorPassword(false);
     } else {
+      setPassword(passwordVal);
       setErrorPassword(true);
+      setErrorConfirmPassword(true);
     }
   }
 

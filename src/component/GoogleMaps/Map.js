@@ -27,17 +27,25 @@ function initMap() {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        console.log(pos);
+        console.log("accuracy: ", position.coords.accuracy);
         map = new window.google.maps.Map(document.getElementById("map"), {
-          center: pos,
           zoom: 18,
+          center: pos,
         });
+        infoWindow.setPosition(pos);
+        infoWindow.setContent("You are here.");
+        infoWindow.open(map);
+        map.setCenter(pos);
         bounds.extend(pos);
         new window.google.maps.Marker({
           position: pos,
           map: map,
           title: "your current location",
+          icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+          },
         });
+        map.setZoom(18);
         map.setCenter(pos);
 
         // Call Places Nearby Search on user's location
@@ -79,14 +87,17 @@ function getNearbyPlaces(position) {
 
 function nearbyCallback(results, status) {
   if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-    let nearestHospital = [];
     const index = results.findIndex((result) => {
-      return result.name.includes("Hospital") || result.name.includes("مستشفى");
+      return (
+        result.name.includes("Hospital") ||
+        result.name.includes("hospital") ||
+        result.name.includes("مستشفى") ||
+        result.name.includes("مستشفي")
+      );
     });
-    nearestHospital.push(results[index]);
-    
+
     calcRoute(pos, results[index].geometry.location, map);
-    createMarkers(nearestHospital);
+    createMarkers(results.slice(0, 4));
   }
 }
 
@@ -99,12 +110,10 @@ function createMarkers(places) {
       title: place.name,
       icon: {
         url: "/hosIcon.svg",
-        scaledSize: new window.google.maps.Size(30, 30),
+        scaledSize: new window.google.maps.Size(40, 40),
       },
     });
 
-    /* TODO: Step 4B: Add click listeners to the markers */
-    // Add click listener to each marker
     window.google.maps.event.addListener(marker, "click", () => {
       let request = {
         placeId: place.place_id,
@@ -134,82 +143,20 @@ function createMarkers(places) {
   map.fitBounds(bounds);
 }
 
-/* TODO: Step 4C: Show place details in an info window */
-// Builds an InfoWindow to display details above the marker
 function showDetails(placeResult, marker, status) {
   if (status === window.google.maps.places.PlacesServiceStatus.OK) {
     let placeInfowindow = new window.google.maps.InfoWindow();
-    let rating = "None";
-    if (placeResult.rating) rating = placeResult.rating;
     placeInfowindow.setContent(
-      "<div><strong>" +
-        placeResult.name +
-        "</strong><br>" +
-        "Rating: " +
-        rating +
-        "</div>"
+      "<div><strong>" + placeResult.name + "</strong></div>"
     );
     placeInfowindow.open(marker.map, marker);
     currentInfoWindow.close();
     currentInfoWindow = placeInfowindow;
-    showPanel(placeResult);
   } else {
     console.log("showDetails failed: " + status);
   }
 }
 
-/* TODO: Step 4D: Load place details in a sidebar */
-// Displays place details in a sidebar
-function showPanel(placeResult) {
-  // If infoPane is already open, close it
-  if (infoPane.classList.contains("open")) {
-    infoPane.classList.remove("open");
-  }
-
-  // Clear the previous details
-  while (infoPane.lastChild) {
-    infoPane.removeChild(infoPane.lastChild);
-  }
-
-  /* TODO: Step 4E: Display a Place Photo with the Place Details */
-  // Add the primary photo, if there is one
-  if (placeResult.photos) {
-    let firstPhoto = placeResult.photos[0];
-    let photo = document.createElement("img");
-    photo.classList.add("hero");
-    photo.src = firstPhoto.getUrl();
-    infoPane.appendChild(photo);
-  }
-
-  // Add place details with text formatting
-  let name = document.createElement("h1");
-  name.classList.add("place");
-  name.textContent = placeResult.name;
-  infoPane.appendChild(name);
-  if (placeResult.rating) {
-    let rating = document.createElement("p");
-    rating.classList.add("details");
-    rating.textContent = `Rating: ${placeResult.rating} \u272e`;
-    infoPane.appendChild(rating);
-  }
-  let address = document.createElement("p");
-  address.classList.add("details");
-  address.textContent = placeResult.formatted_address;
-  infoPane.appendChild(address);
-  if (placeResult.website) {
-    let websitePara = document.createElement("p");
-    let websiteLink = document.createElement("a");
-    let websiteUrl = document.createTextNode(placeResult.website);
-    websiteLink.appendChild(websiteUrl);
-    websiteLink.title = placeResult.website;
-    websiteLink.href = placeResult.website;
-    websitePara.appendChild(websiteLink);
-    infoPane.appendChild(websitePara);
-  }
-
-  // Open the infoPane
-  infoPane.classList.add("open");
-}
 function Map() {
   const [loaded, error] = useScript(
     "https://maps.googleapis.com/maps/api/js?key=AIzaSyC5BgoVtlDF_mzZiy-Wo0JO4MxVVzo-SN0&libraries=places&v=weekly"
@@ -221,7 +168,7 @@ function Map() {
   }, [loaded]);
 
   return (
-    <div style={{backgroundColor: "#235274"}} className="container">
+    <div style={{ backgroundColor: "#fff" }} className="container">
       <div className="pac-card" id="pac-card">
         <div id="pac-container">
           <SearchIcon

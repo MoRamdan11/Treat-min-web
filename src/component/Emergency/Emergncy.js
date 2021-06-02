@@ -13,9 +13,9 @@ const Emergncy = () => {
         <h2 className="subheader">{t('keepcalm')}</h2>
         <img src={require("./Nursing home.gif").default} alt="loading..."  className="image"/>
         <div className="btn__container">
-       <NavBtnLink className="btn"> {t('firstaid')}</NavBtnLink></div>
+       <NavBtnLink to="/FirstAid" className="btn"> {t('firstaid')}</NavBtnLink></div>
        <div className="btn__container">
-       <NavBtnLink to="/Emergency2" className="btn">{t('nearesthospital')}</NavBtnLink>
+       <NavBtnLink to="/Maps" className="btn">{t('nearesthospital')}</NavBtnLink>
         </div>
         </div>
     )

@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     backgroundColor: "#FFF",
     width: "20%",
   },
-  cancel: {
+  Cancel: {
     backgroundColor: "#FFF",
     width: "20%",
   },
@@ -63,21 +63,48 @@ const useStyles = makeStyles({
   city: {
     display: "flex",
     fontSize: "1em",
-    color: "#3a6351",
+    //color: "#3a6351",
     padding: "1em",
     width: "20%",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    border: "1px solid #d8e3e7",
   },
-  cityWrapper: {
+  acceptWrapper: {
     padding: "0.1em 0.6em",
     backgroundColor: "#caf7e3",
     borderRadius: "15%",
     display: "inline-block",
     margin: "0px",
   },
-  email: {
+  accept: {
     color: "#6e7582",
+    fontWeight: "bold",
+    wordWrap: "break-word",
+    marginBottom: "0px"
+  },
+  waitingWrapper: {
+    padding: "0.1em 0.6em",
+    backgroundColor: "#ffe600",
+    borderRadius: "15%",
+    display: "inline-block",
+    margin: "0px",
+  },
+  waiting: {
+    color: "#000",
+    fontWeight: "bold",
+    wordWrap: "break-word",
+    marginBottom: "0px"
+  },
+  cancelWrapper: {
+    padding: "0.1em 0.6em",
+    backgroundColor: "#c64756",
+    borderRadius: "15%",
+    display: "inline-block",
+    margin: "0px",
+  },
+  cancel: {
+    color: "#FFF",
     fontWeight: "bold",
     wordWrap: "break-word",
     marginBottom: "0px"
@@ -111,21 +138,28 @@ function Appointment({ service, time, date, drName, state, type, appointmentId }
               {time}  ({date})
             </p>
           </div>
-          {/*cancel ?
-            <div style={{ width: "20%", paddingTop: state == "W" ? "5%" : "3%", textAlign: "center", backgroundColor: "#f54748" }} >
-              Canceled
+          {cancel ?
+            <div className={classes.city}>
+              <div className={classes.cancelWrapper}>
+                <p className={classes.cancel}>{t('cancelApp')}</p>
+              </div>
             </div>
             :
-            <div style={{ width: "20%", paddingTop: state == "W" ? "5%" : "3%", textAlign: "center", backgroundColor: state == "W" ? "#ffefa0" : " #3CB371" }} >
+            <div className={classes.city}>
+              <div className={state==='W'? classes.waitingWrapper : classes.acceptWrapper}>
+                <p className={state === 'W' ? classes.waiting : classes.accept}>
+                  {state == "W" ? t('wait') : t('accept')}
+                </p>
+              </div>
+            </div>
+          }
+
+
+
+          {/*<div style={{ width: "20%", paddingTop: state == "W" ? "5%" : "3%", textAlign: "center", backgroundColor: state == "W" ? "#ffefa0" : " #3CB371" }} >
               {state == "W" ? "Waiting" : "Accepted"}
-            </div>
-          */}
-          <div className= {classes.city}>
-            <div className={classes.cityWrapper}>
-              <p className={classes.email}>accepted</p>
-            </div>
-          </div>
-          <div className={classes.cancel}>
+            </div>*/}
+          <div className={classes.Cancel}>
             <Button disabled={cancel} onClick={handleCancel} title={t('cancel')} square className={classes.CancelBtn}>
               <CancelOutlinedIcon />
             </Button>

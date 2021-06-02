@@ -98,14 +98,19 @@ function SetupAccount(props) {
   function hnadlePasswordChange(event) {
     const passwordVal = event.target.value;
     if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {
-      if (passwordVal === confirmPassword) {
+      if (passwordVal === confirmPassword && passwordVal !== "") {
         setFailedPassword(false);
         setErrorConfirmPassword(false);
+      }
+      else {
+        setErrorConfirmPassword(true);
       }
       setPassword(passwordVal);
       setErrorPassword(false);
     } else {
+      setPassword(passwordVal);
       setErrorPassword(true);
+      setErrorConfirmPassword(true);
     }
   }
 

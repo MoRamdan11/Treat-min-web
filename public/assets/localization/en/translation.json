@@ -10,8 +10,8 @@
     "care":"Care Close to home...",
     "describe":"we care about your health sign up now to book the best specalist in town and save your life in 1 minute",
     "start":"Get Started",
-    "service":"Service",
-    "clinic":"Clinic",
+    "service":"Services",
+    "clinic":"Clinics",
     "special_room":"Special Room" ,
     "find_clincal":"Find Clinic :",
     "find_room":"Find Special Room :",
@@ -203,5 +203,8 @@
     "editinfo": "Edit Your Profile",
     "enterPass": "Enter your password",
     "currentpass": "Current Password",
-    "errorcurrpass": "Wrong password please enter your correct password!"
+    "errorcurrpass": "Wrong password please enter your correct password!",
+    "accept": "Accepted",
+    "wait": "Waiting",
+    "cancelApp": "Canceled"
 }

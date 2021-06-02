@@ -309,7 +309,7 @@ function Account(props) {
               </div>
             </div>
             <div className={classes.columnTwo}>
-              <button className={classes.headerBtn} onClick={handleApp}>
+              <button className={classes.headerBtn} style = {{backgroundColor: appIsOpen && "#bdbdbd"}} onClick={handleApp}>
                 <h3 className={classes.header}>
                   <CalendarTodayIcon className={classes.headerIcon} /> {t('appoinment')}
                   {appIsOpen ? (
@@ -351,7 +351,7 @@ function Account(props) {
                 })
                 }
               </div>
-              <button className={classes.headerBtn} onClick={handleHistory}>
+              <button className={classes.headerBtn} style = {{backgroundColor: historyIsOpen && "#bdbdbd"}} onClick={handleHistory}>
                 <h3 className={classes.header}>
                   <HistoryIcon className={classes.headerIcon} /> {t('history')}
                   {historyIsOpen ? (
