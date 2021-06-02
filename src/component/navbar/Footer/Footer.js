@@ -47,13 +47,13 @@ const useStyles = makeStyles({
   },
   phoneNumber: {
     display: "inline",
-    marginLeft: "5px"
   },
   socialIcon: {
     weight: "30px",
     height: "30px",
     marginRight: "20px",
-    marginTop: "10px"
+    marginTop: "10px",
+    cursor: "pointer"
   },
   rights: {
     textAlign: "center",
@@ -108,7 +108,7 @@ function Footer(props) {
             <H3>{t('usefullink')}</H3>
             <FooterLink to="/">{t('home')}</FooterLink>
             {props.auth.isLogin && <FooterLink to="/MyAccount">{t('account')}</FooterLink>}
-            <FooterLink to="#">{t('help')}</FooterLink>
+            {/*<FooterLink to="#">{t('help')}</FooterLink>*/}
           </GridUsefulLinks>
           <GridContactUs xs={12} sm={12} md={3} lg={2}>
             <H3>{t('contactus')}</H3>
@@ -117,19 +117,19 @@ function Footer(props) {
             </IconButton>
             <p className={styles.phoneNumber}>info.treatmin@gmail.com</p>
             <br />
-            <NavLink to="#">
+            <a target="_blank" href="https://www.facebook.com/Treat-min-105983478314658">
               <img
                 className={styles.socialIcon}
                 style={{ marginLeft: "20px" }}
                 src={require("./icons/facebook.png").default}
               />
-            </NavLink>
-            <NavLink to="#">
+            </a>
+            <a target="_blank" href="https://www.instagram.com/treatmin/">
               <img
                 className={styles.socialIcon}
                 src={require("./icons/instagram.png").default}
               />
-            </NavLink>
+            </a>
             <NavLink to="#">
               <img
                 className={styles.socialIcon}

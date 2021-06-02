@@ -14,6 +14,9 @@ const Hospital = (props) => {
             const data = await axios.get('/api/hospitals/').then((response) => {
                 const hospitals = response.data.hospitals;
                 hospitals.map((hospital) => {
+                    if(hospital.name === 'test' || hospital.name === 'Test_Hospital_Api'){
+                        return;
+                    }
                     props.dispatch(addHospital(hospital));
                 })
                 props.dispatch(setFetchHospitals(true));
@@ -60,7 +63,7 @@ const Hospital = (props) => {
 }
 const mapStateToProps = (state) => {
     return {
-        filters: state.filterClinics
+        filters: state.fetching
     };
 }
 export default connect(mapStateToProps)(Hospital);

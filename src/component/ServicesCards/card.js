@@ -46,8 +46,8 @@ import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/ar';
 import { matchDays, matchDaysAr, dayIndex } from "../DrCards/days";
 import axios from "axios";
-import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr} from "../DrCards/Cincs"
-import {ServicesEN,ServicesAR} from "./service"
+import { matchClincsEn, matchClincsAr, matchAddressEn, matchAddressAr } from "../DrCards/Cincs"
+import { ServicesEN, ServicesAR } from "./service"
 import cookies from 'js-cookie';
 
 // Configure JSS
@@ -94,9 +94,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: "20%",
     textAlign: "center",
-    borderRadius:"50px",
+    borderRadius: "50px",
     boxShadow: "none"
-    
+
   },
   bullet: {
     display: "inline-block",
@@ -104,10 +104,10 @@ const useStyles = makeStyles((theme) => ({
     transform: "scale(0.8)",
   },
   avatar: {
-    backgroundColor: "#19A25D",
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-    alignmentBaseline: "center",
+    backgroundColor: "#e1e5ea",
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+    alignmentBaseline: "center"
   },
   title: {
     fontSize: 14,
@@ -319,16 +319,14 @@ const OutlinedCard = ({
         <Card className={classes.root} variant="outlined">
           <CardHeader
             avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                {avatar}
-              </Avatar>
+              <Avatar alt={avatar} src={require(`./services/${api}.png`).default} aria-label="recipe" className={classes.avatar} />
             }
           />
           <CardContent>
             <h1 className={classes.title} color="textSecondary" gutterBottom>
               {service}
             </h1>
-            <Typography>{currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} </Typography>
+            <Typography>{currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`} </Typography>
             {rating_total}
             <IconButton className={classes.GradeIcon} aria-label="settings">
               <GradeIcon />
@@ -351,7 +349,7 @@ const OutlinedCard = ({
                 {price} {t('le')}
               </TabPanel>
               <TabPanel value={value} index={1}>
-              {currentLanguage.dir?`${ matchAddressAr[hospital.name]} ` :`${ matchAddressEn[hospital.name]}`} 
+                {currentLanguage.dir ? `${matchAddressAr[hospital.name]} ` : `${matchAddressEn[hospital.name]}`}
               </TabPanel>
               <TabPanel value={value} index={2}>
                 {hospital.phone}
@@ -378,10 +376,10 @@ const OutlinedCard = ({
                         <option
                           onClick={handleOptionClick}
                           key={schedule.id}
-                          value={currentLanguage.dir? `${matchDaysAr[schedule.day]}`:`${matchDays[schedule.day]}`}
+                          value={currentLanguage.dir ? `${matchDaysAr[schedule.day]}` : `${matchDays[schedule.day]}`}
                           id={schedule.id}
                         >
-                        {currentLanguage.dir?`${matchDaysAr[schedule.day]} ${schedule.start} - ${schedule.end}` :`${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
+                          {currentLanguage.dir ? `${matchDaysAr[schedule.day]} ${schedule.start} - ${schedule.end}` : `${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
                         </option>
                       );
                     })}

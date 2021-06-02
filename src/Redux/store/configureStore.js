@@ -9,9 +9,10 @@ import servicesEntitiesReducer from "../Reducers/servicesEntities";
 import hospitalReducer from "../Reducers/hospitals";
 import cityReducer from "../Reducers/cities";
 import regionReducer from "../Reducers/regions";
-
+import fetchReducer from '../Reducers/fetching';
 const configureStore = () => {
     const store = createStore(combineReducers({
+        fetching: fetchReducer,
         regions: regionReducer,
         cities: cityReducer,
         hospitals: hospitalReducer,

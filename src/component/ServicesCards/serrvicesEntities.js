@@ -6,7 +6,7 @@ import { fetchServicesEntities } from "../../Redux/actions/filterServices";
 const AddServicesEntitiesToRedux = (props) => {
     useEffect(() => {
         async function getServices() {
-            if (props.filters.fetchEntities === true) {
+            if (props.filters.fetchServicesEntities === true) {
                 return;
             }
             const data = await axios.get('/api/services/').then((response) => {
@@ -26,7 +26,7 @@ const AddServicesEntitiesToRedux = (props) => {
 }
 const mapStateToProps = (state) => {
     return {
-        filters: state.filterServices
+        filters: state.fetching
     };
 }
 

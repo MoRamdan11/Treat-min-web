@@ -39,7 +39,7 @@ class AddDataToRedux extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterClinics
+    filters: state.fetching
   };
 }
 

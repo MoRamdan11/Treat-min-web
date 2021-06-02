@@ -8,7 +8,7 @@ const AddServicesToRedux = (props) => {
   useEffect(() => {
     async function fetchServicesData() {
       for (var i = 1; i <= 3; i++) {
-        if(props.filters.fetch === true){
+        if(props.filters.fetchServices === true){
           return
         }
         const data = await axios.get(`api/services/${i}/schedules/`).then((response) => {
@@ -42,7 +42,7 @@ const AddServicesToRedux = (props) => {
 }
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterServices
+    filters: state.fetching
   };
 }
 export default connect(mapStateToProps)(AddServicesToRedux);
