@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { NavBtnLink } from "../component/navbar/NavBarElement";
 import { useTranslation } from "react-i18next";
 
+
+
 const useStyles = makeStyles({
   container: {
     width: "100vw",
