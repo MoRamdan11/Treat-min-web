@@ -430,6 +430,7 @@ module.exports = function (webpackEnv) {
                 compact: isEnvProduction,
               },
             },
+           
             // Process any JS outside of the app with Babel.
             // Unlike the application JS, we only compile the standard ES features.
             {
@@ -553,6 +554,9 @@ module.exports = function (webpackEnv) {
         },
       ],
     },
+    devServer:{
+      historyApiFallback: true
+    },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
@@ -561,6 +565,7 @@ module.exports = function (webpackEnv) {
           {
             inject: true,
             template: paths.appHtml,
+            
           },
           isEnvProduction
             ? {
