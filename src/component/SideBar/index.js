@@ -131,8 +131,8 @@ const SideBar = ({ isOpen, toggle, auth, dispatch }) => {
             </SidebarMenu>
             <SidebarBtnWrap >
 
-              <SidebarButton onClick={() => { i18next.changeLanguage("en") }} >English</SidebarButton>
-              <SidebarButton onClick={() => { i18next.changeLanguage("ar") }} >عربي</SidebarButton>
+              <SidebarButton onClick={() => { i18next.changeLanguage("en"); window.location.reload(false);  }} >English</SidebarButton>
+              <SidebarButton onClick={() => { i18next.changeLanguage("ar");window.location.reload(false); }} >عربي</SidebarButton>
             </SidebarBtnWrap>
             {isLogin &&
               <SidebarBtnWrap>
