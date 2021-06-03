@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch , HashRouter } from "react-router-dom";
+import { browserHistory,IndexRoute } from 'react-router'
 import Home from "./pages";
 import FindClincal from "./pages/FindClical";
 import NotFound from "./component/NotFound/index";
@@ -45,7 +46,7 @@ function App() {
     serIsOpen(!isOpen);
   };
   return (
-    <Router>
+    <HashRouter hashtype='slash' >
       <Route>
         <Auth />
         <Hospital />
@@ -76,7 +77,7 @@ function App() {
         </Switch>
         <Footer />
       </Route>
-    </Router>
+    </HashRouter>
   );
 }
 const mapStateToProps = (state) => {
