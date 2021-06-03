@@ -14,7 +14,7 @@ const Hospital = (props) => {
             const data = await axios.get('/api/hospitals/').then((response) => {
                 const hospitals = response.data.hospitals;
                 hospitals.map((hospital) => {
-                    if(hospital.name === 'test' || hospital.name === 'Test_Hospital_Api' || hospital.name === "elamal"){
+                    if(hospital.name.toLowerCase() === 'test' || hospital.name === 'Test_Hospital_Api' || hospital.name.toLowerCase() === "elamal"){
                         return;
                     }
                     props.dispatch(addHospital(hospital));

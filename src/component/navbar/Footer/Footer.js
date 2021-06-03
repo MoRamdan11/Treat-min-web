@@ -4,10 +4,7 @@ import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import MailIcon from "@material-ui/icons/Mail";
 import { useTranslation, initReactI18next } from "react-i18next";
-import MessengerCustomerChat from 'react-messenger-customer-chat';
 import Globals from "../global"
-
-
 import {
   GridContainer,
   GridLogo,
@@ -70,18 +67,13 @@ function Footer(props) {
   var currentYear = currentDate.getFullYear();
   const styles = useStyles();
   return (
-
-    <MessengerCustomerChat
-      pageId="105983478314658"
-      appId="423865358655348"
-    />,
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
 
         <GridContainer container>
           <GridLogo xs={12} sm={12} md={3} lg={3}>
             <img className={styles.lgogImg} src={require("./icons/treat.png").default} />
-            <h3 >Comming Soon in playStore</h3>
+            <h3 >{t('googleplay')}</h3>
           </GridLogo>
           <GridCompany xs={6} sm={6} md={2} lg={2}>
             <H3>{t('company')}</H3>

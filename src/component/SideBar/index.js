@@ -123,10 +123,6 @@ const SideBar = ({ isOpen, toggle, auth, dispatch }) => {
               <SidebarLink to="book" onClick={toggle} onClick={handleClick}>
                 {t('book')}
               </SidebarLink>
-              {!isLogin && <SidebarLink to="signup" onClick={toggle}>
-                {t('signup')}
-              </SidebarLink>
-              }
 
             </SidebarMenu>
             <SidebarBtnWrap >

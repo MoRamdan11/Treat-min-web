@@ -206,5 +206,6 @@
     "errorcurrpass": "Wrong password please enter your correct password!",
     "accept": "Accepted",
     "wait": "Waiting",
-    "cancelApp": "Canceled"
+    "cancelApp": "Canceled",
+    "googleplay": "Coming Soon in Play Store"
 }

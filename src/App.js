@@ -40,6 +40,7 @@ import AddServicesEntitiesToRedux from "./component/ServicesCards/serrvicesEntit
 import Hospital from "./component/hospital and Cities/hospital";
 import Map from "./component/GoogleMaps/Map";
 import FirstAid from "./pages/FirstAid";
+import Chatbot from "./component/navbar/Footer/chatbot";
 function App() {
   const [isOpen, serIsOpen] = useState(false);
   const toggle = () => {
@@ -49,6 +50,7 @@ function App() {
     <HashRouter hashtype='slash' >
       <Route>
         <Auth />
+        <Chatbot />
         <Hospital />
         <AddEntitiesToRedux />
         <AddServicesEntitiesToRedux />
