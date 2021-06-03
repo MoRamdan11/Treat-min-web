@@ -81,7 +81,7 @@ function Footer(props) {
         <GridContainer container>
           <GridLogo xs={12} sm={12} md={3} lg={3}>
             <img className={styles.lgogImg} src={require("./icons/treat.png").default} />
-            <h3 >Comming Soon in playStore</h3>
+            <H3>Comming Soon in playStore</H3>
           </GridLogo>
           <GridCompany xs={6} sm={6} md={2} lg={2}>
             <H3>{t('company')}</H3>

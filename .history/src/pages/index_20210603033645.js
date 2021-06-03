@@ -13,7 +13,6 @@ const Home = (props) => {
   useEffect(() => {
     props.dispatch(resetFilterClinics());
     props.dispatch(resetServicesFilter());
-    window.scrollTo(0, 0);
   }, [])
   return (
     <>

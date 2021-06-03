@@ -3,8 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import { NavLink } from "react-router-dom";
 
 export const GridContainer = styled(Grid)`
-  overflow: hidden;
-  max-width:100%;
+ overflow: hidden;
+ max-width:100%;
   margin-top: -50px;
   margin-bottom: 0px;
   min-height: 100%;

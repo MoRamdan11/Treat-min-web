@@ -81,7 +81,18 @@ function Footer(props) {
         <GridContainer container>
           <GridLogo xs={12} sm={12} md={3} lg={3}>
             <img className={styles.lgogImg} src={require("./icons/treat.png").default} />
-            <h3 >Comming Soon in playStore</h3>
+            <NavLink to="#">
+              <img
+                className={styles.iconStyle}
+                src={require("./icons/apple2.png").default}
+              />
+            </NavLink>
+            <NavLink to="#">
+              <img
+                className={styles.iconStyle}
+                src={require("./icons/playstore.png").default}
+              />
+            </NavLink>
           </GridLogo>
           <GridCompany xs={6} sm={6} md={2} lg={2}>
             <H3>{t('company')}</H3>
@@ -106,33 +117,31 @@ function Footer(props) {
             </IconButton>
             <p className={styles.phoneNumber}>info.treatmin@gmail.com</p>
             <br />
-            <div style={{display: "flex", justifyContent: "center", padding: "5px 20%"}}>
-              <a target="_blank" href="https://www.facebook.com/Treat-min-105983478314658">
-                <img
-                  className={styles.socialIcon}
-                  style={{ marginLeft: "20px" }}
-                  src={require("./icons/facebook.png").default}
-                />
-              </a>
-              <a target="_blank" href="https://www.instagram.com/treatmin/">
-                <img
-                  className={styles.socialIcon}
-                  src={require("./icons/instagram.png").default}
-                />
-              </a>
-              {/*<NavLink to="#">
+            <a target="_blank" href="https://www.facebook.com/Treat-min-105983478314658">
+              <img
+                className={styles.socialIcon}
+                style={{ marginLeft: "20px" }}
+                src={require("./icons/facebook.png").default}
+              />
+            </a>
+            <a target="_blank" href="https://www.instagram.com/treatmin/">
+              <img
+                className={styles.socialIcon}
+                src={require("./icons/instagram.png").default}
+              />
+            </a>
+            <NavLink to="#">
               <img
                 className={styles.socialIcon}
                 src={require("./icons/Twitter.png").default}
               />
-              </NavLink>*/}
-              {/*<NavLink to="#">
+            </NavLink>
+            <NavLink to="#">
               <img
                 className={styles.socialIcon}
                 src={require("./icons/linkedin.png").default}
               />
-            </NavLink>*/}
-            </div>
+            </NavLink>
           </GridContactUs>
           <div className={styles.rights}>
             <h3>{t('right')} &copy; Treat-min {currentYear}</h3>
