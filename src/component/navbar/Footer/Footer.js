@@ -33,6 +33,12 @@ const useStyles = makeStyles({
     margin: "0 auto 30px auto",
     display: "block"
   },
+  google: {
+    width: "200px",
+    margin: "0 auto 30px auto",
+    display: "block",
+    cursor: "pointer"
+  },
   iconStyle: {
     weight: "40px",
     height: "40px",
@@ -73,7 +79,9 @@ function Footer(props) {
         <GridContainer container>
           <GridLogo xs={12} sm={12} md={3} lg={3}>
             <img className={styles.lgogImg} src={require("./icons/treat.png").default} />
-            <h3 >{t('googleplay')}</h3>
+            <a target="_blank" href="https://play.google.com/store/apps/details?id=com.treat_min.android">
+              <img className={styles.google} src={require("./icons/jwa.png").default} />
+            </a>
           </GridLogo>
           <GridCompany xs={6} sm={6} md={2} lg={2}>
             <H3>{t('company')}</H3>

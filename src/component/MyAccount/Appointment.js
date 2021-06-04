@@ -122,7 +122,6 @@ function Appointment({ service, time, date, drName, state, type, appointmentId }
         'Authorization': 'Token ' + localStorage.getItem('token')
       }
     }).then((response) => {
-      console.log(response);
       setCancel(true);
     })
   }

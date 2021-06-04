@@ -65,12 +65,10 @@ function ForgetPassword(props) {
       props.history.push('/forgetPassword');
     } else {
       axios.post('/api/accounts/password-email/', { email: email }).then((response) => {
-        console.log(response.data.details);
         localStorage.setItem('email', email);
         setInValidEmail(false);
         props.history.push('/verificationCode');
       }).catch((error) => {
-        console.log(error.response.data);
         setEmailNotFound(true);
         setErrorEmail(true);
       })
@@ -84,12 +82,10 @@ function ForgetPassword(props) {
         props.history.push('/forgetPassword');
       } else {
         axios.post('/api/accounts/password-email/', { email: email }).then((response) => {
-          console.log(response.data.details);
           localStorage.setItem('email', email);
           setInValidEmail(false);
           props.history.push('/verificationCode');
         }).catch((error) => {
-          console.log(error.response.data);
           setEmailNotFound(true);
           setErrorEmail(true);
         })

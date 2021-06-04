@@ -253,7 +253,6 @@ function Account(props) {
           'Authorization': 'Token ' + localStorage.getItem('token')
         }
       }).then((response) => {
-        console.log(response.data);
         setClinicsAppointments(response.data.current.clinics);
         setServicesAppointments(response.data.current.services);
         setHistoryClinics(response.data.past.clinics);

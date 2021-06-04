@@ -60,7 +60,6 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
   const { t } = useTranslation();
 
   const handleLogOut = () => {
-    console.log(localStorage.getItem('token'));
     axios.post('/api/accounts/logout/', {}, {
       headers: {
         'Authorization': 'Token ' + localStorage.getItem('token')
@@ -73,14 +72,12 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
       dispatch(setAuth(false));
       dispatch(deleteProfile());
       history.push('/');
-    }).catch((error) => { console.log(error); })
+    })
   }
   useEffect(() => {
     if (localStorage.getItem('isLogin') === "true") {
-      console.log("login");
       setIsLogin(true);
     } else {
-      console.log("logout");
       setIsLogin(false);
     }
   }, [auth.isLogin])
@@ -104,10 +101,10 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
           </MobileIcon>
           <NavMenu>
             <NavItems>
-              <NavLinks onClick={handleClick}  to="home">{t('home')}</NavLinks>
+              <NavLinks onClick={handleClick} to="home">{t('home')}</NavLinks>
             </NavItems>
             <NavItems>
-              <NavLinks  onClick={handleClick} to="about">{t('aboutus')}</NavLinks>
+              <NavLinks onClick={handleClick} to="about">{t('aboutus')}</NavLinks>
             </NavItems>
             <NavItems>
               <NavLinks onClick={handleClick} to="book">{t('book')}</NavLinks>

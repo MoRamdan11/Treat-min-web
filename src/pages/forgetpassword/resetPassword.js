@@ -97,11 +97,8 @@ function ResetPassword(props) {
         email: email,
         password: password
       }).then((response) => {
-        console.log(response);
         localStorage.removeItem('email');
         props.history.push('/login');
-      }).catch((error) => {
-        console.log(error.response.data);
       })
     } else {
       setInvalidPass(true);
@@ -117,11 +114,8 @@ function ResetPassword(props) {
           email: email,
           password: password
         }).then((response) => {
-          console.log(response);
           localStorage.removeItem('email');
           props.history.push('/login');
-        }).catch((error) => {
-          console.log(error.response.data);
         })
       } else {
         setInvalidPass(true);

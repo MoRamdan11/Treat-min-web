@@ -278,7 +278,6 @@ const OutlinedCard = ({
     const value = moment(event).format('YYYY-MM-DD');
     setErrorPicker(false);
     setSelectedDate(value);
-    console.log('pickingDate', value);
   }
   function handleSelectChange(e) {
     const locale = e.target.value;
@@ -308,13 +307,11 @@ const OutlinedCard = ({
           'Authorization': 'Token ' + localStorage.getItem('token')
         }
       }).then((response) => {
-        console.log('Booking', response);
         setFailedReserve(false);
         setAccept(true);
         setStateavaliableappoinment('');
       }).catch((error) => {
         setFailedReserve(true);
-        console.log('Error', error.message);
       })
   }
   const { t } = useTranslation();

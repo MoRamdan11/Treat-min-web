@@ -108,7 +108,6 @@ function VerificationCode(props) {
         ['error' + name]: true
       });
     }
-    console.log(value);
   }
   function handleCodeChange2(event) {
     const value = event;
@@ -123,11 +122,8 @@ function VerificationCode(props) {
       incompliteCode: false
     });
     axios.post('/api/accounts/password-email/', { "email": localStorage.getItem('email') }).then((response) => {
-      console.log(response.data.details);
       props.history.push('/verificationCode');
-    }).catch((error) => {
-      console.log(error.response.data);
-    });
+    })
   }
 
   function handlebtnClick(event) {
@@ -141,13 +137,11 @@ function VerificationCode(props) {
         code: parseInt(codeVal, 10)
       }).then((response) => {
         props.history.push('/resetPassword');
-        console.log(response);
       }).catch((error) => {
         setState({
           invalidCode: true,
           errorCode: true
         });
-        console.log(error.response.data);
       })
     } else {
       if (!state.code || state.code.length < 4) {
@@ -170,13 +164,11 @@ function VerificationCode(props) {
           code: parseInt(codeVal, 10)
         }).then((response) => {
           props.history.push('/resetPassword');
-          console.log(response);
         }).catch((error) => {
           setState({
             invalidCode: true,
             errorCode: true
           });
-          console.log(error.response.data);
         })
       } else {
         if (!state.code || state.code.length < 4) {

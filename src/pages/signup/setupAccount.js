@@ -132,8 +132,6 @@ function SetupAccount(props) {
 
   function handleBirthChange(event) {
     const birth = event.target.value;
-    console.log(birth);
-    console.log(date);
     if (birth && birth <= date) {
       setBirthDate(birth);
       setErrorBirth(false);
@@ -187,11 +185,8 @@ function SetupAccount(props) {
         birth: birthDate,
         gender: gender,
       }).then((response) => {
-        console.log(response);
         props.history.push('/login');
-      }).catch((error) => {
-        console.log(error.response.data);
-      });
+      })
     } else {
       if (errorPassword || errorConfirmPassword) {
         setFailedPassword(true);
@@ -225,11 +220,8 @@ function SetupAccount(props) {
           birth: birthDate,
           gender: gender,
         }).then((response) => {
-          console.log(response);
           props.history.push('/login');
-        }).catch((error) => {
-          console.log(error.response.data);
-        });
+        })
       } else {
         if (errorPassword || errorConfirmPassword) {
           setFailedPassword(true);

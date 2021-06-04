@@ -86,7 +86,6 @@ export default function EditAvatar(props) {
       }
     };
     reader.readAsDataURL(e.target.files[0]);
-    console.log(photo.profileImg);
   };
 
   return (

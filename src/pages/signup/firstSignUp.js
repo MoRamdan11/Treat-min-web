@@ -97,11 +97,9 @@ function SignUp1(props) {
       //valid email 
       setInValidEmail(false);
       axios.post('/api/accounts/register-email/', { "email": email }).then((response) => {
-        console.log(response.data.details);
         localStorage.setItem('email', email);
         props.history.push('/verifiyCode');
       }).catch((error) => {
-        console.log(error.response.data);
         setEmailRepeated(error.response.data);
         props.history.push('/SignUp');
       });
@@ -118,11 +116,9 @@ function SignUp1(props) {
         //valid email 
         setInValidEmail(false);
         axios.post('/api/accounts/register-email/', { "email": email }).then((response) => {
-          console.log(response.data.details);
           localStorage.setItem('email', email);
           props.history.push('/verifiyCode');
         }).catch((error) => {
-          console.log(error.response.data);
           setEmailRepeated(error.response.data);
           props.history.push('/SignUp');
         });

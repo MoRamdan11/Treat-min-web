@@ -15,8 +15,6 @@ const AddEntitiesToRedux = (props) => {
                     props.dispatch(addEntity(entity));
                 });
                 props.dispatch(fetchEntities(true));
-            }).catch((error) => {
-                console.log('error', error);
             })
         }
         getEntities();

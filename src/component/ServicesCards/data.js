@@ -20,10 +20,7 @@ const AddServicesToRedux = (props) => {
           let serv = services;
           serv.push(...serviceData);
           setService(serv);
-        }).catch((error) => {
-          console.log(error);
         }).finally(() => {
-          console.log('finalservice', services);
           services.map((service) => {
             props.dispatch(addService(service))
           });

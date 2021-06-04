@@ -133,11 +133,9 @@ function ResetPassword(props) {
           'Authorization': 'Token ' + localStorage.getItem('token')
         }
       }).then((response) => {
-        console.log(response);
         props.history.push('/login');
       }).catch((error) => {
         setNotAccPass(true);
-        console.log(error.response.data);
       })
     } else {
       setInvalidPass(true);

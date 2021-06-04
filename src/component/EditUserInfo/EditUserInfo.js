@@ -222,14 +222,12 @@ function EditUserInfo(props) {
   function handlePickerChange(event) {
     if (event === '') {
       setErrorBirth(true);
-      console.log('nodate');
     }
     const value = moment(event).format('YYYY-MM-DD');
     setSelectedDate(value);
   }
   function handlePhoneChange(event) {
     const phoneValue = event.target.value;
-    console.log(phoneValue);
     if (phoneValue.match(/^\d{11,11}$/)) {
       setPhone(phoneValue);
       setErrorPhone(false);
@@ -276,7 +274,6 @@ function EditUserInfo(props) {
         }
       }
       ).then((response) => {
-        console.log(response);
         props.dispatch(setUserProfile({
           name: name,
           id: props.auth.id,
@@ -287,7 +284,6 @@ function EditUserInfo(props) {
         }));
         props.history.push('/MyAccount');
       }).catch((error) => {
-        console.log(error.response.data);
         setNotAccPass(true);
       });
     } else {
@@ -320,7 +316,6 @@ function EditUserInfo(props) {
           }
         }
         ).then((response) => {
-          console.log(response);
           props.dispatch(setUserProfile({
             name: name,
             id: props.auth.id,
@@ -330,10 +325,7 @@ function EditUserInfo(props) {
             birth: selectedDate
           }));
           props.history.push('/MyAccount');
-        }).catch((error) => {
-          console.log(error.response.data);
-          setNotAccPass(true);
-        });
+        })
       } else {
         if (errorName) {
           setFailedName(true);

@@ -70,7 +70,6 @@ const SideBar = ({ isOpen, toggle, auth, dispatch }) => {
   const local = localStorage.getItem('isLogin');
   let history = useHistory();
   const handleLogOut = () => {
-    console.log(localStorage.getItem('token'));
     axios.post('/api/accounts/logout/', {}, {
       headers: {
         'Authorization': 'Token ' + localStorage.getItem('token')
@@ -83,14 +82,12 @@ const SideBar = ({ isOpen, toggle, auth, dispatch }) => {
       dispatch(setAuth(false));
       dispatch(deleteProfile());
       history.push('/');
-    }).catch((error) => { console.log(error); })
+    })
   }
   useEffect(() => {
     if (localStorage.getItem('isLogin') === "true") {
-      console.log("login");
       setIsLogin(true);
     } else {
-      console.log("logout");
       setIsLogin(false);
     }
   }, [auth.isLogin])
@@ -98,7 +95,6 @@ const SideBar = ({ isOpen, toggle, auth, dispatch }) => {
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
   const { t } = useTranslation()
   useEffect(() => {
-    console.log('Setting page stuff')
     document.body.dir = currentLanguage.dir || 'ltr'
     document.title = t('app_title')
   }, [currentLanguage, t])
