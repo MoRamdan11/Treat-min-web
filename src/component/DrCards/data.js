@@ -24,6 +24,7 @@ class AddDataToRedux extends React.Component {
         drData.map((doctor) => {
           this.props.addClinic(doctor);
         })
+      }).catch(() => {
       })
     }
     this.props.fetchClinic(true);

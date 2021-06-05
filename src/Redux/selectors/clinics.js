@@ -9,9 +9,6 @@ const getVisibleClinics = (clinics, {text, speciality, drName, hospital, price, 
         const priceMatch = (price === 0) || (clinic.price <= price);
         const genderMatch = true //there is no field in card related to gender
         const cityMatch = (city === '') || (clinic.hospital.city === city);
-        console.log('hospital City', clinic.hospital.city);
-        console.log('cityFilter', city);
-        console.log('cityMatch', cityMatch);
         const regionMatch = (region === '') || (clinic.hospital.area === region);
         return cityMatch && textMatch && specialityMatch && drNameMatch && hospitalMatch && priceMatch && genderMatch  && regionMatch;
     }).sort((a, b) => {

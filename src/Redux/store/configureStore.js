@@ -23,7 +23,7 @@ const configureStore = () => {
         services: servicesReducer,
         filterServices: filterServicesReducer,
         auth: authReducer
-    })
+    }),
     );
     return store;
 }
