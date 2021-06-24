@@ -215,7 +215,7 @@ function ResetPassword(props) {
                   {t('errorcurrpass')}
                 </p>
               )}
-              {currentLanguage.dir ?
+              {/*currentLanguage.dir ?
                 <ForgetPasswordAR to="/forgetPassword">
                   {t('forgetpassword')}
                 </ForgetPasswordAR>
@@ -223,7 +223,7 @@ function ResetPassword(props) {
                 <ForgetPassword to="/forgetPassword">
                   {t('forgetpassword')}
                 </ForgetPassword>
-              }
+              */}
               <FormControl
                 className={styles.content}
                 required

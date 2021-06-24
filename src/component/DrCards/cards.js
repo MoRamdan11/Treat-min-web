@@ -202,6 +202,7 @@ const OutlinedCard = ({
   doctor,
   specalist,
   rating_total,
+  rating_users,
   hospital,
   schedules,
   waiting,
@@ -328,7 +329,7 @@ const OutlinedCard = ({
           {t('dr')}. {doctor.name}
         </h1>
         <Typography> {currentLanguage.dir ? `${clinicsAR[specalist]} ` : `${clinicsEN[specalist]}`} </Typography>
-        {rating_total}
+        {rating_total / rating_users}
         <IconButton className={classes.GradeIcon} aria-label="settings">
           <GradeIcon />
         </IconButton>

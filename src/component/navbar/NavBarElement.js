@@ -172,6 +172,23 @@ export const NavBtnLink2 = styled(LinkR)`
     color: #205072;
   }
 `;
+
+export const NavBtnLink55 = styled(LinkR)`
+  border-radius: 50px;
+  background: #FFF;
+  white-space: nowrap;
+  padding: 10px 22px;
+  color: #235274;
+  font-size: 20px;
+  outline: none;
+  boarder: none;
+  cursor: pointer;
+  padding: 14px 40px;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  text-align: "center";
+`;
+
 export const NavBtnLink3 = styled(LinkR)`
   border-radius: 50px;
   background: #19a25d;

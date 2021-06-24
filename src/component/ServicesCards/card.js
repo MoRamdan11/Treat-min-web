@@ -321,7 +321,7 @@ const OutlinedCard = ({
               {service}
             </h1>
             <Typography>{currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`} </Typography>
-            {rating_total}
+            {rating_total / rating_users}
             <IconButton className={classes.GradeIcon} aria-label="settings">
               <GradeIcon />
             </IconButton>
