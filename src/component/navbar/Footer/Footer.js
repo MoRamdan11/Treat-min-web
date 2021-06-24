@@ -107,7 +107,7 @@ function Footer(props) {
             <p className={styles.phoneNumber}>info.treatmin@gmail.com</p>
             <br />
             <div style={{display: "flex", justifyContent: "center", padding: "5px 20%"}}>
-              <a target="_blank" href="https://www.facebook.com/Treat-min-105983478314658">
+              <a target="_blank" href="https://www.facebook.com/Treatmin">
                 <img
                   className={styles.socialIcon}
                   style={{ marginLeft: "20px" }}
