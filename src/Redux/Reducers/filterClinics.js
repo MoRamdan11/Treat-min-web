@@ -9,7 +9,8 @@ const filterReducerDefaultState = {
     gender: '',
     sortBy: '',
     city: '',
-    region: ''
+    region: '',
+    isSideBar: true
     //sort by ==> 'A to Z' || 'Z to A' || 'Lowest Price' || 'Highest Price' || 'Date'
 };
 
@@ -36,6 +37,8 @@ const filterClinicsReducer = ((state = filterReducerDefaultState, action) => {
             return {...state, gender: action.gender};*/
         case 'SORT_BY_DR':
             return { ...state, sortBy: action.sortBy }
+        case 'ACTIVE_SIDE_BAR':
+            return {...state, isSideBar: action.isSideBar}
         default: return state;
     }
 });

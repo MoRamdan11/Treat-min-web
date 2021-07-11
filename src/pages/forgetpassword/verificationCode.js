@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { NavLink } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import OtpInput from 'react-otp-input';
+import { setSideBar } from "../../Redux/actions/filterClinics";
 
 import {
   GridContainer,
@@ -16,6 +17,7 @@ import {
 } from "../elements";
 import { useTranslation, initReactI18next } from "react-i18next";
 import axios from "axios";
+import { connect } from "react-redux";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -78,6 +80,9 @@ function VerificationCode(props) {
     errorCode: false,
     incompliteCode: false
   });
+  useEffect(() => {
+    props.dispatch(setSideBar(false));
+  }, [])
   const handleChange = (event) => {
     const name = event.target.name;
     var value = event.target.value;
@@ -235,4 +240,4 @@ function VerificationCode(props) {
   );
 }
 
-export default VerificationCode;
+export default connect()(VerificationCode);

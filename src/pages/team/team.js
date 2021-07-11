@@ -100,7 +100,7 @@ const Team = () => {
                 </SupervisorsDiv>
               </Grid>
               <GridElement xs={12} sm={12} md={6} lg={6}>
-                <AvaterImg src={require("../../images/health.png").default} />
+                <AvaterImg src={require("../../images/deAhmed.jpeg").default} />
                 <h2 className={styles.fontStyle}> {t('profahmed')}</h2>
                 <p>
                   {t('prof')} {" "}
@@ -114,7 +114,7 @@ const Team = () => {
                 </p>
               </GridElement>
               <GridElement xs={12} sm={12} md={6} lg={6}>
-                <AvaterImg src={require("../../images/health.png").default} />
+                <AvaterImg src={require("../../images/sarah.jpeg").default} />
                 <h2 className={styles.fontStyle}>{t('sara')}</h2>
                 <p>
                   {t('ta')} {" "}

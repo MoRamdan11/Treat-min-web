@@ -52,8 +52,24 @@ export const MobileIcon = styled.div`
   @media screen and (max-width: 768px) {
     display: block;
     position: relative;
-    top: -20px;
+    top: -30px;
     left: 20px;
+    right:-40px;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #89c3a8;
+    float: left;
+    text-align: center;
+  }
+`;
+export const MobileIcon2 = styled.div`
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: block;
+    position: relative;
+    top: -30px;
+    left: 60px;
     right:-40px;
     transform: translate(-100%, 60%);
     font-size: 1.8rem;
@@ -109,6 +125,17 @@ export const NavBtn2 = styled.nav`
   width: 50px;
   text-align: center;
   margin: 150px;
+  @media screen and (max-width: 768px) {
+    margin: 50px;
+  }
+`;
+export const NavBtn33 = styled.nav`
+  display: flex;
+  align-items: center;
+  width: 50px;
+  text-align: center;
+  margin: 150px;
+  background-color: #b30000;
   @media screen and (max-width: 768px) {
     margin: 50px;
   }

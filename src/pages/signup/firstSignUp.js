@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider,StylesProvider,
   jssPreset, } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import cookies from 'js-cookie';
 import i18next from 'i18next'
 import rtl from "jss-rtl";
-
+import { setSideBar } from "../../Redux/actions/filterClinics";
 import { create } from "jss";
 import {
   GridContainer,
@@ -19,6 +19,7 @@ import {
 } from "../elements";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { connect } from "react-redux";
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 const theme = createMuiTheme({
@@ -78,6 +79,10 @@ function SignUp1(props) {
   const [inValidEmail, setInValidEmail] = useState(false);
   const [emailRepeated, setEmailRepeated] = useState(false);
   
+  useEffect(() => {
+    props.dispatch(setSideBar(false));
+  }, [])
+
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     setEmailRepeated(false);
@@ -175,4 +180,4 @@ function SignUp1(props) {
   );
 }
 
-export default SignUp1;
+export default connect()(SignUp1);

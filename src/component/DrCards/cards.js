@@ -432,7 +432,7 @@ const OutlinedCard = ({
           </div>
         </form>
       </CardContent>
-      {(!auth.isLogin && avaliableappoinment !== '') &&
+      {(!errorLogin && avaliableappoinment !== '') &&
         <div style={{
           margin: "20px", padding: "5px",
           backgroundColor: "#caf7e3", display: "flex",

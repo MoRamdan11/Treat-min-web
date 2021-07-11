@@ -46,7 +46,7 @@ const useStyles = makeStyles({
     //margin : "0 auto 0 auto"
   },
   mailStyle: {
-    color: "#00917c"
+    color: "#00917c",
   },
   phoneNumber: {
     display: "inline",
@@ -104,7 +104,7 @@ function Footer(props) {
             <IconButton size="small" className={styles.mailStyle} href="#">
               <MailIcon />
             </IconButton>
-            <p className={styles.phoneNumber}>info.treatmin@gmail.com</p>
+            <p className={styles.phoneNumber}>noreply@treat-min.com</p>
             <br />
             <div style={{display: "flex", justifyContent: "center", padding: "5px 20%"}}>
               <a target="_blank" href="https://www.facebook.com/Treatmin">

@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import EditSection from "../component/EditUserInfo/EditSection";
-
+import { setSideBar } from "../Redux/actions/filterClinics";
 function EditUserInfo() {
+  useEffect(() => {
+    props.dispatch(setSideBar(false));
+  }, [])
   return (
     <>
       <Sidebar isOpen={isOpen} toggle={toggle} />
@@ -11,4 +15,4 @@ function EditUserInfo() {
   );
 }
 
-export default EditUserInfo;
+export default connect()(EditUserInfo);

@@ -5,6 +5,7 @@ import {
   NavbarContainer,
   NavLogo,
   MobileIcon,
+  MobileIcon2,
   NavMenu,
   NavItems,
   NavLinks,
@@ -24,6 +25,9 @@ import classNames from 'classnames';
 import axios from "axios";
 import { connect } from "react-redux";
 import { setAuth, deleteProfile } from "../../Redux/actions/Auth";
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import { makeStyles, createMuiTheme, ThemeProvider, Grid } from "@material-ui/core";
 const languages = [
   {
     code: 'en',
@@ -38,6 +42,14 @@ const languages = [
   },
 ]
 
+const useStyles = makeStyles({
+  homeIcon: {
+    color: "#19a25d"
+  },
+  emergency: {
+    marginRight: "5px"
+  }
+});
 const GlobeIcon = ({ width = 24, height = 24 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -51,8 +63,10 @@ const GlobeIcon = ({ width = 24, height = 24 }) => (
   </svg>
 )
 
-const Navbar = ({ toggle, auth, name, dispatch }) => {
+const Navbar = ({ toggle, auth, name, dispatch, filters }) => {
+  const styles = useStyles();
   const [isLogin, setIsLogin] = useState(false);
+  const [sideBar, setSideBar] = useState(true);
   const local = localStorage.getItem('isLogin');
   let history = useHistory();
   const currentLanguageCode = cookies.get('i18next') || 'en'
@@ -81,8 +95,21 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
       setIsLogin(false);
     }
   }, [auth.isLogin])
+
+  useEffect(() => {
+    setSideBar(filters.isSideBar);
+  }, [filters.isSideBar])
+
   function handleClick() {
     history.push("/");
+  }
+
+  const handleHomeClick = () => {
+    history.push('/');
+  }
+
+  const handleemergencyClick = () => {
+    history.push('/Emergncy')
   }
   return (
     <>
@@ -96,9 +123,21 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
               width="150"
             />
           </NavLogo>
-          <MobileIcon onClick={toggle}>
-            <FaBars />
-          </MobileIcon>
+          {
+            sideBar ?
+              <MobileIcon onClick={toggle}>
+                <FaBars />
+              </MobileIcon>
+              :
+              <MobileIcon2>
+                <IconButton onClick={handleemergencyClick} size="medium" edge="end">
+                  <img alt="emergency" style = {{width: "20px", height: "20px"}} src={require('./emer.png').default} />
+                </IconButton>
+                <IconButton onClick={handleHomeClick} size="medium" edge="end">
+                  <HomeIcon className={styles.homeIcon} />
+                </IconButton>
+              </MobileIcon2>
+          }
           <NavMenu>
             <NavItems>
               <NavLinks onClick={handleClick} to="home">{t('home')}</NavLinks>
@@ -171,10 +210,13 @@ const Navbar = ({ toggle, auth, name, dispatch }) => {
     </>
   );
 };
+
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    filters: state.filterClinics
   };
 }
+
 export default connect(mapStateToProps)(Navbar);
 

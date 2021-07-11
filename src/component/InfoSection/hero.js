@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 //import { Button } from "../Button";
 import Button from "@material-ui/core/Button";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import { NavBtn2, NavBtnLink2, NavBtnLink55 } from "../navbar/NavBarElement";
+import { NavBtn2, NavBtn33, NavBtnLink2, NavBtnLink55 } from "../navbar/NavBarElement";
+import {SidebarBtnWrap} from "../SideBar/SidebarElement"; 
 import {
   InfoWrapper,
   InfoContainer,

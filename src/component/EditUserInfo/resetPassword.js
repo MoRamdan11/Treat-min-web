@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
@@ -10,6 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import Input from '@material-ui/core/Input';
 import { useTranslation, initReactI18next } from "react-i18next";
+import { setSideBar } from "../../Redux/actions/filterClinics";
 import {
   GridContainer,
   Img,
@@ -76,6 +77,11 @@ function ResetPassword(props) {
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(true);
   const [visibility, setVisibility] = useState(false);
   const [invalidPass, setInvalidPass] = useState(false);
+
+  useEffect(() => {
+    props.dispatch(setSideBar(false));
+  }, [])
+
   function hnadlePasswordChange(event) {
     const passwordVal = event.target.value;
     if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {

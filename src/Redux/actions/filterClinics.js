@@ -34,35 +34,35 @@ export const setCityDR = (city = '') => {
 }
 
 export const fetchClinic = (fetch = false) => {
-    return{
+    return {
         type: 'SET_FETCH_CLINIC',
         fetch
     }
 }
 
 export const fetchEntities = (fetchEntities = false) => {
-    return{
+    return {
         type: 'SET_FETCH_ENTITIES',
         fetchEntities
     }
 }
 export const setTextFilter = (text = '') => {
     //for searching
-    return{
+    return {
         type: 'SET_TEXT_FILTER_DR',
         text
     };
 }
 
 export const setSpeciality = (speciality = '') => {
-    return{
+    return {
         type: 'SET_SPECIALITY_DR',
         speciality
     };
 }
 
 export const setDrName = (drName = '') => {
-    return{
+    return {
         type: 'SET_DR_NAME',
         drName
     };
@@ -82,12 +82,12 @@ export const setPrice = (price = 0) => {
     };
 }
 
-/*export const setGender = (gender = '') => {
+export const setSideBar = (isSideBar = true) => {
     return {
-        type: 'SET_GENDER',
-        gender
+        type: 'ACTIVE_SIDE_BAR',
+        isSideBar
     }
-}*/
+}
 
 export const setSortBy = (sortBy = '') => {
     return {
@@ -97,7 +97,7 @@ export const setSortBy = (sortBy = '') => {
 }
 
 export const resetFilterClinics = () => {
-    return{
+    return {
         type: 'REST_FILTER_CLINICS'
     }
 }

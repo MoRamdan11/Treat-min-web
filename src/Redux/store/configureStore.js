@@ -4,7 +4,7 @@ import filterClinicsReducer from "../Reducers/filterClinics";
 import servicesReducer from "../Reducers/services";
 import filterServicesReducer from "../Reducers/filterServices";
 import authReducer from "../Reducers/Auth";
-import entityReducer from "../Reducers/entities"; 
+import entityReducer from "../Reducers/entities";
 import servicesEntitiesReducer from "../Reducers/servicesEntities";
 import hospitalReducer from "../Reducers/hospitals";
 import cityReducer from "../Reducers/cities";

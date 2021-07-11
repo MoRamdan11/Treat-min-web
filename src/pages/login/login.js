@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -28,6 +28,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { setAuth, setUserProfile } from "../../Redux/actions/Auth";
 import cookies from 'js-cookie';
+import { setSideBar } from "../../Redux/actions/filterClinics";
 const languages = [
   {
     code: 'en',
@@ -82,6 +83,11 @@ function Login(props) {
   const [inValidEmail, setInValidEmail] = useState(false);
   const [inValidPass, setInValidPass] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
+
+  useEffect(() => {
+    props.dispatch(setSideBar(false));
+  }, [])
+  
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     if (emailValue.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
@@ -139,30 +145,30 @@ function Login(props) {
   const handleEnterClick = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-    if (!errorPassword && !errorEmail) {
-      axios.post('/api/accounts/login/', {
-        email: email,
-        password: password
-      }).then((response) => {
-        const token = response.data.token;
-        localStorage.setItem('token', token);
-        localStorage.setItem('isLogin', 'true');
-        props.dispatch(setAuth(true));
-        props.dispatch(setUserProfile(response.data.user));
-        props.history.push('/');
-      }).catch((error) => {
-        setLoginFailed(true);
-      })
+      if (!errorPassword && !errorEmail) {
+        axios.post('/api/accounts/login/', {
+          email: email,
+          password: password
+        }).then((response) => {
+          const token = response.data.token;
+          localStorage.setItem('token', token);
+          localStorage.setItem('isLogin', 'true');
+          props.dispatch(setAuth(true));
+          props.dispatch(setUserProfile(response.data.user));
+          props.history.push('/');
+        }).catch((error) => {
+          setLoginFailed(true);
+        })
 
-    } else {
-      props.history.push('/login');
-      if (errorEmail) {
-        setInValidEmail(true);
+      } else {
+        props.history.push('/login');
+        if (errorEmail) {
+          setInValidEmail(true);
+        }
+        if (errorPassword) {
+          setInValidPass(true);
+        }
       }
-      if (errorPassword) {
-        setInValidPass(true);
-      }
-    }
     }
   }
   const { t } = useTranslation();

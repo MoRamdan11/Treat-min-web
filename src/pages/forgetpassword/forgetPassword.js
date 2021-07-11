@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -13,7 +13,9 @@ import {
   NavBtnLink2
 } from "../elements";
 import { useTranslation, initReactI18next } from "react-i18next";
+import { setSideBar } from "../../Redux/actions/filterClinics";
 import axios from "axios";
+import { connect } from "react-redux";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -47,6 +49,11 @@ function ForgetPassword(props) {
   const [errorEmail, setErrorEmail] = useState(true);
   const [inValidEmail, setInValidEmail] = useState(false);
   const [emailnotfound, setEmailNotFound] = useState(false);
+
+  useEffect(() => {
+    props.dispatch(setSideBar(false));
+  }, [])
+
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     if (emailValue.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
@@ -149,4 +156,4 @@ function ForgetPassword(props) {
   );
 }
 
-export default ForgetPassword;
+export default connect()(ForgetPassword);

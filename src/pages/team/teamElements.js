@@ -86,8 +86,9 @@ export const H1 = styled.h1`
 export const Link = styled.a`
     color: black;
     text-decoration: none;
+    color: #00917c;
     &:hover{
-        color: #00917c;
+        color: blue;
     }
 `;
 

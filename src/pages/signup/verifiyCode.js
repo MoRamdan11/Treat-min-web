@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { setSideBar } from "../../Redux/actions/filterClinics";
 import { NavLink } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import OtpInput from 'react-otp-input';
@@ -14,6 +15,7 @@ import {
 } from "../elements";
 import { useTranslation, initReactI18next } from "react-i18next";
 import axios from "axios";
+import { connect } from "react-redux";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -76,6 +78,11 @@ function VerificationCode(props) {
     errorCode: false,
     incompliteCode: false
   });
+
+  useEffect(() => {
+    props.dispatch(setSideBar(false));
+  }, [])
+
   function handleCodeChange2(event) {
     const value = event;
     setState({ code: value });
@@ -198,4 +205,4 @@ function VerificationCode(props) {
   );
 }
 
-export default VerificationCode;
+export default connect()(VerificationCode);

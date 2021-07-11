@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   makeStyles,
   createMuiTheme,
@@ -31,7 +31,7 @@ import moment from "moment";
 import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/ar';
 import cookies from 'js-cookie';
-
+import { setSideBar } from "../../Redux/actions/filterClinics";
 import axios from "axios";
 import {
   GridContainer,
@@ -340,6 +340,9 @@ function EditUserInfo(props) {
       }
     }
   }
+  useEffect(() => {
+    props.dispatch(setSideBar(false));
+  }, [])
   const { t } = useTranslation();
   return (
     <StylesProvider jss={jss}>

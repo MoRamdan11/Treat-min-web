@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Radio from "@material-ui/core/Radio";
@@ -15,6 +15,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import Input from '@material-ui/core/Input';
 import { useTranslation, initReactI18next } from "react-i18next";
+import { setSideBar } from "../../Redux/actions/filterClinics";
 import {
   GridContainer,
   SignUpImg,
@@ -27,6 +28,9 @@ import {
   GenderLabel
 } from "./setupAccountElements";
 import axios from "axios";
+import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
+import moment from "moment";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   content: {
@@ -34,9 +38,11 @@ const useStyles = makeStyles({
     marginBottom: "10px",
     width: "100%",
   },
+  dob: {
+    color: "green"
+  },
   radioStyle: {
-    position: "relative",
-    left: "20px"
+    margin: "20px",
   },
   btnStyle: {
     display: "flex",
@@ -95,6 +101,11 @@ function SetupAccount(props) {
   const [name, setName] = useState("");
   const [errorName, setErrorName] = useState(true);
   const [failedName, setFailedName] = useState(false);
+
+  useEffect(() => {
+    props.dispatch(setSideBar(false));
+  }, [])
+
   function hnadlePasswordChange(event) {
     const passwordVal = event.target.value;
     if (passwordVal.length >= 8 && passwordVal.length <= 32 && !passwordVal.match(/^\d{8,32}$/)) {
@@ -136,6 +147,19 @@ function SetupAccount(props) {
       setBirthDate(birth);
       setErrorBirth(false);
       setBirthFailed(false);
+    } else {
+      setErrorBirth(true);
+    }
+  }
+
+  const handleBirthDate2 = (e) => {
+    const date = e.target.value;
+    if (date) {
+      const finalDate = moment(date).format("YYYY-MM-DD");
+      setBirthDate(date);
+      setErrorBirth(false);
+      setBirthFailed(false);
+      console.log(finalDate);
     } else {
       setErrorBirth(true);
     }
@@ -357,23 +381,18 @@ function SetupAccount(props) {
                   style={{
                     float: "left",
                     clear: "both",
-                    width: "100px",
-                    fontWeight: "bold"
+                    //width: "100px",
+                    fontWeight: "bold",
+                    padding: "0px"
                   }}
                 >
                   {t('myBirthDate')}
                 </p>
-                <TextField
-                  id="date"
-                  type="date"
-                  error={errorBirth}
-                  className={styles.content}
-                  required
-                  InputLabelProps={{
-                    shrink: true
-                  }}
-                  onChange={handleBirthChange}
-                  onKeyPress={handleEnterClick}
+                <DatePickerComponent
+                  placeholder={t('myBirthDate')}
+                  //value={dateValue}
+                  onChange={handleBirthDate2}
+                  max={new Date(moment())}
                 />
                 {(failedBirth) && (
                   <p style={{ color: "red", marginBottom: "5px" }}>
@@ -381,7 +400,6 @@ function SetupAccount(props) {
                   </p>
                 )}
               </div>
-
               <FormControl required error={errorGender} component="fieldset">
                 <GenderLabel component="legend">
                   {t('gender')}
@@ -430,4 +448,4 @@ function SetupAccount(props) {
   );
 }
 
-export default SetupAccount;
+export default connect()(SetupAccount);
