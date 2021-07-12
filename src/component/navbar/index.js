@@ -129,14 +129,14 @@ const Navbar = ({ toggle, auth, name, dispatch, filters }) => {
                 <FaBars />
               </MobileIcon>
               :
-              <MobileIcon2>
+              <div style={{marginTop: "20px"}}>
                 <IconButton onClick={handleemergencyClick} size="medium" edge="end">
                   <img alt="emergency" style = {{width: "20px", height: "20px"}} src={require('./emer.png').default} />
                 </IconButton>
                 <IconButton onClick={handleHomeClick} size="medium" edge="end">
                   <HomeIcon className={styles.homeIcon} />
                 </IconButton>
-              </MobileIcon2>
+              </div>
           }
           <NavMenu>
             <NavItems>
