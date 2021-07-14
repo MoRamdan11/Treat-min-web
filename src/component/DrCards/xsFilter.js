@@ -184,7 +184,7 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
                   >
                     <option aria-label={t('none')} value="" />
                     {props.entities.map((entity, index) => {
-                      return (<option>{currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`}</option>)
+                      return (<option>{(currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`) || entity.name}</option>)
                     })}
                   </Select>
                 </FormControl>
@@ -205,7 +205,7 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
                     {props.hospitals.map((hospital) => {
                       return (
                         <option value={hospital.name} data-id="2">
-                        {currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} 
+                        {(currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`) || hospital.name} 
                         </option>
                       );
                     })}
@@ -265,7 +265,7 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
                     {props.cities.map((city) => {
                       return (
                         <option value={city.name} data-id="2">
-                        {currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`} 
+                        {(currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`) || city.name} 
                         </option>
                       );
                     })}
@@ -285,7 +285,7 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
                     {props.regions.map((region) => {
                       return (
                         <option value={region.name} data-id="2">
-                        {currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`} 
+                        {(currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`) || region.name} 
                         </option>
                       );
                     })}

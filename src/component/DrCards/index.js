@@ -10,6 +10,7 @@ import DialogSelect from "./xsFilter";
 import { connect } from "react-redux";
 import getVisibleClinics from "../../Redux/selectors/clinics";
 import SearchNotFound from "../SearchNotFound";
+import { setSideBar } from "../../Redux/actions/filterClinics";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const DrCard = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
+    props.dispatch(setSideBar(false));
   }, [])
   const theme = useTheme();
   const IsMobile = useMediaQuery(theme.breakpoints.down("sm"));

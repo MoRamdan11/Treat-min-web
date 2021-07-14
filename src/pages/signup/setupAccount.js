@@ -156,7 +156,7 @@ function SetupAccount(props) {
     const date = e.target.value;
     if (date) {
       const finalDate = moment(date).format("YYYY-MM-DD");
-      setBirthDate(date);
+      setBirthDate(finalDate);
       setErrorBirth(false);
       setBirthFailed(false);
       console.log(finalDate);

@@ -227,7 +227,6 @@ const OutlinedCard = ({
   const [errorLogin, setErrorLogin] = React.useState(false);
   const [accept, setAccept] = React.useState(false);
   const defaultWeekDays = [0, 1, 2, 3, 4, 5, 6];
-
   const handleDate = (event) => {
     setDate(event.target.value);
   };
@@ -328,13 +327,13 @@ const OutlinedCard = ({
         <h1 className={classes.title} color="textSecondary" gutterBottom>
           {t('dr')}. {doctor.name}
         </h1>
-        <Typography> {currentLanguage.dir ? `${clinicsAR[specalist]} ` : `${clinicsEN[specalist]}`} </Typography>
+        <Typography> {(currentLanguage.dir ? `${clinicsAR[specalist]} ` : `${clinicsEN[specalist]}`) || specalist} </Typography>
         {(rating_total / rating_users) || 0}
         <IconButton className={classes.GradeIcon} aria-label="settings">
           <GradeIcon />
         </IconButton>
         <Typography className={classes.pos} color="textSecondary">
-          {t('workat')} {currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`}
+          {t('workat')} {(currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`) || hospital.name}
         </Typography>
         <Paper square className={classes.Tab}>
           <Tabs
@@ -432,7 +431,7 @@ const OutlinedCard = ({
           </div>
         </form>
       </CardContent>
-      {(!errorLogin && avaliableappoinment !== '') &&
+      {(!auth.isLogin && avaliableappoinment !== '') &&
         <div style={{
           margin: "20px", padding: "5px",
           backgroundColor: "#caf7e3", display: "flex",

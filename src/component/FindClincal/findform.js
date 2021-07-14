@@ -262,7 +262,7 @@ const FindForm = (props) => {
               {props.entities.map((entity) => {
                 return (
                   <MenuItem key={entity.id} value={entity.name} data-id="1">
-                    <em>{currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`}</em>
+                    <em>{(currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`) || entity.name}</em>
                   </MenuItem>
                 );
               })}
@@ -287,7 +287,7 @@ const FindForm = (props) => {
               {props.hospitals.map((hospital) => {
                 return (
                   <MenuItem key={hospital.id} value={hospital.name} data-id="2">
-                    <em>{currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} </em>
+                    <em>{(currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`) || hospital.name} </em>
                   </MenuItem>
                 );
               })}
@@ -312,7 +312,7 @@ const FindForm = (props) => {
               {props.cities.map((city) => {
                 return (
                   <MenuItem key={city.id} value={city.name} data-id="2">
-                    <em>{currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`} </em>
+                    <em>{(currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`) || city.name} </em>
                   </MenuItem>
                 );
               })}
@@ -337,7 +337,7 @@ const FindForm = (props) => {
               {props.regions.map((region) => {
                 return (
                   <MenuItem key={region.id} value={region.name} data-id="2">
-                    <em>{currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`} </em>
+                    <em>{(currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`) || region.name} </em>
                   </MenuItem>
                 );
               })}

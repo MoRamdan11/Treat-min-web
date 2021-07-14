@@ -318,9 +318,9 @@ const OutlinedCard = ({
           />
           <CardContent>
             <h1 className={classes.title} color="textSecondary" gutterBottom>
-              {service}
+              {(currentLanguage.dir ? `${ServicesAR[service]} ` : `${ServicesEN[service]}`) || service}
             </h1>
-            <Typography>{currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`} </Typography>
+            <Typography>{(currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`) || hospital.name} </Typography>
             {(rating_total / rating_users) || 0}
             <IconButton className={classes.GradeIcon} aria-label="settings">
               <GradeIcon />

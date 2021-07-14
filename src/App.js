@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { BrowserRouter as Router, Route, Switch , HashRouter } from "react-router-dom";
 import { browserHistory,IndexRoute } from 'react-router'
@@ -41,11 +41,15 @@ import Hospital from "./component/hospital and Cities/hospital";
 import Map from "./component/GoogleMaps/Map";
 import FirstAid from "./pages/FirstAid";
 import Chatbot from "./component/navbar/Footer/chatbot";
-function App() {
+function App(props) {
   const [isOpen, serIsOpen] = useState(false);
+  const [sideBar, setSideBar] = useState(true);
   const toggle = () => {
     serIsOpen(!isOpen);
   };
+  useEffect(() => {
+    setSideBar(props.filters.isSideBar);
+  }, [props.filters.isSideBar])
   return (
     <HashRouter hashtype='slash' >
       <Route>
@@ -56,7 +60,7 @@ function App() {
         <AddServicesEntitiesToRedux />
         <AddDataToRedux />
         <AddServicesToRedux />
-        <Sidebar isOpen={isOpen} toggle={toggle} />
+        {sideBar && <Sidebar isOpen={isOpen} toggle={toggle} />}
         <Navbar toggle={toggle} />
         <Switch>
           <Route path="/" component={Home} exact={true} />

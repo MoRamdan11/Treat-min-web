@@ -14,7 +14,7 @@ import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset,ThemeProvider } from '@material-ui/core/styles';
 import Globals from "../navbar/global";
 import SearchNotFound from "../SearchNotFound";
-
+import { setSideBar } from "../../Redux/actions/filterClinics";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const theme = createMuiTheme({
@@ -45,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ServicesCard = (props) => {
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
+    props.dispatch(setSideBar(false));
   }, [])
   const IsMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();

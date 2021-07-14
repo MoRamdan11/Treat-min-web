@@ -179,7 +179,7 @@ function DialogSelect(props) {
                     {props.entities.map((entity) => {
                       return (
                         <option key={entity.id} value={entity.name}>
-                          {currentLanguage.dir ? `${ServicesAR[entity.name]} ` : `${ServicesEN[entity.name]}`}
+                          {(currentLanguage.dir ? `${ServicesAR[entity.name]} ` : `${ServicesEN[entity.name]}`) || entity.name}
                         </option>
                       );
                     })}
@@ -202,7 +202,7 @@ function DialogSelect(props) {
                     {props.hospitals.map((hospital) => {
                       return (
                         <option key={hospital.id} value={hospital.name}>
-                        {currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`} 
+                        {(currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`) || hospital.name} 
                         </option>
                       );
                     })}
@@ -247,7 +247,7 @@ function DialogSelect(props) {
                     {props.cities.map((city) => {
                       return (
                         <option key={city.id} value={city.name} data-id="2">
-                        {currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`} 
+                        {(currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`) || city.name} 
                         </option>
                       );
                     })}
@@ -268,7 +268,7 @@ function DialogSelect(props) {
                     {props.regions.map((region) => {
                       return (
                         <option key={region.id} value={region.name} data-id="2">
-                        {currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`} 
+                        {(currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`) || region.name} 
                         </option>
                       );
                     })}
