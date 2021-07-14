@@ -44,7 +44,7 @@ import 'react-day-picker/lib/style.css';
 import moment from "moment";
 import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/ar';
-import { matchDays, matchDaysAr, dayIndex } from "../DrCards/days";
+import { matchDays, matchDaysAr, dayIndex, dayIndex2 } from "../DrCards/days";
 import axios from "axios";
 import { matchClincsEn, matchClincsAr, matchAddressEn, matchAddressAr } from "../DrCards/Cincs"
 import { ServicesEN, ServicesAR } from "./service"
@@ -238,7 +238,7 @@ const OutlinedCard = ({
     }
     setStateavaliableappoinment(avaliableappoinment);
     const array = defaultWeekDays.filter((day) => {
-      return day !== dayIndex[avaliableappoinment];
+      return day !== (currentLanguage.dir ?dayIndex2[avaliableappoinment] :dayIndex[avaliableappoinment]);
     });
     setDaysOfWeek(array);
   };
@@ -313,7 +313,7 @@ const OutlinedCard = ({
         <Card className={classes.root} variant="outlined">
           <CardHeader
             avatar={
-              <Avatar alt={avatar} src={require(`./services/${api}.png`).default} aria-label="recipe" className={classes.avatar} />
+              <Avatar alt={avatar} src={require(`./services/favicon.png`).default} aria-label="recipe" className={classes.avatar} />
             }
           />
           <CardContent>

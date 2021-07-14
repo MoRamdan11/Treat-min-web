@@ -59,7 +59,7 @@ function App(props) {
         <AddEntitiesToRedux />
         <AddServicesEntitiesToRedux />
         <AddDataToRedux />
-        <AddServicesToRedux />
+        {!props.fetching.fetchServices && <AddServicesToRedux />}
         {sideBar && <Sidebar isOpen={isOpen} toggle={toggle} />}
         <Navbar toggle={toggle} />
         <Switch>
@@ -88,7 +88,8 @@ function App(props) {
 }
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterClinics
+    filters: state.filterClinics,
+    fetching: state.fetching
   };
 }
 export default connect(mapStateToProps)(App);

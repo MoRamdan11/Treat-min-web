@@ -19,10 +19,10 @@ export const resetServicesFilter = () => {
         type: 'RESET_FILTER_SERVICES'
     };
 }
-export const fetchServices = (fetch = false) => {
+export const fetchServices = (fetchS = false) => {
     return{
         type: 'SET_FETCH_SERVICES',
-        fetch
+        fetchS
     }
 }
 

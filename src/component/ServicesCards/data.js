@@ -7,9 +7,9 @@ const AddServicesToRedux = (props) => {
   const [services, setService] = useState([]);
   useEffect(() => {
     async function fetchServicesData() {
-      for (var i = 1; i <= 3; i++) {
+      for (var i = 1; i <= 40; i++) {
         if(props.filters.fetchServices === true){
-          return
+          break;
         }
         const data = await axios.get(`api/services/${i}/schedules/`).then((response) => {
           const serviceData = response.data.details.map((card) => ({

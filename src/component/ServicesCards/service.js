@@ -43,7 +43,8 @@ export const ServicesEN = {
     'Total Proteins - إجمالي البروتينات': 'Total Proteins',
     'Triglycerides - الدهون الثلاثية': 'Triglycerides',
     'Urea - اليوريا': 'Urea',
-    'Uric Acid - حمض اليوريك': 'Uric Acid'
+    'Uric Acid - حمض اليوريك': 'Uric Acid',
+    'PCR - PCR': 'PCR'
 }
 export const ServicesAR={
     "Blood Test - تحليل دم" :" تحليل دم",
@@ -90,7 +91,8 @@ export const ServicesAR={
     'Total Proteins - إجمالي البروتينات':  'إجمالي البروتينات',
     'Triglycerides - الدهون الثلاثية': 'الدهون الثلاثية',
     'Urea - اليوريا': 'اليوريا',
-    'Uric Acid - حمض اليوريك': 'حمض اليوريك'
+    'Uric Acid - حمض اليوريك': 'حمض اليوريك',
+    'PCR - PCR': 'PCR'
 }
 
 /*export const matchServicesAr = {

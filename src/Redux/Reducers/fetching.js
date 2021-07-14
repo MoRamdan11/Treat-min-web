@@ -15,7 +15,7 @@ const defaultReducer = {
 const fetchReducer = ((state = defaultReducer, action) => {
     switch (action.type) {
         case 'SET_FETCH_SERVICES': 
-            return { ...state, fetchServices: action.fetch }
+            return { ...state, fetchServices: action.fetchS }
         case 'SET_FETCH_SERVICES_ENTITIES':
             return { ...state, fetchServicesEntities: action.fetchEntities }
         case 'SET_FETCH_REGION':

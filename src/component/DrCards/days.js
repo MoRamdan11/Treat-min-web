@@ -27,6 +27,15 @@ export const dayIndex = {
     'Saturday': 6
 }
 
+export const dayIndex2 = {
+    'الأحد':0,
+    'الاثنين':1,
+    'الثلاثاء':2,
+    'الأربعاء':3,
+    'الخميس':4,
+    'الجمعة':5,
+    'السبت':6
+}
 export const days = [
     {
         id: 1,

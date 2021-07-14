@@ -49,7 +49,7 @@ import 'moment/locale/ar';
 import 'moment/locale/it';
 import 'moment/locale/de';
 import { matchClincsEn, matchClincsAr, matchAddressEn, matchAddressAr } from "./Cincs"
-import { matchDays, matchDaysAr, dayIndex } from "./days";
+import { matchDays, matchDaysAr, dayIndex, dayIndex2 } from "./days";
 import { clinicsEN, clinicsAR } from "./clinicsnames";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -246,7 +246,7 @@ const OutlinedCard = ({
     }
     setStateavaliableappoinment(avaliableappoinment);
     const array = defaultWeekDays.filter((day) => {
-      return day !== dayIndex[avaliableappoinment];
+      return day !== (currentLanguage.dir ?dayIndex2[avaliableappoinment] :dayIndex[avaliableappoinment]);
     });
     setDaysOfWeek(array);
   };
