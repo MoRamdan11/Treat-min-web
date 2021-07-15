@@ -47,3 +47,5 @@ const mapDispatchToProps = {
   fetchClinic
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AddDataToRedux);
+
+

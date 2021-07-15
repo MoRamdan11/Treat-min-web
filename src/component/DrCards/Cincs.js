@@ -19,7 +19,7 @@ export const matchAreaEn = {
     "Abo Qeer - أبو قير": 'Abo Qeer',
     "Faisal - فيصل": 'Faisal',
     "Haram - الهرم": 'El Haram',
-    'Misr-Elgdida - مصر الجديدة': 'Misr-Elgdida',
+    'Masr El Gedida - مصر الجديدة': 'Misr-Elgdida',
     'Zaytoon - الزيتون' : 'El-Zaiton'
 }
 export const matchAreaAr = {
@@ -29,7 +29,7 @@ export const matchAreaAr = {
     "Abo Qeer - أبو قير" :'أبو قير',
     "Faisal - فيصل" :'فيصل',
     "Haram - الهرم": 'الهرم',
-    'Misr-Elgdida - مصر الجديدة': 'مصر الجديدة',
+    'Masr El Gedida - مصر الجديدة': 'مصر الجديدة',
     'Zaytoon - الزيتون': 'الزيتون'
 }
 
