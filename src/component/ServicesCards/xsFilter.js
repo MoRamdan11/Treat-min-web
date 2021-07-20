@@ -164,29 +164,6 @@ function DialogSelect(props) {
               <form className={classes.container}>
                 <FormControl variant="filled" className={classes.formControl}>
                   <InputLabel htmlFor="filled-age-native-simple">
-                    {t('service')}
-                  </InputLabel>
-                  <Select
-                    native
-                    value={props.filters.service}
-                    onChange={handleChange}
-                    inputProps={{
-                      name: "Service",
-                      id: "filled-age-native-simple"
-                    }}
-                  >
-                    <option aria-label={t('none')} value="" />
-                    {props.entities.map((entity) => {
-                      return (
-                        <option key={entity.id} value={entity.name}>
-                          {(currentLanguage.dir ? `${ServicesAR[entity.name]} ` : `${ServicesEN[entity.name]}`) || entity.name}
-                        </option>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-                <FormControl variant="filled" className={classes.formControl}>
-                  <InputLabel htmlFor="filled-age-native-simple">
                     {t('hospital')}
                   </InputLabel>
                   <Select

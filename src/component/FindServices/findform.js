@@ -238,31 +238,17 @@ const FindForm = (props) => {
       <StylesProvider jss={jss}>
         <div>
           <h1 className={classes.title}> {t('find_service')}</h1>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-controlled-open-select-label2">
-              {t('service')}
-            </InputLabel>
-            <Select
-              labelId="demo-controlled-open-select-label4"
-              id="demo-controlled-open-select4"
-              open={SEopen}
-              onClose={SEhandleClose}
-              onOpen={SEhandleOpen}
-              value={props.filters.service}
-              onChange={ServicehandleChange}
-            >
-              <MenuItem value="" data-id="3">
-                <em>{t('none')}</em>
-              </MenuItem>
-              {props.entities.map((entity) => {
-                return (
-                  <MenuItem key={entity.id} value={entity.name} data-id="3">
-                    <em>{(currentLanguage.dir ? `${ServicesAR[entity.name]} ` : `${ServicesEN[entity.name]}`) || entity.name}</em>
-                  </MenuItem>
-                );
-              })}
-            </Select>
+          <div style={{ marginBottom: "10px" }}>
+          <FormControl
+            variant="outlined"
+            className={classes.searchStyle}
+          >
+            <div class="form-group has-search">
+              <span class="fa fa-search form-control-feedback"></span>
+              <input type="text" class="form-control" placeholder={t('searchservice')} onChange={handleSearchChange} />
+            </div>
           </FormControl>
+        </div>
           <FormControl className={classes.formControl}>
             <InputLabel id="demo-controlled-open-select-label2">
               {t('hospital')}
@@ -352,17 +338,6 @@ const FindForm = (props) => {
               valueLabelDisplay="on"
               onChange={pricehandleChange}
             />
-          </div>
-          <div style={{ marginBottom: "10px" }}>
-            <FormControl
-              variant="outlined"
-              className={classes.searchStyle}
-            >
-              <div class="form-group has-search">
-                <span class="fa fa-search form-control-feedback"></span>
-                <input type="text" class="form-control" placeholder={t('searchservice')} onChange={handleSearchChange} />
-              </div>
-            </FormControl>
           </div>
         </div>
       </StylesProvider>

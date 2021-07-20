@@ -143,32 +143,6 @@ function Filter(props) {
               htmlFor="outlined-age-native-simple"
               className={classes.inputLabel}
             >
-              {t('service')}
-            </InputLabel>
-            <Select
-              native
-              value={props.filters.service}
-              onChange={handleChange}
-              inputProps={{
-                name: "Service",
-                id: "outlined-age-native-simple",
-              }}
-            >
-              <option aria-label={t('none')} value="" />
-              {props.entities.map((entity) => {
-                return (
-                  <option key={entity.id} value={entity.name}>
-                    {(currentLanguage.dir ? `${ServicesAR[entity.name]} ` : `${ServicesEN[entity.name]}`) || entity.name}
-                  </option>
-                );
-              })}
-            </Select>
-          </FormControl>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel
-              htmlFor="outlined-age-native-simple"
-              className={classes.inputLabel}
-            >
               {t('hospital')}
             </InputLabel>
             <Select
