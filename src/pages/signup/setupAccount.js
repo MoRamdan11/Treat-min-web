@@ -141,17 +141,6 @@ function SetupAccount(props) {
     setVisibility((prevValue) => !prevValue);
   }
 
-  function handleBirthChange(event) {
-    const birth = event.target.value;
-    if (birth && birth <= date) {
-      setBirthDate(birth);
-      setErrorBirth(false);
-      setBirthFailed(false);
-    } else {
-      setErrorBirth(true);
-    }
-  }
-
   const handleBirthDate2 = (e) => {
     const date = e.target.value;
     if (date) {

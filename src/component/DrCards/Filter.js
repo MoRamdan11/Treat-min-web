@@ -32,8 +32,8 @@ import getVisibleHospitals from "../../Redux/selectors/hospitals";
 import getVisibleCities from "../../Redux/selectors/cities";
 import getVisibleRegions from "../../Redux/selectors/regions";
 import cookies from 'js-cookie';
-import {matchClincsEn,matchClincsAr, matchAddressEn, matchAddressAr,matchAreaEn,matchAreaAr,matchCityEn, matchCityAr} from "./Cincs"
-import {clinicsEN,clinicsAR} from "./clinicsnames";
+import { matchClincsEn, matchClincsAr, matchAddressEn, matchAddressAr, matchAreaEn, matchAreaAr, matchCityEn, matchCityAr } from "./Cincs"
+import { clinicsEN, clinicsAR } from "./clinicsnames";
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     display: "25%",
     alignContent: "center",
     borderRadius: "10px",
-    backgroundColor:"white",
+    backgroundColor: "white",
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
@@ -138,7 +138,7 @@ const Filter = (props) => {
     },
   ]
   const currentLanguageCode = cookies.get('i18next') || 'en'
-const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
 
   return (
     <ThemeProvider theme={theme}>
@@ -160,7 +160,7 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
               >
                 <option aria-label={t('none')} value="" />
                 {props.entities.map((entity) => {
-                  return (<option key={entity.id} value={entity.name}>{(currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`) || entity.name}</option>)
+                  return (<option key={entity.id} value={entity.name}>{(currentLanguage.dir ? `${clinicsAR[entity.name]} ` : `${clinicsEN[entity.name]}`) || entity.name}</option>)
                 })}
               </Select>
             </FormControl>
@@ -180,15 +180,15 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
                   props.hospitals.map((hospital) => {
                     return (
                       <option key={hospital.id} value={hospital.name} data-id="2">
-                      {(currentLanguage.dir?`${matchClincsAr[hospital.name]} ` :`${matchClincsEn[hospital.name]}`) || hospital.name} 
+                        {(currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`) || hospital.name}
                       </option>
                     );
                   })
                 }
               </Select>
             </FormControl>
-            
-            
+
+
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel htmlFor="outlined-age-native-simple" variant="filled">{t('price')}</InputLabel>
               <Select
@@ -244,7 +244,7 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
                 {props.cities.map((city) => {
                   return (
                     <option key={city.id} value={city.name} data-id="2">
-                    {(currentLanguage.dir?`${matchCityAr[city.name]} ` :`${matchCityEn[city.name]}`) || city.name} 
+                      {(currentLanguage.dir ? `${matchCityAr[city.name]} ` : `${matchCityEn[city.name]}`) || city.name}
                     </option>
                   );
                 })
@@ -266,7 +266,7 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
                 {props.regions.map((region) => {
                   return (
                     <option key={region.id} value={region.name} data-id="2">
-                    {(currentLanguage.dir?`${matchAreaAr[region.name]} ` :`${matchAreaEn[region.name]}`) || region.name} 
+                      {(currentLanguage.dir ? `${matchAreaAr[region.name]} ` : `${matchAreaEn[region.name]}`) || region.name}
                     </option>
                   );
                 })}

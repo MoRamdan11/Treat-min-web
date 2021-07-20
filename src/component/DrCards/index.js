@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import OutlinedCard from "./cards";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
@@ -11,25 +11,26 @@ import { connect } from "react-redux";
 import getVisibleClinics from "../../Redux/selectors/clinics";
 import SearchNotFound from "../SearchNotFound";
 import { setSideBar } from "../../Redux/actions/filterClinics";
+import { useTranslation, initReactI18next } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor:"#235274",
-    
+    backgroundColor: "#235274",
+
   },
   paper: {
     MozBorderRadius: 500,
     padding: theme.spacing(1),
     textAlign: "center",
-    borderRadius:"50px"
+    borderRadius: "50px"
   },
-  filterContainer:{
-    backgroundColor:"white" ,
-    textAlign:"center"
+  filterContainer: {
+    backgroundColor: "white",
+    textAlign: "center"
   },
-  grid:{
-    paddingBottom:"20px",
+  grid: {
+    paddingBottom: "20px",
   },
   imgStyle: {
     "@media screen and (min-width: 1100px)": {
@@ -39,20 +40,46 @@ const useStyles = makeStyles((theme) => ({
     }
   }
 }));
-
+let arrayForHoldingCards = [];
+const cardsPerPage = 20;
 const DrCard = (props) => {
+  const { t } = useTranslation();
   useEffect(() => {
     window.scrollTo(0, 0);
     props.dispatch(setSideBar(false));
   }, [])
+
+  
+
   const theme = useTheme();
   const IsMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();
+
+
+  const [cardsToShow, setCardsToShow] = useState([]);
+  const [next, setNext] = useState(20);
+
+  const loopCardsWithSlice = (start, end) => {
+    const sliciedCards = props.clinics.slice(start, end);
+    arrayForHoldingCards = [...arrayForHoldingCards, ...sliciedCards];
+    setCardsToShow(arrayForHoldingCards);
+  }
+
+  const handleShowMoreCards = () => {
+    loopCardsWithSlice(next, next + cardsPerPage);
+    setNext(next + cardsPerPage);
+  };
+  useEffect(() => {
+    loopCardsWithSlice(0, cardsPerPage);
+    arrayForHoldingCards = [];
+    loopCardsWithSlice(0, cardsPerPage);
+    setNext(20);
+  }, [props.clinics]);
   function Form() {
     return (
       <React.Fragment>
-        {props.clinics.length === 0 && <SearchNotFound/>}
-        {props.clinics.map((doc, index) => {
+        {props.clinics.length === 0 && <SearchNotFound />}
+        {cardsToShow.map((doc, index) => {
           return (
             <Grid className={classes.root} item xs={4} key={index}>
               <Paper className={classes.paper}>
@@ -61,6 +88,9 @@ const DrCard = (props) => {
             </Grid>
           );
         })}
+        <div style = {{display: "block", width: "100%", textAlign:"center"}}>
+          <button onClick={handleShowMoreCards}>{t('moreClinics')}</button>
+        </div>
       </React.Fragment>
     );
   }
@@ -68,16 +98,19 @@ const DrCard = (props) => {
   return IsMobile ? (
     <div className={classes.root}>
       <div className={classes.filterContainer}>
-      <DialogSelect />
+        <DialogSelect />
       </div>
-      {props.clinics.length === 0 && <SearchNotFound/>}
-      {props.clinics.map((doc, index) => {
+      {props.clinics.length === 0 && <SearchNotFound />}
+      {cardsToShow.map((doc, index) => {
         return (
           <div key={index}>
             <OutlinedCard {...doc} />
           </div>
         );
       })}
+      <div>
+        <button onClick={handleShowMoreCards}>{t('moreClinics')}</button>
+      </div>
     </div>
   ) : (
     <div className={classes.root}>

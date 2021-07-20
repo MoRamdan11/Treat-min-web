@@ -318,7 +318,7 @@ const OutlinedCard = ({
           />
           <CardContent>
             <h1 className={classes.title} color="textSecondary" gutterBottom>
-              {(currentLanguage.dir ? `${ServicesAR[service]} ` : `${ServicesEN[service]}`) || service}
+              {service}
             </h1>
             <Typography>{(currentLanguage.dir ? `${matchClincsAr[hospital.name]} ` : `${matchClincsEn[hospital.name]}`) || hospital.name} </Typography>
             {(rating_total / rating_users) || 0}

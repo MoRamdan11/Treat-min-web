@@ -4,7 +4,7 @@ const getVisibleServices = (services, {text, service, hospital, price, sortBy, c
     return services.filter((serviceElement) => {
         const textMatch = text === '' ||
             serviceElement.service.toLowerCase().includes(text.toLowerCase()) ||
-            serviceElement.hospital.toLowerCase().includes(text.toLowerCase());
+            serviceElement.hospital.name.toLowerCase().includes(text.toLowerCase());
         const serviceMatch = (service === '') || (serviceElement.service === service);
         const hospitalMatch = (hospital === '') || (serviceElement.hospital.name === hospital);
         const priceMatch = (price === 0) || (serviceElement.price <= price);

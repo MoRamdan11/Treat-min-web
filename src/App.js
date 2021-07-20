@@ -64,22 +64,22 @@ function App(props) {
         <Navbar toggle={toggle} />
         <Switch>
           <Route path="/" component={Home} exact={true} />
-          <Route path="/FindClinical" component={FindClincal} />
-          <Route path="/Maps" component={Map} />
           <Route path="/SignUp" component={SignUp1} />
+          <Route path="/verifiyCode" component={VerifiyCode} />
           <Route path="/SetupAccount" component={SetupAccount} />
           <Route path="/login" component={Login} />
           <Route path="/forgetPassword" component={ForgetPassword} />
           <Route path="/verificationCode" component={VerificationCode} />
-          <Route path="/verifiyCode" component={VerifiyCode} />
           <Route path="/resetPassword" component={ResetPassword} />
+          <Route path="/FindClinical" component={FindClincal} />
           <Route path="/FindServices" component={FindServices} />
+          <Route path="/Emergncy" component={Emergncy} />
+          <Route path="/FirstAid" component={FirstAid} />
+          <Route path="/Maps" component={Map} />
           <Route path="/team" component={Team} />
           <Route path="/MyAccount" component={Account} />
-          <Route path="/Emergncy" component={Emergncy} />
           <Route path="/EditUserInfo" component={EditUserInfo} />
           <Route path="/ChangePassword" component={ResetAcoountPassword} />
-          <Route path="/FirstAid" component={FirstAid} />
         </Switch>
         <Footer />
       </Route>

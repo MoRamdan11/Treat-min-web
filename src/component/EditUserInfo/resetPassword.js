@@ -139,7 +139,7 @@ function ResetPassword(props) {
           'Authorization': 'Token ' + localStorage.getItem('token')
         }
       }).then((response) => {
-        props.history.push('/login');
+        props.history.push('/');
       }).catch((error) => {
         setNotAccPass(true);
       })
@@ -161,7 +161,7 @@ function ResetPassword(props) {
           }
         }).then((response) => {
           console.log(response);
-          props.history.push('/login');
+          props.history.push('/');
         }).catch((error) => {
           setNotAccPass(true);
           console.log(error.response.data);

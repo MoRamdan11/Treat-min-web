@@ -10,7 +10,7 @@ class AddServicesToRedux extends React.Component {
     fetched: true
   }
   async componentDidMount() {
-    for (var i = 1; i <= 40; i++) {
+    for (var i = 1; i <= 50; i++) {
       if (this.props.filters.fetchServices === true) {
         break;
       }

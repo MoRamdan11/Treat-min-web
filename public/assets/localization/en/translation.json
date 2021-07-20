@@ -207,5 +207,6 @@
     "accept": "Accepted",
     "wait": "Waiting",
     "cancelApp": "Canceled",
-    "googleplay": "Coming Soon in Play Store"
+    "googleplay": "Coming Soon in Play Store",
+    "moreClinics": "Load More Clinics"
 }

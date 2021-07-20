@@ -3,6 +3,7 @@ export const matchClincsEn = {
     'Dr-Ezzat Clinics': 'Dr-Ezzat Barakat Clinics',
     'Zohairy Hospital': 'Zohairy Hospital',
     'elamal': 'EL Amal Hospiital',
+    'Las Lab': 'Las Lab',
     'test': 'Test-Hospital'
 }
 export const matchClincsAr = {
@@ -10,6 +11,7 @@ export const matchClincsAr = {
     'Dr-Ezzat Clinics': 'عيادات د/عزت بركات',
     'Zohairy Hospital': 'مستشفى الزهيري',
     'elamal': 'مستشفى الامل',
+    'Las Lab': 'معمل Las',
     'test': 'Test-Hospital'
 }
 export const matchAreaEn = {
@@ -19,8 +21,9 @@ export const matchAreaEn = {
     "Abo Qeer - أبو قير": 'Abo Qeer',
     "Faisal - فيصل": 'Faisal',
     "Haram - الهرم": 'El Haram',
-    'Masr El Gedida - مصر الجديدة': 'Misr-Elgdida',
-    'Zaytoon - الزيتون' : 'El-Zaiton'
+    'Masr El Gedida - مصر الجديدة': 'Masr-Elgdida',
+    'Zaytoon - الزيتون' : 'El-Zaiton',
+    'Eldokki - الدقي': 'Eldokki'
 }
 export const matchAreaAr = {
     "Nasr City - مدينة نصر": 'مدينة نصر',
@@ -30,7 +33,8 @@ export const matchAreaAr = {
     "Faisal - فيصل" :'فيصل',
     "Haram - الهرم": 'الهرم',
     'Masr El Gedida - مصر الجديدة': 'مصر الجديدة',
-    'Zaytoon - الزيتون': 'الزيتون'
+    'Zaytoon - الزيتون': 'الزيتون',
+    'Eldokki - الدقي': 'الدقى'
 }
 
 export const matchCityEn = {
@@ -47,12 +51,14 @@ export const matchAddressEn = {
     'Nasr City Clinics': '81 Nasr road beside Tyba mall ',
     'Zohairy Hospital': '33 EL Ekhsheed streey,El Manial El Roda',
     'test': 'Test-Hospital',
-    'Dr-Ezzat Clinics': '128 Gesr El Suez St., in front of Maryland Buildings'
+    'Dr-Ezzat Clinics': '128 Gesr El Suez St., in front of Maryland Buildings',
+    'Las Lab': '119 Tahrir, Dokki, Dokki, Giza 12615'
 }
 export const matchAddressAr = {
     'Nasr City Clinics': '81 طريق النصر بجوار طيبة مول',
     'Zohairy Hospital': '33 شارع الاخشيد - المنيل الروضة',
     'test': 'Test-Hospital',
-    'Dr-Ezzat Clinics': '128 ش جسر السويس امام عمارات  الميريلاند'   
+    'Dr-Ezzat Clinics': '128 ش جسر السويس امام عمارات  الميريلاند',
+    'Las Lab': '119 التحرير ، الدقي ، الدقي ، الجيزة 12615'   
 }
 

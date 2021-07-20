@@ -184,7 +184,7 @@ const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
                   >
                     <option aria-label={t('none')} value="" />
                     {props.entities.map((entity, index) => {
-                      return (<option>{(currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`) || entity.name}</option>)
+                      return (<option key={entity.id} value={entity.name}>{(currentLanguage.dir?`${clinicsAR[entity.name]} ` :`${clinicsEN[entity.name]}`) || entity.name}</option>)
                     })}
                   </Select>
                 </FormControl>
