@@ -341,7 +341,7 @@ function Account(props) {
                     <Appointment
                       key={service.id}
                       //drName={appointment.doctor}
-                      service={currentLanguage.dir ? `${ServicesAR[service.service]} - ${matchClincsAr[service.hospital]}` : `${ServicesEN[service.service]} - ${matchClincsEn[service.hospital]}`}
+                      service={currentLanguage.dir ? `${service.service} - ${matchClincsAr[service.hospital]}` : `${service.service} - ${matchClincsEn[service.hospital]}`}
                       date={service.appointment_date}
                       time={`${service.schedule.start} - ${service.schedule.end}`}
                       type="services"

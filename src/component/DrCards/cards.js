@@ -246,7 +246,7 @@ const OutlinedCard = ({
     }
     setStateavaliableappoinment(avaliableappoinment);
     const array = defaultWeekDays.filter((day) => {
-      return day !== (currentLanguage.dir ?dayIndex2[avaliableappoinment] :dayIndex[avaliableappoinment]);
+      return day !== (currentLanguage.dir ? dayIndex2[avaliableappoinment] : dayIndex[avaliableappoinment]);
     });
     setDaysOfWeek(array);
   };
@@ -373,17 +373,19 @@ const OutlinedCard = ({
                 value={avaliableappoinment}
                 onChange={avaliableappoinmenthandleChange}
               >
-                <option aria-label={t('none')} value="" />
+                <MenuItem value="" data-id="2">
+                  <em>{t('none')}</em>
+                </MenuItem>
                 {schedules.map((schedule) => {
                   return (
-                    <option
+                    <MenuItem
                       onClick={handleOptionClick}
                       key={schedule.id}
                       value={currentLanguage.dir ? `${matchDaysAr[schedule.day]}` : `${matchDays[schedule.day]}`}
                       id={schedule.id}
                     >
                       {currentLanguage.dir ? `${matchDaysAr[schedule.day]} ${schedule.start} - ${schedule.end}` : `${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
-                    </option>
+                    </MenuItem>
                   );
                 })}
               </Select>
@@ -406,8 +408,8 @@ const OutlinedCard = ({
                   format="YYYY-MM-DD"
                   value={selectedDate}
                   onDayChange={handlePickerChange}
+                  inputProps={{ readOnly: true }}
                   dayPickerProps={{
-
                     localeUtils: MomentLocaleUtils,
                     locale: locale,
                     selectedDays: selectedDate,

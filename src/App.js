@@ -41,6 +41,7 @@ import Hospital from "./component/hospital and Cities/hospital";
 import Map from "./component/GoogleMaps/Map";
 import FirstAid from "./pages/FirstAid";
 import Chatbot from "./component/navbar/Footer/chatbot";
+
 function App(props) {
   const [isOpen, serIsOpen] = useState(false);
   const [sideBar, setSideBar] = useState(true);

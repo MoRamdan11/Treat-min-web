@@ -58,6 +58,7 @@ function ResetPassword(props) {
   const [invalidPass, setInvalidPass] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     props.dispatch(setSideBar(false));
   }, [])
 

@@ -81,6 +81,7 @@ function VerificationCode(props) {
     incompliteCode: false
   });
   useEffect(() => {
+    window.scrollTo(0, 0);
     props.dispatch(setSideBar(false));
   }, [])
   const handleChange = (event) => {

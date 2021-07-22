@@ -238,7 +238,7 @@ const OutlinedCard = ({
     }
     setStateavaliableappoinment(avaliableappoinment);
     const array = defaultWeekDays.filter((day) => {
-      return day !== (currentLanguage.dir ?dayIndex2[avaliableappoinment] :dayIndex[avaliableappoinment]);
+      return day !== (currentLanguage.dir ? dayIndex2[avaliableappoinment] : dayIndex[avaliableappoinment]);
     });
     setDaysOfWeek(array);
   };
@@ -364,17 +364,19 @@ const OutlinedCard = ({
                     value={avaliableappoinment}
                     onChange={avaliableappoinmenthandleChange}
                   >
-                    <option aria-label={t('none')} value="" />
+                    <MenuItem value="" data-id="2">
+                      <em>{t('none')}</em>
+                    </MenuItem>
                     {schedules.map((schedule) => {
                       return (
-                        <option
+                        <MenuItem
                           onClick={handleOptionClick}
                           key={schedule.id}
                           value={currentLanguage.dir ? `${matchDaysAr[schedule.day]}` : `${matchDays[schedule.day]}`}
                           id={schedule.id}
                         >
                           {currentLanguage.dir ? `${matchDaysAr[schedule.day]} ${schedule.start} - ${schedule.end}` : `${matchDays[schedule.day]} ${schedule.start} - ${schedule.end}`}
-                        </option>
+                        </MenuItem>
                       );
                     })}
                   </Select>
@@ -383,7 +385,7 @@ const OutlinedCard = ({
                   <div style={{ backgroundColor: "#caf7e3", borderRadius: "20px", textAlign: "center" }}>
                     {/*edffec*/}
                     <h3>{t('pickappointment')}</h3>
-                    <div style={{ backgroundColor: "#93329e", height: "50px", padding: "10px" }}>
+                    <div style={{ backgroundColor: "#93329e",  padding: "10px" }}>
                       <h4 style={{ display: "inline", color: "white" }}>{t('pickerlanguage')}: </h4>
                       <select style={{ display: "inline" }} onChange={handleSelectChange}>
                         <option value="en">English</option>
@@ -395,6 +397,7 @@ const OutlinedCard = ({
                       classNames={{
                         overlay: classes.datePicker,
                       }}
+                      inputProps={{ readOnly: true }}
                       format="YYYY-MM-DD"
                       value={selectedDate}
                       onDayChange={handlePickerChange}

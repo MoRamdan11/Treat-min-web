@@ -208,5 +208,6 @@
     "wait": "Waiting",
     "cancelApp": "Canceled",
     "googleplay": "Coming Soon in Play Store",
-    "moreClinics": "Load More Clinics"
+    "moreClinics": "Load More Clinics",
+    "moreServices": "Load More Services"
 }

@@ -12,6 +12,7 @@ import getVisibleClinics from "../../Redux/selectors/clinics";
 import SearchNotFound from "../SearchNotFound";
 import { setSideBar } from "../../Redux/actions/filterClinics";
 import { useTranslation, initReactI18next } from "react-i18next";
+import { Button } from "../../pages/elements";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +50,7 @@ const DrCard = (props) => {
     props.dispatch(setSideBar(false));
   }, [])
 
-  
+
 
   const theme = useTheme();
   const IsMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -74,7 +75,7 @@ const DrCard = (props) => {
     arrayForHoldingCards = [];
     loopCardsWithSlice(0, cardsPerPage);
     setNext(20);
-  }, [props.clinics]);
+  }, [props.filters]);
   function Form() {
     return (
       <React.Fragment>
@@ -88,8 +89,8 @@ const DrCard = (props) => {
             </Grid>
           );
         })}
-        <div style = {{display: "block", width: "100%", textAlign:"center"}}>
-          <button onClick={handleShowMoreCards}>{t('moreClinics')}</button>
+        <div style={{ display: "block", width: "100%", textAlign: "center" }}>
+          <Button onClick={handleShowMoreCards}>{t('moreClinics')}</Button>
         </div>
       </React.Fragment>
     );
@@ -109,7 +110,7 @@ const DrCard = (props) => {
         );
       })}
       <div>
-        <button onClick={handleShowMoreCards}>{t('moreClinics')}</button>
+        <Button onClick={handleShowMoreCards}>{t('moreClinics')}</Button>
       </div>
     </div>
   ) : (
@@ -126,7 +127,8 @@ const DrCard = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    clinics: getVisibleClinics(state.clinics, state.filterClinics)
+    clinics: getVisibleClinics(state.clinics, state.filterClinics),
+    filters: state.filterClinics
   }
 }
 export default connect(mapStateToProps)(DrCard);

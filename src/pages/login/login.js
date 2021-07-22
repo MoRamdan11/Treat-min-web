@@ -85,6 +85,7 @@ function Login(props) {
   const [loginFailed, setLoginFailed] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     props.dispatch(setSideBar(false));
   }, [])
   

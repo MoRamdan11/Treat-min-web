@@ -10,23 +10,20 @@ class AddServicesToRedux extends React.Component {
     fetched: true
   }
   async componentDidMount() {
-    for (var i = 1; i <= 50; i++) {
-      if (this.props.filters.fetchServices === true) {
-        break;
-      }
-      const data = await axios.get(`/api/services/${i}/schedules/`).then((response) => {
-        const drData = response.data.details.map((card) => ({
-          ...card,
-          api: i,
-          service: response.data.entity
-        }))
-        //this.setState({ doctors: [...this.state.doctors, ...drData] });
-        drData.map((doctor) => {
-          this.props.addService(doctor);
-        })
-      }).catch(() => {
-      })
+    if (this.props.filters.fetchServices === true) {
+      return;
     }
+    const data = await axios.get('https://mnodejsapp.herokuapp.com/api/services').then((response) =>{
+      const drData = response.data.map((card) => ({
+        ...card,
+        api: card.i,
+      }))
+      drData.map((doctor) => {
+        this.props.addService(doctor);
+      })
+    }).catch((e) => {
+      console.log('error', e);
+    })
     this.props.fetchServices(true);
   }
   render() {
@@ -47,52 +44,3 @@ const mapDispatchToProps = {
   fetchServices
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AddServicesToRedux);
-
-
-
-
-/*import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { addService } from "../../Redux/actions/services";
-import axios from "axios";
-import { fetchServices } from "../../Redux/actions/filterServices";
-const AddServicesToRedux = (props) => {
-  const [services, setService] = useState([]);
-  useEffect(() => {
-    async function fetchServicesData() {
-      for (var i = 1; i <= 40; i++) {
-        if(props.filters.fetchServices === true){
-          break;
-        }
-        const data = await axios.get(`api/services/${i}/schedules/`).then((response) => {
-          const serviceData = response.data.details.map((card) => ({
-            ...card,
-            api: i,
-            service: response.data.entity
-          }));
-          let serv = services;
-          serv.push(...serviceData);
-          setService(serv);
-        }).finally(() => {
-          services.map((service) => {
-            props.dispatch(addService(service))
-          });
-          setService([]);
-        })
-      }
-      props.dispatch(fetchServices(true));
-    }
-    fetchServicesData();
-  }, [])
-  
-  return (
-    <div style = {{height: "0px", width: "0px"}}>
-    </div>
-  ); 
-}
-const mapStateToProps = (state) => {
-  return {
-    filters: state.fetching
-  };
-}
-export default connect(mapStateToProps)(AddServicesToRedux);*/

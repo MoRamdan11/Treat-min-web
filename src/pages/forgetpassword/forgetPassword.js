@@ -51,6 +51,7 @@ function ForgetPassword(props) {
   const [emailnotfound, setEmailNotFound] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     props.dispatch(setSideBar(false));
   }, [])
 

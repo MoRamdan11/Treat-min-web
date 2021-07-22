@@ -103,6 +103,7 @@ function SetupAccount(props) {
   const [failedName, setFailedName] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     props.dispatch(setSideBar(false));
   }, [])
 

@@ -447,7 +447,7 @@ function EditUserInfo(props) {
                       overlay: classes.datePicker,
                     }}
                     format="YYYY-MM-DD"
-
+                    inputProps={{ readOnly: true }}
                     value={selectedDate}
                     onDayChange={handlePickerChange}
                     dayPickerProps={{

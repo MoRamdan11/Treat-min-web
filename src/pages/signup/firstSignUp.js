@@ -80,6 +80,7 @@ function SignUp1(props) {
   const [emailRepeated, setEmailRepeated] = useState(false);
   
   useEffect(() => {
+    window.scrollTo(0, 0);
     props.dispatch(setSideBar(false));
   }, [])
 
