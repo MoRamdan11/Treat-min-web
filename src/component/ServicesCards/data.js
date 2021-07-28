@@ -13,7 +13,7 @@ class AddServicesToRedux extends React.Component {
     if (this.props.filters.fetchServices === true) {
       return;
     }
-    const data = await axios.get('https://mnodejsapp.herokuapp.com/api/services').then((response) =>{
+    const data = await axios.get('https://mnodejsapp.herokuapp.com/api/treatMin/services').then((response) =>{
       const drData = response.data.map((card) => ({
         ...card,
         api: card.i,
