@@ -9,6 +9,12 @@ It is an online platform (Website and Mobile Application) that provides an integ
 * Website Deployed by Godady: https://treat-min.com
 * Mobile Apllication on Google play: <a href="https://play.google.com/store/apps/details?id=com.treat_min.android&fbclid=IwAR3wJHrV-sFbu7aoKhssUqL8sjPMr8WiYSeQemHfFmYlocVKs6MfJSle0r4">Treat-min</a>
 
+## Website Tools:
+* Basic Web Technologies (HTML, CSS and JavaScript)
+* Styled Components
+* React.Js & React-Redux
+* Material-UI Framework
+* AXIOS
 
 # Getting Started with Create React App
 
