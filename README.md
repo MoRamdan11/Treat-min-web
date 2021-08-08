@@ -5,8 +5,8 @@ It is an online platform (Website and Mobile Application) that provides an integ
 * Emergency: Find nearest hospitals and First-aid to do.
 
 ## Treat-min Links:
-* Website Deployed by Godady:
-** https://treat-min.com
+* Website Deployed by Godady: https://treat-min.com
+* Mobile Apllication on Google play: <a href="https://play.google.com/store/apps/details?id=com.treat_min.android&fbclid=IwAR3wJHrV-sFbu7aoKhssUqL8sjPMr8WiYSeQemHfFmYlocVKs6MfJSle0r4">Treat-min</a>
 
 
 # Getting Started with Create React App
