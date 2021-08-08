@@ -1,7 +1,7 @@
 # Treat-min
-&nbsp;&nbsp;&nbsp;It is an online platform (Website and Mobile Application) that provides an integrated medical service for the patient:
-&nbsp;&nbsp;&nbsp;* Booking Clinics and Medical Services.
-&nbsp;&nbsp;&nbsp;* Emergency: Find nearest hospitals and First-aid to do.
+It is an online platform (Website and Mobile Application) that provides an integrated medical service for the patient:<br/>
+o Booking Clinics and Medical Services.
+o Emergency: Find nearest hospitals and First-aid to do.
 
 
 # Getting Started with Create React App
