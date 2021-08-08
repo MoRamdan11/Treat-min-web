@@ -1,4 +1,4 @@
-# Treat-min
+# `Treat-min`
 It is an online platform (Website and Mobile Application) that provides an integrated medical service for the patient:<br/>
 * Booking Outpatient Clinics.
 * Booking Medical Services.
@@ -7,7 +7,7 @@ It is an online platform (Website and Mobile Application) that provides an integ
 
 ## Treat-min Links:
 * Website Deployed by Godady: https://treat-min.com
-* Mobile Apllication on Google play: <a href="https://play.google.com/store/apps/details?id=com.treat_min.android&fbclid=IwAR3wJHrV-sFbu7aoKhssUqL8sjPMr8WiYSeQemHfFmYlocVKs6MfJSle0r4">Treat-min</a>
+* Mobile Apllication on Google play: <a href="https://play.google.com/store/apps/details?id=com.treat_min.android&fbclid=IwAR3wJHrV-sFbu7aoKhssUqL8sjPMr8WiYSeQemHfFmYlocVKs6MfJSle0r4">Treat-min Mobile App</a>
 
 ## Website Tools:
 * Basic Web Technologies (HTML, CSS and JavaScript)
