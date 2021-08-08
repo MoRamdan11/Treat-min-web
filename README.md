@@ -4,6 +4,10 @@ It is an online platform (Website and Mobile Application) that provides an integ
 * Booking Medical Services.
 * Emergency: Find nearest hospitals and First-aid to do.
 
+## Treat-min Links:
+* Website Deployed by Godady:
+** https://treat-min.com
+
 
 # Getting Started with Create React App
 
