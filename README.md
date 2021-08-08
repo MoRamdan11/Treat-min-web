@@ -3,6 +3,7 @@ It is an online platform (Website and Mobile Application) that provides an integ
 * Booking Outpatient Clinics.
 * Booking Medical Services.
 * Emergency: Find nearest hospitals and First-aid to do.
+* Chatbot: Talk to chatbot to help you with your problems
 
 ## Treat-min Links:
 * Website Deployed by Godady: https://treat-min.com
