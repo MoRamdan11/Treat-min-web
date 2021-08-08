@@ -7,7 +7,7 @@ It is an online platform (Website and Mobile Application) that provides an integ
 
 ## Treat-min Links:
 * Website Deployed by Godady: https://treat-min.com
-* Website Demo Vedio Link: https://www.youtube.com/watch?v=L-_Ipe-amIY
+* Website Demo Video Link: https://www.youtube.com/watch?v=L-_Ipe-amIY
 
 ## Website Tools:
 * Basic Web Technologies (HTML, CSS and JavaScript)
