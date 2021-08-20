@@ -15,9 +15,10 @@ It is an online platform (Website and Mobile Application) that provides an integ
 * React.Js & React-Redux
 * Material-UI Framework
 * AXIOS
+
 ## Supervisors:
-* Prof.Dr.Ahmed Hassan
-* Eng.Sarah Abdu
+* Prof.Dr. Ahmed Hassan
+* Eng. Sarah Abdu
 
 ## Team Members:
 * Gerges Wegeh
